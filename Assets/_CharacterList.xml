@@ -1,0 +1,92 @@
+<CharacterList>
+  <Character name="Wizard" level="1">
+    <Stats>
+      <Stat id="0" name="Strength" value="5" />
+      <Stat id="1" name="Agility" value="5" />
+      <Stat id="2" name="Endurance" value="5" />
+      <Stat id="3" name="Intelligence" value="5" />
+      <Stat id="4" name="Willpower" value="5" />
+    </Stats>
+    <Skills>
+      <Skill id="0" name="Melee" value="20" />
+      <Skill id="1" name="Ranged" value="20" />
+      <Skill id="2" name="Dodge" value="20" />
+      <Skill id="3" name="Shield" value="20" />
+      <Skill id="4" name="Mysticism" value="20" />
+      <Skill id="5" name="Crafting" value="20" />
+      <Skill id="6" name="Herbalism" value="20" />
+      <Skill id="7" name="Leadership" value="20" />
+      <Skill id="8" name="Trading" value="20" />
+      <Skill id="9" name="Healing" value="20" />
+      <Skill id="10" name="Persuasion" value="20" />
+      <Skill id="11" name="NatureLore" value="20" />
+    </Skills>
+		<Equipments>
+			<Equipment id="0" value="-1" />
+			<Equipment id="1" value="-1" />
+			<Equipment id="2" value="-1" />
+			<Equipment id="3" value="4" />
+			<Equipment id="4" value="-1" />
+		</Equipments>
+  </Character>
+  <Character name="Ranger" level="1">
+    <Stats>
+      <Stat id="0" name="Strength" value="6" />
+      <Stat id="1" name="Agility" value="9" />
+      <Stat id="2" name="Endurance" value="6" />
+      <Stat id="3" name="Intelligence" value="4" />
+      <Stat id="4" name="Willpower" value="5" />
+    </Stats>
+    <Skills>
+      <Skill id="0" name="Melee" value="21" />
+      <Skill id="1" name="Ranged" value="24" />
+      <Skill id="2" name="Dodge" value="27" />
+      <Skill id="3" name="Shield" value="30" />
+      <Skill id="4" name="Mysticism" value="18" />
+      <Skill id="5" name="Crafting" value="16" />
+      <Skill id="6" name="Herbalism" value="12" />
+      <Skill id="7" name="Leadership" value="14" />
+      <Skill id="8" name="Trading" value="17" />
+      <Skill id="9" name="Healing" value="13" />
+      <Skill id="10" name="Persuasion" value="13" />
+      <Skill id="11" name="NatureLore" value="31" />
+    </Skills>
+		<Equipments>
+			<Equipment id="0" value="-1" />
+			<Equipment id="1" value="-1" />
+			<Equipment id="2" value="-1" />
+			<Equipment id="3" value="15" />
+			<Equipment id="4" value="32" />
+		</Equipments>
+  </Character>
+  <Character name="Barbarian" level="3">
+    <Stats>
+      <Stat id="0" name="Strength" value="9" />
+      <Stat id="1" name="Agility" value="7" />
+      <Stat id="2" name="Endurance" value="8" />
+      <Stat id="3" name="Intelligence" value="2" />
+      <Stat id="4" name="Willpower" value="4" />
+    </Stats>
+    <Skills>
+      <Skill id="0" name="Melee" value="31" />
+      <Skill id="1" name="Ranged" value="26" />
+      <Skill id="2" name="Dodge" value="36" />
+      <Skill id="3" name="Shield" value="32" />
+      <Skill id="4" name="Mysticism" value="14" />
+      <Skill id="5" name="Crafting" value="8" />
+      <Skill id="6" name="Herbalism" value="6" />
+      <Skill id="7" name="Leadership" value="12" />
+      <Skill id="8" name="Trading" value="11" />
+      <Skill id="9" name="Healing" value="9" />
+      <Skill id="10" name="Persuasion" value="9" />
+      <Skill id="11" name="NatureLore" value="34" />
+    </Skills>
+		<Equipments>
+			<Equipment id="0" value="-1" />
+			<Equipment id="1" value="-1" />
+			<Equipment id="2" value="-1" />
+			<Equipment id="3" value="8" />
+			<Equipment id="4" value="-1" />
+		</Equipments>
+  </Character>
+</CharacterList>
