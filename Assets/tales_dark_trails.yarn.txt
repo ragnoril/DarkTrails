@@ -1,0 +1,882 @@
+title: Start
+tags: 
+colorID: 0
+position: -2076,-1098
+---
+<<set_dialog_image GameObject caravan_goes>>
+
+As the caravan getting closer to Gordion, to your home weariness of the road started to show its effect. 
+Still the moods around the caravan were calm . 
+
+Adrastus the Merchant was a favourable boss. His wages were fair, rations were satisfying and work was hard but never grueling.
+He was an easy-going man but he had a golden rule. A rule you must never break. You have to stay away from his daughter. 
+He was a little too much protective of his girl. 
+Most of the time he brings his daughter with the caravan and when she comes along everyone must keep their distance from her. 
+Keep away from the girl and do your job properly you would be fine.
+
+[[Karavanın başına git|HeadOfCaravan]]
+[[Karavanın sonuna git|TailOfCaravan]]
+[[Olduğun yerde kal|MiddleOfCaravan]]
+===
+title: AttackToCaravan
+tags: 
+colorID: 0
+position: -1102,-854
+---
+<<set_dialog_image caravan_attack>>
+
+Nice thoughts like sleeping on a real bed or having a nice dinner with some sweet wine
+was settling on your mind. Suddenly a scream wake you up from your sweet daydreams.
+Some bandits are attacking to the caravan. It's been a while you have seen a bandit attack.
+But you don't have a time to contamplate on that. You grab your weapon and brace yourself.
+
+<<start_combat GameObject CaravanAttack AfterCaravanAttack Death>>
+
+[[AfterCaravanAttack]]
+===
+title: AfterCaravanAttack
+tags: 
+colorID: 0
+position: -981,-1379
+---
+<<set_dialog_image after_battle_nature>>
+
+Bandits retreat quickly as they attack. While you were trying to catch your breath a sudden scream heard from the head of the caravan.
+
+[[Wait.|WaitAfterAttack]]
+[[Look around.|LookAroundAfterAttack]]
+[[Go to the scream.|GoToScreamAfterAttack]]
+===
+title: HeadOfCaravan
+tags: 
+colorID: 0
+position: -1387,-948
+---
+Karavanın başı, önde 1-2 adam gidiyor arkada Tüccar kendi büyük arabası ile gidiyor.
+Kızı arabanın içinde. Tüccarın yanında korumaların başı Tharseus duruyor.
+
+Gözün Laerkai'ye ilişiyor. Sabırsız bir hali var gibi
+
+
+
+[[Talk to Adrastus|TalkToAdrastus]]
+[[Talk to Laerkai|TalkToLaerkai]]
+[[Karavanın sonuna git|TailOfCaravan]]
+[[Karavanın ortasına git|MiddleOfCaravan]]
+[[Sessizce devam et.|AttackToCaravan]]
+===
+title: MiddleOfCaravan
+tags: 
+colorID: 0
+position: -1393,-713
+---
+Karavanın ortası, tüccarlar, korumalar. 
+Lenthor burada. Tekinsiz bir tip ama yolculuk boyunca bi yamuğunu görmedin.
+
+
+
+
+
+
+[[Talk to Lenthor|TalkToLenthor]]
+[[Karavanın başına git|HeadOfCaravan]]
+[[Karavanın sonuna git|TailOfCaravan]]
+[[Sessizce devam et.|AttackToCaravan]]
+===
+title: TailOfCaravan
+tags: 
+colorID: 0
+position: -1391,-468
+---
+Karavanın arka tarafı, tasvir et vs. Raven burada, yanında kurdu var.
+
+
+
+
+
+[[Talk to Raven.|TalkToRaven]]
+[[Karavanın başına git|HeadOfCaravan]]
+[[Karavanın ortasına git|MiddleOfCaravan]]
+[[Sessizce devam et.|AttackToCaravan]]
+===
+title: TalkToRaven
+tags: 
+colorID: 0
+position: -1930,-1413
+---
+<<set_dialog_image raven_dialog>>
+
+Raven soğuk davranır yine de karşılar. 
+Ne istiyorsun?
+
+[[Bye.|AttackToCaravan]]
+===
+title: TalkToLaerkai
+tags: 
+colorID: 0
+position: -1569,-1391
+---
+<<set_dialog_image laerkai_dialog>>
+
+larkayi
+
+[[Bye.|AttackToCaravan]]
+===
+title: TalkToLenthor
+tags: 
+colorID: 0
+position: -1299,-1380
+---
+<<set_dialog_image lenthor_dialog>>
+
+fdsfsd
+
+[[Bye.|AttackToCaravan]]
+===
+title: TalkToAdrastus
+tags: 
+colorID: 0
+position: -1959,-755
+---
+<<set_dialog_image adrastus_dialog>>
+
+fsdfsd
+
+
+[[Bye.|AttackToCaravan]]
+===
+title: WaitAfterAttack
+tags: 
+colorID: 0
+position: -676,-1359
+---
+Bekledin biraz kendine geldin. Çevrendekiler yavaş ve ya hızlı bağırışın geldiği yöne gidiyor.
+
+
+
+[[Sende peşlerine takıl.|GoToScreamAfterAttack]]
+[[Beklemeye devam et.|WaitMoreAfterAttack]]
+===
+title: LookAroundAfterAttack
+tags: 
+colorID: 0
+position: -900,-1092
+---
+birkaç kişi var kendilerini toparlıyorlar. birkaçı endişe ile çığlığın geldiği
+yere dönüyor. bir ikisi de o tarafa meylediyor.
+
+[[Noluyo diye birilerine sor.|AskSomeoneWhatIsGoingOn]]
+[[Bağırışın geldiği yere git.|GoToScreamAfterAttack]]
+===
+title: GoToScreamAfterAttack
+tags: 
+colorID: 0
+position: -578,-1058
+---
+Bağıran Adrastus. Çevresindekiler zor zar sakinleştiriyor. Anlıyorsun ki haydutlar kızını kaçırmış.
+Sağ kolu Tharseus haydutları durdurmaya çalışmış ama yaralanmış yatıyor. 
+Adrastus seni görünce yerinden fırlayıp ellerine sarılıyo ve sana yalvarmaya başlıyor:
+"hacı tharseus yalan oldu. geriye bi sen kaldın. yalvarırım git kızımı kurtar. ne istersen veririm, kurtar onu lütfen!"
+
+[[Ne demek hacı, bırakmam kızını o kurtlara merak etme.|IWillSaveHerDontWorry]]
+[[Karşılığını alacaksam olur. Ne ödeyeceksin?|IWillSaveHerForAPrice]]
+[[Hacı kızına üzüldüm ama beni aşar ya.|IamNotAHero]]
+===
+title: WaitMoreAfterAttack
+tags: 
+colorID: 0
+position: -372,-1481
+---
+Sen beklemeye devam ediyorsun. Bağırışın geldiği yerde bir kalabalık birikti, etrafta pek kimse kalmadı.
+
+[[bağırışın olduğu yere git.|GoToScreamAfterAttack]]
+[[beklemeye devam et.|WaitMoreAfterAttack]]
+[[Gizlice arabalardan birine yaklaşıp, kargoyu kurcala.|TryToStealFromCaravan]]
+===
+title: AskSomeoneWhatIsGoingOn
+tags: 
+colorID: 0
+position: -875,-793
+---
+"Galiba Adrastustu bağıran, gel gidip bakalım neler oluyor" dedi durdurup neler oluyor diye sorduğun adam.
+
+[[Beraber gidin.|GoToScreamAfterAttack]]
+[[Onunla gitmeyip beklemeye devam et.|WaitMoreAfterAttack]]
+===
+title: TryToStealFromCaravan
+tags: 
+colorID: 0
+position: -994,-1738
+---
+<<if $roll_result > 50>>
+sneak check başarılı
+<<else>>
+sneak check başarısız
+<<endif>>
+
+[[bağırışın olduğu yere git.|GoToScreamAfterAttack]]
+===
+title: IWillSaveHerDontWorry
+tags: 
+colorID: 0
+position: -282,-1107
+---
+Adrastusun gözleri parlar, müteşekkirdir. "Çok teşekkürler!" der. 
+Ama dur yalnız gitme yanına yaralanmamış birilerini al istersen.
+
+uygun durumda raven, laerkai ve lenthor'u görüyorsun.
+
+[[Raven'ı al.|TakeRavenWithYou]]
+[[Laerkai'i al.|TakeLaerkaiWithYou]]
+[[Lenthor'u al.|TakeLenthorWithYou]]
+[[Yalnız iyiyim.|AreYouReadyToGo]]
+
+
+===
+title: IWillSaveHerForAPrice
+tags: 
+colorID: 0
+position: -294,-805
+---
+Adrastusun gözleri parlar, kızgın bir şekilde: "Kızımı kurtar yeter. 100 altın senindir!"
+"Hatta yalnız gitme yanına birilerini al."
+uygun durumda raven, laerkai ve lenthor'u görüyorsun.
+
+
+[[Ücreti beğenmedim.]]
+[[Raven'ı al.|TakeRavenWithYou]]
+[[Laerkai'i al.|TakeLaerkaiWithYou]]
+[[Lenthor'u al.|TakeLenthorWithYou]]
+[[Yalnız iyiyim.|AreYouReadyToGo]]
+===
+title: IamNotAHero
+tags: 
+colorID: 0
+position: -593,-747
+---
+Adrastusun gözleri parlar, mecbur bir şekilde. "Güvenebilecğeim başka biri yok şu an" der. 
+Yalnız gitmek zorunda değilsin yanına yaralanmamış birilerini al istersen.
+
+uygun durumda raven, laerkai ve lenthor'u görüyorsun.
+
+[[Raven'ı al.|TakeRavenWithYou]]
+[[Laerkai'i al.|TakeLaerkaiWithYou]]
+[[Lenthor'u al.|TakeLenthorWithYou]]
+[[Yalnız iyiyim.|AreYouReadyToGo]]
+===
+title: AreYouReadyToGo
+tags: 
+colorID: 0
+position: 91,-1009
+---
+Başka birini istemediğine emin misin?
+
+<<if $raven_in_the_party == false>>
+[[Raven'ı al.|TakeRavenWithYou]]
+<<endif>>
+<<if $laerkai_in_the_party == false>>
+[[Laerkai'i al.|TakeLaerkaiWithYou]]
+<<endif>>
+<<if $lenthor_in_the_party == false>>
+[[Lenthor'u al.|TakeLenthorWithYou]]
+<<endif>>
+[[Hadi Gidelim.|OnTheRoadAfterAttack]]
+===
+title: TakeLenthorWithYou
+tags: 
+colorID: 0
+position: 92,-744
+---
+<<set $lenthor_in_the_party to true>>
+
+Lenthor glemeye hazır. Başkası gelsin mi?
+
+<<if $raven_in_the_party == false>>
+[[Raven'ı al.|TakeRavenWithYou]]
+<<endif>>
+<<if $laerkai_in_the_party == false>>
+[[Laerkai'i al.|TakeLaerkaiWithYou]]
+<<endif>>
+[[Bu kadar yeter.|AreYouReadyToGo]]
+===
+title: TakeLaerkaiWithYou
+tags: 
+colorID: 0
+position: -123,-481
+---
+<<set $laerkai_in_the_party to true>>
+
+Laerkai glemeye hazır.
+Başkası gelsin mi?
+
+<<if $raven_in_the_party == false>>
+[[Raven'ı al.|TakeRavenWithYou]]
+<<endif>>
+<<if $lenthor_in_the_party == false>>
+[[Lenthor'u al.|TakeLenthorWithYou]]
+<<endif>>
+[[Bu kadar yeter.|AreYouReadyToGo]]
+===
+title: TakeRavenWithYou
+tags: 
+colorID: 0
+position: -410,-411
+---
+<<set $raven_in_the_party to true>>
+
+Raven glemeye hazır.
+Başkası gelsin mi?
+
+<<if $laerkai_in_the_party == false>>
+[[Laerkai'ı al.|TakeLaerkaiWithYou]]
+<<endif>>
+<<if $lenthor_in_the_party == false>>
+[[Lenthor'u al.|TakeLenthorWithYou]]
+<<endif>>
+[[Bu kadar yeter.|AreYouReadyToGo]]
+===
+title: OnTheRoadAfterAttack
+tags: 
+colorID: 0
+position: 370,-1007
+---
+Kaçan haydutların gittiği yöne doğru ilerlediniz. Haydutlar dağa doğru kaçtılar.
+Atlarının bıraktığı iz çok belirgin. Yol boyunca ilerleyip dağa çıktınız. 
+Bir süre sonra yol kayalık bir bölgeye çıktı. Sol taraftan bir keçi yolu devam ediyor.
+
+<<set $late_for_rescue = 0 >>
+
+[[Keçi yolundan git.|GoToMountainPath]]
+[[Haydutların izini ara.|SearchForTracks]]
+===
+title: GoToMountainPath
+tags: 
+colorID: 0
+position: 632,-1100
+---
+Patika devam ederken ileride yukarılarda bir mağara gözükür.
+
+
+[[Patikada devam et.|ContinueOnThePath]]
+[[Durup izleri kontrol et.|CheckForTracksAtThePath]]
+[[Mağaraya doğru ilerle.|GoToTheCave]]
+[[Diğerleri geride beklerken mağaraya gizlice yaklaşıp kontrol et.|SneakToTheCave]]
+[[Mağaranın etrafını kontrol et.|SearchAroundTheCave]]
+===
+title: SearchForTracks
+tags: 
+colorID: 0
+position: 356,-745
+---
+<<set $late_for_rescue = $late_for_rescue + 1 >>
+
+<<if $roll_result > 50>>
+keçi yolu boyunca izlerin devam ettiğini görüyosunuz. 
+birkaç kişilik küçük bir grup ayrılıp kayalıklara doğru ilerlemiş.
+<<else>>
+keçi yolundan yakın zamanda birileri geçmiş ama onun dışında pek anlamlı bir iz bulamadınız.
+<<endif>>
+
+[[Keçi yoluna git.|GoToMountainPath]]
+<<if $roll_result > 50>>
+[[Kayalıklara tırman.|ClimbToRocks]]
+<<endif>>
+===
+title: ClimbToRocks
+tags: 
+colorID: 0
+position: 820,-363
+---
+Kayalıkları tırmandıktan sonra bir düzlüğe ulaştınız.
+
+
+<<if $late_for_rescue > 3>>
+adamlar çoktan ölü.
+
+[[cesetleri incele.|CheckTheBodies]]
+[[kuleye doğru ilerle.|WalkTowardsTheTower]]
+
+<<else>>
+adamlar uzakta gözüküyor.
+
+[[adamları yakalamak için koştur.|RunToCatchThem]]
+[[kuleye doğru yavaşça ilerle.|WalkTowardsTheTower]]
+
+<<endif>>
+
+===
+title: CheckForTracksAtThePath
+tags: 
+colorID: 0
+position: 857,-1510
+---
+<<set $late_for_rescue = $late_for_rescue + 1 >>
+
+<<if $roll_result > 50>>
+Atlarla birkaç kişi patikadan devam etmiş. Diğerleri yürüyerek mağaraya doğru ilerlemiş.
+<<else>>
+Patikadan devam eden izler var ama pek bir anlam çıkaramadınız.
+<<endif>>
+
+[[Patikada devam et.|ContinueOnThePath]]
+[[Mağaraya doğru ilerle.|GoToTheCave]]
+[[Diğerleri geride beklerken mağaraya gizlice yaklaşıp kontrol et.|SneakToTheCave]]
+[[Mağaranın etrafını kontrol et.|SearchAroundTheCave]]
+===
+title: ContinueOnThePath
+tags: 
+colorID: 0
+position: 580,-1379
+---
+Yolda devam ederken ileride çalılıkların arasında saklanmış olan atları buldun.
+Atları buraya bağlamışlar ve başlarında 2 nöbetçi var.
+
+
+[[Nöbetçilere dostça yaklaşmaya çalış.|FriendlyApproachToWatchmen]]
+[[Nöbetçilere gizlice yaklaş.|SneakToWatchmen]]
+[[Nöbetçilere aman vermeden saldır.|AttackToWatchmen]]
+===
+title: GoToTheCave
+tags: 
+colorID: 0
+position: 1349,-1689
+---
+<<if $late_for_rescue > 3>>
+Mağaradan çıkan birkaç nöbetçi ile karşılaştınız. size saldırdılar.
+
+
+<<else>>
+
+Mağara karanlık içeri doğru ilerliyor.
+
+[[Meşale yak.|LightATorch]]
+[[Karanlıkta ilerle.|WalkIntoDarkness]]
+
+<<endif>>
+===
+title: SneakToTheCave
+tags: 
+colorID: 0
+position: 1358,-1420
+---
+<<set $late_for_rescue = $late_for_rescue + 1 >>
+
+<<if $roll_result > 50>>
+Mağaranın girişi karanlık, içeriden yaklaşan birilerinin sesleri geliyor.
+
+[[Hemen saldır.]]
+[[Geçmelerini bekle.]]
+[[Pusu kur.]]
+
+<<else>>
+
+çıkardığın gürültü içeriden duyuldu, mağaradan çıkanlar saldırdı.
+
+<<start_combat GameObject CombatAtCaveOutside>>
+
+[[AfterCaveOutsideCombat]]
+
+
+<<endif>>
+===
+title: FriendlyApproachToWatchmen
+tags: 
+colorID: 0
+position: 309,-1372
+---
+<<set $late_for_rescue = $late_for_rescue + 1 >>
+
+Sakince nöbetçilerin yanına doğru sokuldunuz.
+"Höt, sizde kimsiniz?" diye karşıladı sizi nöbetçiler.
+
+[[Dövüşmeye gelmedik, kızı verin gidelim.|TellWatchmenNoNeedToFight]]
+===
+title: SneakToWatchmen
+tags: 
+colorID: 0
+position: 301,-1668
+---
+<<set $late_for_rescue = $late_for_rescue + 1 >>
+
+<<if $roll_result > 50>>
+Sessizce dolaşıp nöbetçilerin arkasına sızdınız. 
+
+[[Nöbetçileri öldür.|KillWatchmen]]
+[[Nöbetçileri yakala ve bağla.|TieWatchmenDown]]
+<<else>>
+Yeterince sessiz olamadınız ve nöbetçiler silahlarını çekip size saldırdı.
+
+<<start_combat GameObject WatchmenOnPathAttack>>
+
+[[AfterWatchmenAttack]]
+<<endif>>
+===
+title: AttackToWatchmen
+tags: 
+colorID: 0
+position: 593,-1687
+---
+allah yarattı demeden saldırdınız nöbetçilere
+
+
+<<start_combat GameObject WatchmenOnPathAttack>>
+
+[[AfterWatchmenAttack]]
+===
+title: KillWatchmen
+tags: 
+colorID: 0
+position: -16,-1988
+---
+nöbetçileri infaz ettin.
+
+[[Atları sal.|ReleaseTheHorses]]
+[[Üstlerini ara.|CheckBodiesOfDeadWatchmen]]
+[[Mağaraya geri dön.|ReturnToCave]]
+===
+title: TieWatchmenDown
+tags: 
+colorID: 0
+position: 283,-1969
+---
+Nöbetçileri ağaca bağladın.
+
+[[Atları sal.|ReleaseTheHorses]]
+[[Nöbetçileri öldür.|KillWatchmen]]
+[[Nöbetçileri sorgula.|InterrogateWatchmen]]
+[[Mağaraya geri dön.|ReturnToCave]]
+===
+title: CheckBodiesOfDeadWatchmen
+tags: 
+colorID: 0
+position: -153,-2238
+---
+<<set $late_for_rescue = $late_for_rescue + 1 >>
+
+üstelerinden ne çıktı?
+
+[[Grap all of it.|TakeMoniesFromDeadWatchmen]]
+[[Cesetleri gizle.|HideBodiesOfWatchmen]]
+[[Atları sal.|ReleaseTheHorses]]
+[[Mağaraya dön.|ReturnToCave]]
+===
+title: ReturnToCave
+tags: 
+colorID: 0
+position: 184,-2412
+---
+Mağarayı gördüğün yere döndün.
+
+[[Mağaraya doğru ilerle.|GoToTheCave]]
+[[Diğerleri geride beklerken mağaraya gizlice yaklaşıp kontrol et.|SneakToTheCave]]
+[[Mağaranın etrafını kolaçan et.|SearchAroundTheCave]]
+===
+title: InterrogateWatchmen
+tags: 
+colorID: 0
+position: 620,-2480
+---
+adamlar konuşmaya pek istekli değil.
+
+[[Adamları bırakıp mağaraya dön.|ReturnToCave]]
+===
+title: ReleaseTheHorses
+tags: 
+colorID: 0
+position: -529,-2221
+---
+<<set $late_for_rescue = $late_for_rescue + 1 >>
+
+Atları korkutarak dört bir yana dağıttınız. Haydutların kaçmak için kullanabilecekleri bir binekleri olmayacak artık.
+
+
+[[Atları sal.|ReleaseTheHorses]]
+<<if $is_watchmen_dead and visited("CheckBodiesOfDeadWatchmen")>>
+[[Üstlerini ara.|CheckBodiesOfDeadWatchmen]]
+<<endif>>
+
+<<if $is_watchmen_dead == false and $is_watchmen_captured == true>>
+[[Nöbetçileri öldür.|KillWatchmen]]
+[[Nöbetçileri sorgula.|InterrogateWatchmen]]
+<<endif>>
+[[Mağaraya geri dön.|ReturnToCave]]
+
+===
+title: AfterWatchmenAttack
+tags: 
+colorID: 0
+position: 639,-1947
+---
+<<set $late_for_rescue = $late_for_rescue + 1 >>
+
+Nöbetçileri öldürdün.
+
+[[Atları sal.|ReleaseTheHorses]]
+<<if visited("CheckBodiesOfDeadWatchmen")>>
+[[Üstlerini ara.|CheckBodiesOfDeadWatchmen]]
+<<endif>>
+[[Mağaraya geri dön.|ReturnToCave]]
+===
+title: TellWatchmenNoNeedToFight
+tags: 
+colorID: 0
+position: -1552,-2295
+---
+<<if $roll_result > 50>>
+"Keh keh, kız için geldiyseniz çok geç, patron kızı götürdü bile."
+
+[[Nöbetçilere aman vermeden saldır.|AttackToWatchmen]]
+[[O zaman sizinle bir derdimiz yok, biz gidiyoruz.|TryToLeaveWatchmenPeacefully]]
+
+<<else>>
+Nöbetçiler bok yiyin diyip saldırıya geçtiler.
+
+<<start_combat GameObject WatchmenOnPathAttack>>
+
+[[AfterWatchmenAttack]]
+
+<<endif>>
+===
+title: TryToLeaveWatchmenPeacefully
+tags: 
+colorID: 0
+position: -1559,-2570
+---
+<<if $roll_result > 50>>
+"Gidin gözümüz görmesin." dedi nöbetçiler ve sizi saldı.
+
+[[Continue.|ReturnToCave]]
+
+<<else>>
+Nöbetçiler nereye gidiyonuz lan diyip saldırıya geçtiler.
+
+<<start_combat GameObject WatchmenOnPathAttack>>
+
+[[AfterWatchmenAttack]]
+
+<<endif>>
+===
+title: WalkIntoDarkness
+tags: 
+colorID: 0
+position: 1796,-1412
+---
+Karanlıkta ilerlerken bir anda saldırıya uğradınız.
+
+
+<<start_combat GameObject CombatAtCaveEntrance>>
+
+[[AfterCaveEntranceCombat]]
+===
+title: LightATorch
+tags: 
+colorID: 0
+position: 1741,-1722
+---
+Meşaleyi yakınca karşıdan gelmekte olan haydutları gördünüz. Onlarda sizi gördü.
+
+[[Saldır.|FightAtTheCaveEntrance]]
+[[Kaç.|RunOutsideOfTheCave]]
+
+===
+title: SearchAroundTheCave
+tags: 
+colorID: 0
+position: 1356,-1110
+---
+<<if $late_for_rescue > 3>>
+Mağaradan çıkan birkaç nöbetçi ile karşılaştınız. size saldırdılar.
+
+<<start_combat GameObject CombatAtCaveOutside>>
+
+[[AfterCaveOutsideCombat]]
+
+
+<<else>>
+
+Yukarılara doğru tırmanınca mağaranın içine açılan küçük bir açıklık gördünüz.
+birinin geçmesi için çok küçük ama içeriyi gözleyebilirsiniz.
+
+[[İçeriyi gözle.]]
+[[İçeridekiler korkut.]]
+[[İçeridekileri birbirine düşür.]]
+[[Deliğin üzerini çalı çırpı ile kapatıp ateşe ver.]]
+
+<<endif>>
+===
+title: AfterCaveOutsideCombat
+tags: 
+colorID: 0
+position: 2010,-1104
+---
+<<set $late_for_rescue = $late_for_rescue + 1 >>
+
+Geriye mağaranın içindekiler kaldı.
+
+[[Mağaraya gir.|InsideTheCave]]
+[[Smoke them out.|TrapTheEntrance]]
+===
+title: AfterCaveEntranceCombat
+tags: 
+colorID: 0
+position: 2201,-1429
+---
+<<set $late_for_rescue = $late_for_rescue + 1 >>
+
+Geriye mağaranın içindekiler kaldı.
+
+[[Mağaraya gir.|InsideTheCave]]
+[[Smoke them out.|TrapTheEntrance]]
+===
+title: FightAtTheCaveEntrance
+tags: 
+colorID: 0
+position: 2187,-1771
+---
+Karşıdan gelenlere direk saldırdınız.
+
+
+<<start_combat GameObject CombatAtCaveEntrance>>
+
+[[AfterCaveEntranceCombat]]
+===
+title: RunOutsideOfTheCave
+tags: 
+colorID: 0
+position: 1949,-2056
+---
+Haydutlar sizi kovaladı ve mağaranın dışında yakaladılar.
+
+<<start_combat GameObject CombatAtCaveOutside>>
+
+[[AfterCaveOutsideCombat]]
+===
+title: InsideTheCave
+tags: 
+colorID: 0
+position: 2592,-930
+---
+Empty Text
+
+
+[[Mağaradaki son savaş.|FightInTheCave]]
+===
+title: TrapTheEntrance
+tags: 
+colorID: 0
+position: 2575,-1432
+---
+Empty Text
+
+
+[[Mağaranın içini araştır.|SearchTheCave]]
+===
+title: FightInTheCave
+tags: 
+colorID: 0
+position: 2941,-1125
+---
+Karşıdan gelenlere direk saldırdınız.
+
+
+<<start_combat GameObject CombatAtInsideTheCave>>
+
+[[AfterCombatInsideCave]]
+===
+title: SearchTheCave
+tags: 
+colorID: 0
+position: 3153,-1453
+---
+<<set $late_for_rescue = $late_for_rescue + 1 >>
+
+yaralı birini buldun. biraz sarsınca konuşmaya başladı. 
+
+
+[[Kayalıklara dön.|ClimbToRocks]]
+===
+title: AfterCombatInsideCave
+tags: 
+colorID: 0
+position: 3256,-1115
+---
+<<set $late_for_rescue = $late_for_rescue + 1 >>
+
+sda
+
+
+[[Mağaranın içini araştır.|SearchTheCave]]
+===
+title: WalkTowardsTheTower
+tags: 
+colorID: 0
+position: 1382,-390
+---
+Kulenin önüne gelmenle kapısının açılması bir oluyor. İçeride kimse gözükmüyor.
+
+
+[[İçeri gir.|InsideTheTower]]
+===
+title: CheckTheBodies
+tags: 
+colorID: 0
+position: 1277,-774
+---
+yanarak ölmüş 4 ceset var burada. küle dönmemişler, hepsi erkek. kızı kuleye götürmüş olmalılar.
+
+
+[[Kuleye devam et.|WalkTowardsTheTower]]
+===
+title: RunToCatchThem
+tags: 
+colorID: 0
+position: 1176,-73
+---
+sizin geldiğinizi gören banditlerden üçü dönüp size saldırdı. diğeri kızla beraber kuleye devam etti.
+
+<<start_combat GameObject CombatBeforeTheTower>>
+
+
+[[AfterCombatBeforeTheTower]]
+===
+title: AfterCombatBeforeTheTower
+tags: 
+colorID: 0
+position: 1499,-79
+---
+Adamları yere serdin. ileri baktığında bandit kızı kulenin önünde cübbeli bir figüre teslim ediyor. 
+cübbeli figür bir anda elini uzatıp banditi alevler içinde bırakıp kız ile birlikte kulenin içine girip gözden kayboluyor.
+
+[[Kuleye devam et.|WalkTowardsTheTower]]
+===
+title: InsideTheTower
+tags: 
+colorID: 0
+position: 1668,-407
+---
+İçeri de büyücü seni karşılıyor. Kız büyülenmiş bir şekilde olan biteni fark etmeksizin boş boş bakıyor.
+Büyücünün tek bir hareketi ile odadaki heykeller canlanıp size saldırmaya başlıyor.
+
+<<start_combat GameObject CombatInTheTower>>
+
+
+[[AfterCombatInsideTheTower]]
+===
+title: AfterCombatInsideTheTower
+tags: 
+colorID: 0
+position: 1960,-369
+---
+Büyücünün ölmesi ile birlikte kule sallanmaya ve yıkılmaya başlıyor. 
+Can havliyle kızı kolundan yakalayıp kuleden çıkıyorsunuz.
+Kız kendinde değil ama bu daha sonra düşünülecek bir sorun.
+
+[[Kervan'a dön.|ReturnToCaravan]]
+===
+title: ReturnToCaravan
+tags: 
+colorID: 0
+position: 1954,-102
+---
+Kızı babasına teslim ettin. Oyun bitti.
+===

@@ -35,6 +35,16 @@ public class Node : System.IComparable<Node>, System.IEquatable<Node>
     public Node parent;
     public int gScore;
     public int hScore;
+	public int nCost;
+
+	public Node(int _x, int _y, int _c)
+	{
+		this.x = _x;
+		this.y = _y;
+		gScore = 0;
+		hScore = 0;
+		nCost = _c;
+	}
 
     public Node(int _x, int _y)
     {
@@ -42,6 +52,7 @@ public class Node : System.IComparable<Node>, System.IEquatable<Node>
         this.y = _y;
         gScore = 0;
         hScore = 0;
+		nCost = 1;
     }
 
     public int GetScore()
@@ -69,9 +80,9 @@ public class Node : System.IComparable<Node>, System.IEquatable<Node>
     public void CalculateScores(int _x, int _y)
     {
         if (parent == null)
-            gScore = 1;
+            gScore = nCost;
         else
-            gScore = parent.gScore + 1;
+            gScore = parent.gScore + nCost;
 
         if (parent == null)
             hScore = 0;
@@ -105,6 +116,9 @@ public class AStar
     public Node goalNode;
 
     public bool isDiagonalMovementAllowed;
+	public bool isNodeCostEnabled;
+
+	private int _cancelCount;
 
 
     public AStar()
@@ -158,8 +172,14 @@ public class AStar
 
         openList.Add(startNode);
 
+		_cancelCount = 99999;
+
         while (openList.Count > 0)
         {
+			_cancelCount -= 1;
+			if (_cancelCount < 0)
+				break;
+
             Node currentNode = openList[0];
             openList.RemoveAt(0);
 
@@ -180,7 +200,7 @@ public class AStar
                     if ((j < 0) || (j >= mapHeight))
                         continue;
 
-                    if (tileMap[(j * mapWidth) + i] != 0)
+                    if (tileMap[(j * mapWidth) + i] <= 0)
                         continue;
 
                     if (isDiagonalMovementAllowed == false)
@@ -189,8 +209,12 @@ public class AStar
                             continue;
                     }
 
-                    Node successorNode = new Node(i, j);
-                    successorNode.parent = currentNode;
+					Node successorNode = null;
+					if (isNodeCostEnabled == true)
+						successorNode = new Node(i, j, tileMap[(j * mapWidth) + i]);
+					else
+						successorNode = new Node(i, j);
+					successorNode.parent = currentNode;
                     successorNode.CalculateScores(goalNode.x, goalNode.y);
 
                     int oFound = openList.IndexOf(successorNode);

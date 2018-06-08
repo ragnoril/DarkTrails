@@ -93,7 +93,7 @@ namespace DarkTrails.UI
 			List<string> helmet = new List<string>();
 			List<string> boots = new List<string>();
 
-			foreach (Item item in BattleManager.instance.ItemList)
+			foreach (Item item in GameManager.instance.ItemList)
 			{
 				if (item.ItemType == ItemType.Weapon)
 				{
@@ -136,18 +136,18 @@ namespace DarkTrails.UI
 			int helmetId = GetItemId(HelmetDropdown.options[HelmetDropdown.value].text);
 			int bootsId = GetItemId(BootsDropdown.options[BootsDropdown.value].text);
 			
-			character.Equipments[(int)EQUIP.MainHand] = BattleManager.instance.ItemList[mainHandId];
-			character.Equipments[(int)EQUIP.OffHand] = BattleManager.instance.ItemList[mainHandId];
-			character.Equipments[(int)EQUIP.BodyArmor] = BattleManager.instance.ItemList[bodyArmorId];
-			character.Equipments[(int)EQUIP.Boots] = BattleManager.instance.ItemList[bootsId];
-			character.Equipments[(int)EQUIP.Helmet] = BattleManager.instance.ItemList[helmetId];
+			character.Equipments[(int)EQUIP.MainHand] = GameManager.instance.ItemList[mainHandId];
+			character.Equipments[(int)EQUIP.OffHand] = GameManager.instance.ItemList[mainHandId];
+			character.Equipments[(int)EQUIP.BodyArmor] = GameManager.instance.ItemList[bodyArmorId];
+			character.Equipments[(int)EQUIP.Boots] = GameManager.instance.ItemList[bootsId];
+			character.Equipments[(int)EQUIP.Helmet] = GameManager.instance.ItemList[helmetId];
 		}
 
 		public int GetItemId(string itemName)
 		{
-			for(int i = 0; i < BattleManager.instance.ItemList.Count; i++)
+			for(int i = 0; i < GameManager.instance.ItemList.Count; i++)
 			{
-				Item item = BattleManager.instance.ItemList[i];
+				Item item = GameManager.instance.ItemList[i];
 				if (item.ItemName == itemName)
 				{
 					return i;
@@ -243,7 +243,7 @@ namespace DarkTrails.UI
             else if (stage == CHARGENSTAGE.Skills)
             {
                 //skills finished
-                stage = CHARGENSTAGE.Traits;
+                stage = CHARGENSTAGE.Items;
                 UpdateSkills();
             }
             else if (stage == CHARGENSTAGE.Traits)
@@ -263,9 +263,13 @@ namespace DarkTrails.UI
                 // naming finished
                 // chargen ended.
                 character.Name = NameField.text;
-                BattleManager.instance.CharacterList.Add(character);
-                UnityEngine.SceneManagement.SceneManager.LoadScene("BattleMenu");
-            }
+				//BattleManager.instance.CharacterList.Add(character);
+				//UnityEngine.SceneManagement.SceneManager.LoadScene("BattleMenu");
+				GameManager.instance.CharacterList.Add(character);
+				GameManager.instance.PlayerCharacterId = GameManager.instance.CharacterList.Count - 1;
+				GameManager.instance.PlayerParty.Add(GameManager.instance.PlayerCharacterId);
+				GameManager.instance.StartDialogue();
+			}
             stagePanels[(int)stage].SetActive(true);
 
             TitleText.text = stage.ToString();

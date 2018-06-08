@@ -12,6 +12,9 @@ public class UIManager : MonoBehaviour
 	public Text WeaponText;
 	public Text ArmorText;
 
+	public GameObject EndPanel;
+	public Text EndText;
+
 
 	// Use this for initialization
 	void Start ()
@@ -39,5 +42,19 @@ public class UIManager : MonoBehaviour
 		APText.text = "AP: " + CombatManager.instance.selectedAgent.curActionPoints + " / " + CombatManager.instance.selectedAgent.maxActionPoints;
 		WeaponText.text = "Damage: " + CombatManager.instance.selectedAgent.minDamage + " - " + CombatManager.instance.selectedAgent.maxDamage;
 		ArmorText.text = "AC: " + CombatManager.instance.selectedAgent.armorClass;
+	}
+
+	public void EndTheGame()
+	{
+		if (CombatManager.instance.WhoWon == 0)
+		{
+			DarkTrails.GameManager.instance.DialogueStartNode = DarkTrails.GameManager.instance.WinDialogue;
+			DarkTrails.GameManager.instance.StartDialogue();
+		}
+		else if (CombatManager.instance.WhoWon == 1)
+		{
+			DarkTrails.GameManager.instance.DialogueStartNode = DarkTrails.GameManager.instance.LoseDialogue;
+			DarkTrails.GameManager.instance.StartDialogue();
+		}
 	}
 }

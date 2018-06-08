@@ -1,0 +1,17 @@
+<Encounters>
+	<Encounter name="CaravanAttack">
+		<Character id="0" />
+		<Character id="0" />
+		<Character id="1" />
+	</Encounter>
+	<Encounter name="CombatAtCaveOutside">
+		<Character id="0" />
+		<Character id="0" />
+		<Character id="1" />
+	</Encounter>
+	<Encounter name="WatchmenOnPathAttack">
+		<Character id="0" />
+		<Character id="0" />
+		<Character id="1" />
+	</Encounter>
+</Encounters>

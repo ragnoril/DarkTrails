@@ -52,7 +52,7 @@ public class MapManager : MonoBehaviour
                 y = Random.Range(1, mapHeight - 1);
             }
 
-            Grids[x + (y * mapWidth)] = 1;
+            Grids[x + (y * mapWidth)] = -1;
         }
     }
 
@@ -70,7 +70,7 @@ public class MapManager : MonoBehaviour
                     go.transform.parent = transform;
                     */
                 }
-                else if (Grids[i + (j * mapWidth)] == 1)
+                else if (Grids[i + (j * mapWidth)] == -1)
                 {
                     GameObject go = GameObject.Instantiate(blockObject, new Vector3(i - (float)halfMapWidth, 0.01f, j - (float)halfMapHeight), Quaternion.Euler(270f, 0f, 0f)) as GameObject;
                     go.transform.parent = transform;
