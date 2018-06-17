@@ -54,7 +54,7 @@ namespace DarkTrails
 		{
 			PlayerParty = new List<int>();
 			LoadGameData();
-			SceneManager.LoadScene("CharGen");
+			//SceneManager.LoadScene("CharGen");
 		}
 
 		public void LoadGameData()

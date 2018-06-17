@@ -3,93 +3,97 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlaceholderCharGen : MonoBehaviour
+namespace DarkTrails.Combat
 {
-    public Text titleText;
-    public string titleName;
-    public Color color;
-
-    Renderer Renderer;
-	Animator Animator;
-
-	public GameObject SwordObject;
-	public GameObject AxeObject;
-	public GameObject SpearObject;
-	public GameObject ShieldObject;
-
-	// Use this for initialization
-	void Start ()
-    {
-        //Renderer = GetComponent<Renderer>();
-        //Renderer.material.color = color;
-        titleText.color = color;
-        titleText.text = titleName;
-
-		Animator = GetComponent<Animator>();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
-	public void SetItems(int weapon, int shield)
+	public class PlaceholderCharGen : MonoBehaviour
 	{
-		SwordObject.SetActive(false);
-		AxeObject.SetActive(false);
-		SpearObject.SetActive(false);
-		if (weapon ==0)
+		public Text titleText;
+		public string titleName;
+		public Color color;
+
+		Renderer Renderer;
+		Animator Animator;
+
+		public GameObject SwordObject;
+		public GameObject AxeObject;
+		public GameObject SpearObject;
+		public GameObject ShieldObject;
+
+		// Use this for initialization
+		void Start()
 		{
-			SwordObject.SetActive(true);
-		}
-		else if (weapon == 1)
-		{
-			SpearObject.SetActive(true);
-		}
-		if (weapon == 2)
-		{
-			AxeObject.SetActive(true);
+			//Renderer = GetComponent<Renderer>();
+			//Renderer.material.color = color;
+			titleText.color = color;
+			titleText.text = titleName;
+
+			Animator = GetComponent<Animator>();
 		}
 
-		if (shield == 0)
-			ShieldObject.SetActive(false);
-		else
-			ShieldObject.SetActive(true);
+		// Update is called once per frame
+		void Update()
+		{
 
-	}
+		}
 
-	public void Attack()
-	{
-		if (SwordObject.activeSelf)
-			Animator.SetTrigger("Atack_0");
-		else if (SpearObject.activeSelf)
-			Animator.SetTrigger("Atack_1");
-		else
-			Animator.SetTrigger("Atack_2");
-	}
+		public void SetItems(int weapon, int shield)
+		{
+			SwordObject.SetActive(false);
+			AxeObject.SetActive(false);
+			SpearObject.SetActive(false);
+			if (weapon == 0)
+			{
+				SwordObject.SetActive(true);
+			}
+			else if (weapon == 1)
+			{
+				SpearObject.SetActive(true);
+			}
+			if (weapon == 2)
+			{
+				AxeObject.SetActive(true);
+			}
 
-	public void Dodge()
-	{
-		Animator.SetTrigger("Gd");
-	}
+			if (shield == 0)
+				ShieldObject.SetActive(false);
+			else
+				ShieldObject.SetActive(true);
 
-	public void GotHit()
-	{
-		Animator.SetTrigger("Gd_1");
-	}
+		}
 
-	public void Die()
-	{
-		Animator.SetTrigger("Die");
-	}
+		public void Attack()
+		{
+			if (SwordObject.activeSelf)
+				Animator.SetTrigger("Atack_0");
+			else if (SpearObject.activeSelf)
+				Animator.SetTrigger("Atack_1");
+			else
+				Animator.SetTrigger("Atack_2");
+		}
 
-	public void Run()
-	{
-		Animator.SetTrigger("Run");
-	}
+		public void Dodge()
+		{
+			Animator.SetTrigger("Gd");
+		}
 
-	public void Idle()
-	{
-		Animator.SetTrigger("Idle");
+		public void GotHit()
+		{
+			Animator.SetTrigger("Gd_1");
+		}
+
+		public void Die()
+		{
+			Animator.SetTrigger("Die");
+		}
+
+		public void Run()
+		{
+			Animator.SetTrigger("Run");
+		}
+
+		public void Idle()
+		{
+			Animator.SetTrigger("Idle");
+		}
 	}
 }

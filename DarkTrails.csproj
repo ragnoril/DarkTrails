@@ -315,7 +315,6 @@
     <Compile Include="Assets\Scripts\AStar.cs" />
     <Compile Include="Assets\Scripts\BattleManager.cs" />
     <Compile Include="Assets\Scripts\BattleMenuUI.cs" />
-    <Compile Include="Assets\Scripts\CharacterAgent.cs" />
     <Compile Include="Assets\Scripts\CharacterData.cs" />
     <Compile Include="Assets\Scripts\CharacterGenerator.cs" />
     <Compile Include="Assets\Scripts\Combat\Agent.cs" />
@@ -329,6 +328,9 @@
     <Compile Include="Assets\Scripts\Dialogue\DialogueVariableManager.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\Inventory\Armor.cs" />
+    <Compile Include="Assets\Scripts\Inventory\EquipmentAgent.cs" />
+    <Compile Include="Assets\Scripts\Inventory\InventoryAgent.cs" />
+    <Compile Include="Assets\Scripts\Inventory\InventoryManager.cs" />
     <Compile Include="Assets\Scripts\Inventory\Item.cs" />
     <Compile Include="Assets\Scripts\Inventory\Shield.cs" />
     <Compile Include="Assets\Scripts\Inventory\Weapon.cs" />

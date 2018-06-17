@@ -7,7 +7,7 @@ using UnityEngine.UI;
 using Yarn;
 using Yarn.Unity;
 
-namespace DarkTrails
+namespace DarkTrails.Dialog
 {
 
 	public class DialogueCommandsManager : MonoBehaviour

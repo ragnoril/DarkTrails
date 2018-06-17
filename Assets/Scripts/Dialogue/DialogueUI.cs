@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Yarn;
 
-namespace DarkTrails
+namespace DarkTrails.Dialog
 {
 
 	public class DialogueUI : Yarn.Unity.DialogueUIBehaviour
@@ -26,7 +26,6 @@ namespace DarkTrails
 		{
 			// "Perform" the command
 			Debug.Log("Command: " + command.text);
-
 			yield break;
 		}
 
