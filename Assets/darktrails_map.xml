@@ -37,7 +37,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1,1
 	</Grid>
 	<Nodes>
-		<Node name="Hattusa" actionType="OpenCombat" actionValue="hattusa" iconName="hattusa" x="0.577" y="2.196" />
-		<Node name="Troia" actionType="OpenDialog" actionValue="troia" iconName="troia" x="-7.483" y="2.01" />
+		<Node name="Hattusa" actionType="OpenDialog" actionValue="CityA_Entrance" iconName="hattusa" x="0.577" y="2.196" />
+		<Node name="Troia" actionType="OpenDialog" actionValue="CityB_Entrance" iconName="troia" x="-7.483" y="2.01" />
 	</Nodes>
 </Map>

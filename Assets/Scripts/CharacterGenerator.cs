@@ -268,7 +268,7 @@ namespace DarkTrails.UI
 				GameManager.instance.CharacterList.Add(character);
 				GameManager.instance.PlayerCharacterId = GameManager.instance.CharacterList.Count - 1;
 				GameManager.instance.PlayerParty.Add(GameManager.instance.PlayerCharacterId);
-				GameManager.instance.StartDialogue();
+				//GameManager.instance.StartDialogue();
 			}
             stagePanels[(int)stage].SetActive(true);
 

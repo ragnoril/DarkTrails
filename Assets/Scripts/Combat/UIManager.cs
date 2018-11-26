@@ -7,7 +7,6 @@ namespace DarkTrails.Combat
 {
 	public class UIManager : MonoBehaviour
 	{
-
 		public Text NameText;
 		public Text HPText;
 		public Text APText;
@@ -40,23 +39,49 @@ namespace DarkTrails.Combat
 			if (CombatManager.instance.selectedAgent == null) return;
 
 			NameText.text = "Name: " + CombatManager.instance.selectedAgent.name;
-			HPText.text = "HP: " + CombatManager.instance.selectedAgent.curHitPoints + " / " + CombatManager.instance.selectedAgent.maxHitPoints;
-			APText.text = "AP: " + CombatManager.instance.selectedAgent.curActionPoints + " / " + CombatManager.instance.selectedAgent.maxActionPoints;
-			WeaponText.text = "Damage: " + CombatManager.instance.selectedAgent.minDamage + " - " + CombatManager.instance.selectedAgent.maxDamage;
-			ArmorText.text = "AC: " + CombatManager.instance.selectedAgent.armorClass;
+            HPText.text = "HP: " + CombatManager.instance.selectedAgent.curHitPoints + " / ";// + CombatManager.instance.selectedAgent.maxHitPoints;
+            APText.text = "AP: " + CombatManager.instance.selectedAgent.curActionPoints + " / ";// + CombatManager.instance.selectedAgent.maxActionPoints;
+            //WeaponText.text = "Damage: " + CombatManager.instance.selectedAgent.minDamage + " - " + CombatManager.instance.selectedAgent.maxDamage;
+			//ArmorText.text = "AC: " + CombatManager.instance.selectedAgent.armorClass;
 		}
 
 		public void EndTheGame()
 		{
 			if (CombatManager.instance.WhoWon == 0)
 			{
-				DarkTrails.GameManager.instance.DialogueStartNode = DarkTrails.GameManager.instance.WinDialogue;
-				DarkTrails.GameManager.instance.StartDialogue();
+				switch(GameManager.instance.EncounterList[CombatManager.instance.EncounterName].WinState.ModuleName)
+				{
+					case "Combat":
+						GameManager.instance.OpenCombat(GameManager.instance.EncounterList[CombatManager.instance.EncounterName].WinState.Value);
+						break;
+					case "Inventory":
+
+						break;
+					case "Travel":
+						GameManager.instance.OpenTravel(GameManager.instance.EncounterList[CombatManager.instance.EncounterName].WinState.Value);
+						break;
+					case "Dialogue":
+						GameManager.instance.OpenDialogue(GameManager.instance.EncounterList[CombatManager.instance.EncounterName].WinState.Value);
+						break;
+				}
 			}
 			else if (CombatManager.instance.WhoWon == 1)
 			{
-				DarkTrails.GameManager.instance.DialogueStartNode = DarkTrails.GameManager.instance.LoseDialogue;
-				DarkTrails.GameManager.instance.StartDialogue();
+				switch (GameManager.instance.EncounterList[CombatManager.instance.EncounterName].LoseState.ModuleName)
+				{
+					case "Combat":
+						GameManager.instance.OpenCombat(GameManager.instance.EncounterList[CombatManager.instance.EncounterName].LoseState.Value);
+						break;
+					case "Inventory":
+
+						break;
+					case "Travel":
+						GameManager.instance.OpenTravel(GameManager.instance.EncounterList[CombatManager.instance.EncounterName].LoseState.Value);
+						break;
+					case "Dialogue":
+						GameManager.instance.OpenDialogue(GameManager.instance.EncounterList[CombatManager.instance.EncounterName].LoseState.Value);
+						break;
+				}
 			}
 		}
 	}

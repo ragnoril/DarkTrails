@@ -1,0 +1,83 @@
+title: StartGame
+tags: 
+colorID: 0
+position: 270,227
+---
+Yeni oyuna başladın.
+
+[[Devam|ContinueToGame]]
+===
+title: ContinueToGame
+tags: 
+colorID: 0
+position: 540,244
+---
+Hadi yürü.
+
+<<open_travel worldmap>>
+===
+title: CityA_Entrance
+tags: 
+colorID: 0
+position: 792,86
+---
+A şehrine geldin.
+
+[[Etrafta gezin.|CityA_Walkaround]]
+[[Bi kavgaya gir.|CityA_Fight]]
+[[Şehirden ayrıl.|CityA_Exit]]
+===
+title: CityA_Walkaround
+tags: 
+colorID: 0
+position: 779,-209
+---
+Döndün dolaştın şehirde.
+
+[[Tamam.|CityA_Entrance]]
+===
+title: CityA_Fight
+tags: 
+colorID: 0
+position: 1050,-212
+---
+Kendine bi kavga aradın ve buldun.
+
+<<open_combat citya_fight>>
+===
+title: CityA_Exit
+tags: 
+colorID: 0
+position: 1056,84
+---
+Şehirden ayrıldın.
+
+<<open_travel worldmap>>
+===
+title: CityB_Entrance
+tags: 
+colorID: 0
+position: 800,452
+---
+B şehrine geldin.
+
+[[Yeteneklerini dene.|CityB_Skill]]
+[[Şehirden ayrıl.|CityB_Exit]]
+===
+title: CityB_Exit
+tags: 
+colorID: 0
+position: 1057,458
+---
+B şehrinden ayrıldın.
+
+<<open_travel worldmap>>
+===
+title: CityB_Skill
+tags: 
+colorID: 0
+position: 797,697
+---
+Yetenek deneme testi burada.
+
+===

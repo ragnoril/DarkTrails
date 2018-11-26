@@ -149,10 +149,13 @@ namespace DarkTrails.Combat
 		// Use this for initialization
 		void Start()
 		{
-			curActionPoints = maxActionPoints;
-			curHitPoints = maxHitPoints;
+            //curActionPoints = maxActionPoints;
+            //curHitPoints = maxHitPoints;
 
-			doneMoving = true;
+            curActionPoints = 10;
+            curHitPoints = 10;
+
+            doneMoving = true;
 			aiDoneMoving = false;
 			isTurnEnded = false;
 		}
@@ -412,7 +415,7 @@ namespace DarkTrails.Combat
 		{
 			int i = movesLeft - 1;
 
-			Vector3 targetPos = new Vector3(path[i].x - CombatManager.instance.mapManager.halfMapWidth, 0f, path[i].y - CombatManager.instance.mapManager.halfMapHeight);
+			Vector3 targetPos = new Vector3(path[i].x - CombatManager.instance.mapManager.halfMapWidth, path[i].y - CombatManager.instance.mapManager.halfMapHeight, 0f);
 
 			if (doneMoving == false)
 			{
@@ -424,7 +427,7 @@ namespace DarkTrails.Combat
 				Vector3 newPos = Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime * moveSpeed);
 				transform.position = newPos;
 
-				transform.LookAt(targetPos);
+				//transform.LookAt(targetPos);
 				if ((transform.position - targetPos).sqrMagnitude < float.Epsilon)
 				{
 					i -= 1;
@@ -440,7 +443,7 @@ namespace DarkTrails.Combat
 						doneMoving = true;
 
 						Vector3 tilePos = transform.position;
-						tilePos.y = 0.015f;
+						//tilePos.y = 0.015f;
 						CombatManager.instance.agentTile.transform.position = tilePos;
 						this.x = path[0].x;
 						this.y = path[0].y;
@@ -449,7 +452,7 @@ namespace DarkTrails.Combat
 					}
 					else
 					{
-						targetPos = new Vector3(path[i].x - CombatManager.instance.mapManager.halfMapWidth, 0f, path[i].y - CombatManager.instance.mapManager.halfMapHeight);
+						targetPos = new Vector3(path[i].x - CombatManager.instance.mapManager.halfMapWidth, path[i].y - CombatManager.instance.mapManager.halfMapHeight, 0f);
 					}
 				}
 				yield return null;

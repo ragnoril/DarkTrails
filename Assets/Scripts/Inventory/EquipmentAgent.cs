@@ -1,19 +1,30 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class EquipmentAgent : MonoBehaviour
+namespace DarkTrails.Inventory
 {
-
-	// Use this for initialization
-	void Start()
+	public class EquipmentAgent : MonoBehaviour
 	{
+		public ItemType FilterType;
+		public Text NameText;
+		public Item ItemData;
 
-	}
+		// Use this for initialization
+		void Start()
+		{
+		}
 
-	// Update is called once per frame
-	void Update()
-	{
+		// Update is called once per frame
+		void Update()
+		{
 
+		}
+
+		public void UpdateItemData()
+		{
+			NameText.text = ItemData.ItemName;
+		}
 	}
 }

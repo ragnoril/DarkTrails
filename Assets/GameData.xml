@@ -1,6 +1,7 @@
-<Game>
-	<Items filename="ItemList.xml" />
-	<Characters filename="CharacterList.xml" />
-	<Encounters filename="EncounterList.xml" />
-	<Dialogue filename="tales_dark_trails.yarn.txt" startNode="Start" />
+<Game startModule="Dialogue" startValue="StartGame">
+	<Module type="Inventory" filename="ItemList.xml" />
+	<Module type="Character" filename="CharacterList.xml" />
+	<Module type="Travel" filename="MapList.xml" />
+	<Module type="Combat" filename="EncounterList.xml" />
+	<Module type="Dialogue" filename="test.yarn.txt" startNode="StartGame" />
 </Game>

@@ -3,31 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TravelConfirmUI : MonoBehaviour
+namespace DarkTrails.Travel
 {
-	public Text TitleText;
-	
-	// Use this for initialization
-	void Start()
+	public class TravelConfirmUI : MonoBehaviour
 	{
+		public Text TitleText;
 
-	}
+		// Use this for initialization
+		void Start()
+		{
 
-	// Update is called once per frame
-	void Update()
-	{
+		}
 
-	}
+		// Update is called once per frame
+		void Update()
+		{
 
-	public void ConfirmTravel()
-	{
-		TravelManager.instance.SendPartyTraveling();
-		this.gameObject.SetActive(false);
-	}
+		}
 
-	public void CancelTravel()
-	{
-		TravelManager.instance.ResetTraveling();
-		this.gameObject.SetActive(false);
+		public void ConfirmTravel()
+		{
+			TravelManager.instance.SendPartyTraveling();
+			this.gameObject.SetActive(false);
+		}
+
+		public void CancelTravel()
+		{
+			TravelManager.instance.ResetTraveling();
+			this.gameObject.SetActive(false);
+		}
 	}
 }

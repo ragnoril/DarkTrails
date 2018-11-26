@@ -21,7 +21,7 @@ namespace DarkTrails.Combat
 		public bool showMapGizmos;
 
 		// Use this for initialization
-		void Start()
+		public void StartMap()
 		{
 			/*
 			mapWidth = 18;
@@ -36,8 +36,8 @@ namespace DarkTrails.Combat
 
 			AddBlocksToMap(-1);
 
-			RenderMap();
-			CombatManager.instance.StartTheGame();
+			RenderMap2D();
+			////CombatManager.instance.StartTheGame();
 		}
 
 		void AddBlocksToMap(int blockCount)
@@ -82,11 +82,35 @@ namespace DarkTrails.Combat
 
 		}
 
-		void OnDrawGizmos()
-		{
+        void RenderMap2D()
+        {
+            for (int i = 0; i < mapWidth; i++)
+            {
+                for (int j = 0; j < mapHeight; j++)
+                {
+                    if (Grids[i + (j * mapWidth)] == 0)
+                    {
+                        /*
+						GameObject go = GameObject.Instantiate(gridObject, new Vector3(i - (float)halfMapWidth, 0.01f, j - (float)halfMapHeight), Quaternion.Euler(90f, 0f, 0f)) as GameObject;
+						go.transform.parent = transform;
+						*/
+                    }
+                    else if (Grids[i + (j * mapWidth)] == -1)
+                    {
+                        GameObject go = GameObject.Instantiate(blockObject, new Vector3(i - (float)halfMapWidth, j - (float)halfMapHeight, 0f), Quaternion.Euler(0f, 0f, 0f)) as GameObject;
+                        go.transform.parent = transform;
+                    }
+                }
+            }
 
-			// unfortunately tilemap is empty when this function is working so every tile is green.
-			if (showMapGizmos)
+        }
+
+        void OnDrawGizmos()
+		{
+            OnDrawGizmos2D();
+            /*
+            // unfortunately tilemap is empty when this function is working so every tile is green.
+            if (showMapGizmos)
 			{
 				float halfWidth = mapWidth / 2;
 				float halfHeight = mapHeight / 2;
@@ -95,24 +119,49 @@ namespace DarkTrails.Combat
 				{
 					for (int j = 0; j < mapHeight; j++)
 					{
-
 						Vector3 start = new Vector3(i - halfWidth - 0.5f, 0.01f, j - halfHeight - 0.5f);
 
 						Gizmos.DrawLine(start, start + new Vector3(1f, 0f, 0f));
 						Gizmos.DrawLine(start, start + new Vector3(0f, 0f, 1f));
 						Gizmos.DrawLine(start + new Vector3(1f, 0f, 0f), start + new Vector3(1f, 0f, 1f));
 						Gizmos.DrawLine(start + new Vector3(0f, 0f, 1f), start + new Vector3(1f, 0f, 1f));
-
-					}
+                    }
 				}
 			}
-
+            */
 		}
 
-		// Update is called once per frame
-		void Update()
-		{
+        void OnDrawGizmos2D()
+        {
 
+            // unfortunately tilemap is empty when this function is working so every tile is green.
+            if (showMapGizmos)
+            {
+                float halfWidth = mapWidth / 2;
+                float halfHeight = mapHeight / 2;
+                Gizmos.color = Color.green;
+                for (int i = 0; i < mapWidth; i++)
+                {
+                    for (int j = 0; j < mapHeight; j++)
+                    {
+
+                        Vector3 start = new Vector3(i - halfWidth - 0.5f, j - halfHeight - 0.5f, 0f);
+
+                        Gizmos.DrawLine(start, start + new Vector3(1f, 0f, 0f));
+                        Gizmos.DrawLine(start, start + new Vector3(0f, 1f, 0f));
+                        Gizmos.DrawLine(start + new Vector3(1f, 0f, 0f), start + new Vector3(1f, 1f, 0f));
+                        Gizmos.DrawLine(start + new Vector3(0f, 1f, 0f), start + new Vector3(1f, 1f, 0f));
+
+                    }
+                }
+            }
+
+        }
+
+        // Update is called once per frame
+        void Update()
+		{
+            
 		}
 	}
 }

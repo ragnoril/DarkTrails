@@ -1,15 +1,21 @@
 <Encounters>
-	<Encounter name="CaravanAttack">
+	<Encounter name="citya_fight">
+		<WinState moduleName="Travel" value="worldmap"/>
+		<LoseState moduleName="Travel" value="worldmap"/>
 		<Character id="0" />
 		<Character id="0" />
 		<Character id="1" />
 	</Encounter>
 	<Encounter name="CombatAtCaveOutside">
+		<WinState moduleName="Travel" value="worldmap"/>
+		<LoseState moduleName="Travel" value="worldmap"/>
 		<Character id="0" />
 		<Character id="0" />
 		<Character id="1" />
 	</Encounter>
 	<Encounter name="WatchmenOnPathAttack">
+		<WinState moduleName="Travel" value="worldmap"/>
+		<LoseState moduleName="Travel" value="worldmap"/>
 		<Character id="0" />
 		<Character id="0" />
 		<Character id="1" />

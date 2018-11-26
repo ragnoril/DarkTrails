@@ -26,15 +26,24 @@ namespace DarkTrails.Combat
 			//Renderer.material.color = color;
 			titleText.color = color;
 			titleText.text = titleName;
-
-			Animator = GetComponent<Animator>();
-		}
+            SetZOrder();
+            //Animator = GetComponent<Animator>();
+        }
 
 		// Update is called once per frame
 		void Update()
 		{
-
+            
 		}
+
+        public void SetZOrder()
+        {
+            var agent = GetComponent<Agent>();
+            var sprite = GetComponentInChildren<SpriteRenderer>();
+            var canvas = GetComponentInChildren<Canvas>();
+            sprite.sortingOrder = CombatManager.instance.mapManager.mapHeight - agent.y;
+            canvas.sortingOrder = CombatManager.instance.mapManager.mapHeight - agent.y;
+        }
 
 		public void SetItems(int weapon, int shield)
 		{
@@ -63,37 +72,40 @@ namespace DarkTrails.Combat
 
 		public void Attack()
 		{
+            /*
 			if (SwordObject.activeSelf)
 				Animator.SetTrigger("Atack_0");
 			else if (SpearObject.activeSelf)
 				Animator.SetTrigger("Atack_1");
 			else
 				Animator.SetTrigger("Atack_2");
+                */
 		}
 
 		public void Dodge()
 		{
-			Animator.SetTrigger("Gd");
+			//Animator.SetTrigger("Gd");
 		}
 
 		public void GotHit()
 		{
-			Animator.SetTrigger("Gd_1");
+			//Animator.SetTrigger("Gd_1");
 		}
 
 		public void Die()
 		{
-			Animator.SetTrigger("Die");
+			//Animator.SetTrigger("Die");
 		}
 
 		public void Run()
 		{
-			Animator.SetTrigger("Run");
+            //Animator.SetTrigger("Run");
+            SetZOrder();
 		}
 
 		public void Idle()
 		{
-			Animator.SetTrigger("Idle");
+			//Animator.SetTrigger("Idle");
 		}
 	}
 }

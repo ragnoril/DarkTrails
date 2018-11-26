@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -24,7 +23,6 @@ namespace DarkTrails
 
 				return _instance;
 			}
-
 		}
 
 		void Awake()
@@ -43,16 +41,19 @@ namespace DarkTrails
 
 		public List<CharacterData> CharacterList = new List<CharacterData>();
 		public List<Item> ItemList = new List<Item>();
-		public Dictionary<string, int[]> EncounterList = new Dictionary<string, int[]>();
-		public string DialogueFile = "";
-		public string DialogueStartNode = "Start";
+		public Dictionary<string, Combat.EncounterData> EncounterList = new Dictionary<string, Combat.EncounterData>();
+		public Dictionary<string, string> MapList = new Dictionary<string, string>();
+
 		public int PlayerCharacterId;
-		public List<int> PlayerParty;
+		public List<int> PlayerParty = new List<int>();
+
+		public GameObject[] ModulePrefabs;
+		public List<BaseModule> GameModules;
+		public BaseModule CurrentGameModule;
 
 		// Use this for initialization
 		void Start()
 		{
-			PlayerParty = new List<int>();
 			LoadGameData();
 			//SceneManager.LoadScene("CharGen");
 		}
@@ -64,118 +65,119 @@ namespace DarkTrails
 			doc.Load(filePath);
 
 			XmlNode root = doc.SelectSingleNode("Game");
-			XmlNode items = root.SelectSingleNode(".//Items");
-			string itemListFile = items.Attributes["filename"].Value;
-			LoadItemList(itemListFile);
+			XmlNodeList moduleList = root.SelectNodes(".//Module");
 
-			XmlNode characters = root.SelectSingleNode(".//Characters");
-			string charListFile = characters.Attributes["filename"].Value;
-			LoadCharacterList(charListFile);
+			string startModule = root.Attributes["startModule"].Value;
+			string startValue = root.Attributes["startValue"].Value;
 
-			XmlNode encounters = root.SelectSingleNode(".//Encounters");
-			string encountersFile = encounters.Attributes["filename"].Value;
-			LoadEncounters(encountersFile);
-
-			XmlNode dialogue = root.SelectSingleNode(".//Dialogue");
-			string dialogueFile = dialogue.Attributes["filename"].Value;
-			string dialogueStart = dialogue.Attributes["startNode"].Value;
-			LoadDialogue(dialogueFile, dialogueStart);
-			
-		}
-
-		public void LoadEncounters(string filename)
-		{
-			string filePath = Application.dataPath + "/" + filename;
-
-			XmlDocument doc = new XmlDocument();
-			doc.Load(filePath);
-
-			XmlNode root = doc.SelectSingleNode("Encounters");
-			XmlNodeList encounterList = root.SelectNodes(".//Encounter");
-
-			foreach (XmlNode enc in encounterList)
+			foreach (XmlNode module in moduleList)
 			{
-				string encounterName = enc.Attributes["name"].Value;
-				XmlNodeList chrList = enc.SelectNodes(".//Character");
-				int[] encounterChrList = new int[chrList.Count];
-				for (int i = 0; i < chrList.Count; i++)
+				string moduleType = module.Attributes["type"].Value;
+				string modulefile = module.Attributes["filename"].Value;
+				
+				if (moduleType == "Combat")
 				{
-					XmlNode chr = chrList.Item(i);
-					int chrid = int.Parse(chr.Attributes["id"].Value);
-					encounterChrList[i] = chrid;
+					GameObject prefab = null;
+					foreach(var modulePrefab in ModulePrefabs)
+					{
+						if (modulePrefab.GetComponent<Combat.CombatManager>() != null)
+						{
+							prefab = modulePrefab;
+							break;
+						}
+					}
+
+					var go = GameObject.Instantiate(prefab);
+					go.transform.SetParent(this.transform);
+					Combat.CombatManager combat = go.GetComponent<Combat.CombatManager>();
+					combat.Initialize(modulefile);
+					GameModules.Add(combat);
+					combat.Pause();
+					go.SetActive(false);
 				}
-				EncounterList.Add(encounterName, encounterChrList);
+				else if (moduleType == "Dialogue")
+				{
+					GameObject prefab = null;
+					foreach (var modulePrefab in ModulePrefabs)
+					{
+						if (modulePrefab.GetComponent<Dialogue.DialogueManager>() != null)
+						{
+							prefab = modulePrefab;
+							break;
+						}
+					}
+
+					var go = GameObject.Instantiate(prefab);
+					go.transform.SetParent(this.transform);
+					Dialogue.DialogueManager dialog = go.GetComponent<Dialogue.DialogueManager>();
+					dialog.Initialize(modulefile);
+					GameModules.Add(dialog);
+					dialog.Pause();
+					go.SetActive(false);
+				}
+				else if (moduleType == "Inventory")
+				{
+					GameObject prefab = null;
+					foreach (var modulePrefab in ModulePrefabs)
+					{
+						if (modulePrefab.GetComponent<Inventory.InventoryManager>() != null)
+						{
+							prefab = modulePrefab;
+							break;
+						}
+					}
+
+					var go = GameObject.Instantiate(prefab);
+					go.transform.SetParent(this.transform);
+					Inventory.InventoryManager inventory = go.GetComponent<Inventory.InventoryManager>();
+					inventory.Initialize(modulefile);
+					GameModules.Add(inventory);
+					inventory.Pause();
+					go.SetActive(false);
+				}
+				else if (moduleType == "Character")
+				{
+					LoadCharacterList(modulefile);
+				}
+				else if (moduleType == "Travel")
+				{
+					GameObject prefab = null;
+					foreach (var modulePrefab in ModulePrefabs)
+					{
+						if (modulePrefab.GetComponent<Travel.TravelManager>() != null)
+						{
+							prefab = modulePrefab;
+							break;
+						}
+					}
+
+					var go = GameObject.Instantiate(prefab);
+					go.transform.SetParent(this.transform);
+					Travel.TravelManager travel = go.GetComponent<Travel.TravelManager>();
+					travel.Initialize(modulefile);
+					GameModules.Add(travel);
+					travel.Pause();
+					go.SetActive(false);
+				}
+			}
+
+			switch(startModule)
+			{
+				case "Combat":
+					OpenCombat(startValue);
+					break;
+				case "Travel":
+					OpenTravel(startValue);
+					break;
+				case "Inventory":
+					break;
+				case "Dialogue":
+					OpenDialogue(startValue);
+					break;
 			}
 		}
 
-		public void LoadDialogue(string filename, string start)
-		{
-			DialogueFile = filename;
-			DialogueStartNode = start;
-		}
-
-		public void LoadItemList(string filename)
-		{
-			string filePath = Application.dataPath + "/" + filename;
-
-			XmlDocument doc = new XmlDocument();
-			doc.Load(filePath);
-
-			XmlNode root = doc.SelectSingleNode("ItemList");
-			XmlNodeList itemList = root.SelectNodes(".//Item");
-
-			foreach (XmlNode itm in itemList)
-			{
-				Item item = new Item();
-				string itemtype = itm.Attributes["Type"].Value;
-				if (itemtype == "Weapon")
-				{
-					item = new Weapon();
-					((Weapon)item).ItemName = itm.Attributes["Name"].Value;
-					((Weapon)item).PriceValue = int.Parse(itm.Attributes["PriceValue"].Value);
-					((Weapon)item).MinDamage = int.Parse(itm.Attributes["MinDamage"].Value);
-					((Weapon)item).MaxDamage = int.Parse(itm.Attributes["MaxDamage"].Value);
-					((Weapon)item).WeaponReach = int.Parse(itm.Attributes["WeaponReach"].Value);
-					((Weapon)item).WeaponRange = int.Parse(itm.Attributes["WeaponRange"].Value);
-					((Weapon)item).WeaponType = int.Parse(itm.Attributes["WeaponType"].Value);
-					int twoHanded = int.Parse(itm.Attributes["TwoHanded"].Value);
-					if (twoHanded == 0)
-					{
-						((Weapon)item).IsTwoHanded = false;
-					}
-					else
-					{
-						((Weapon)item).IsTwoHanded = true;
-					}
-					((Weapon)item).ItemType = ItemType.Weapon;
-				}
-				else if (itemtype == "Armor")
-				{
-					item = new Armor();
-					((Armor)item).ItemName = itm.Attributes["Name"].Value;
-					((Armor)item).PriceValue = int.Parse(itm.Attributes["PriceValue"].Value);
-					((Armor)item).ArmorValue = int.Parse(itm.Attributes["DamageResistance"].Value);
-					((Armor)item).ArmorIndex = int.Parse(itm.Attributes["ArmorIndex"].Value);
-					((Armor)item).ItemType = ItemType.Armor;
-				}
-				else if (itemtype == "Shield")
-				{
-					item = new Shield();
-					((Shield)item).ItemName = itm.Attributes["Name"].Value;
-					((Shield)item).PriceValue = int.Parse(itm.Attributes["PriceValue"].Value);
-					((Shield)item).ArmorValue = int.Parse(itm.Attributes["DamageResistance"].Value);
-					((Shield)item).ArmorIndex = int.Parse(itm.Attributes["ArmorIndex"].Value);
-					((Shield)item).ItemType = ItemType.Shield;
-				}
-				else
-				{
-					item.ItemName = "Unidentified Item";
-				}
-
-				ItemList.Add(item);
-
-			}
-		}
+		#region old stuff waiting to be removed
 
 		public void LoadCharacterList(string filename)
 		{
@@ -224,33 +226,59 @@ namespace DarkTrails
 						charData.Equipments[equipId] = ItemList[equipVal];
 					}
 				}
-
 				CharacterList.Add(charData);
+			}
 
+			//toDo: quick fix, needs a character generator module and a party management module
+			GameManager.instance.PlayerCharacterId = GameManager.instance.CharacterList.Count - 1;
+			GameManager.instance.PlayerParty.Add(GameManager.instance.PlayerCharacterId);
+		}
+		
+		#endregion
+		
+		public void ChangeModule(GAMEMODULES module)
+		{
+			foreach(var gameModule in GameModules)
+			{
+				if (gameModule.ModuleType == module)
+				{
+					if (CurrentGameModule != null)
+					{
+						CurrentGameModule.Pause();
+						CurrentGameModule.gameObject.SetActive(false);
+					}
+					gameModule.gameObject.SetActive(true);
+					gameModule.Resume();
+					CurrentGameModule = gameModule;
+				}
 			}
 		}
 
-		public void StartDialogue()
+		public void OpenCombat(string encounterName)
 		{
-			SceneManager.LoadScene("DialogScene");
+			ChangeModule(GAMEMODULES.Combat);
+			Combat.CombatManager.instance.EncounterName = encounterName;
+			Combat.CombatManager.instance.StartTheGame();
 		}
 
-		public string EncounterName;
-		public string WinDialogue;
-		public string LoseDialogue;
-
-		public void StartCombat(string encounterName, string winDialogue, string loseDialogue)
+		public void OpenDialogue(string dialogName)
 		{
-			EncounterName = encounterName;
-			WinDialogue = winDialogue;
-			LoseDialogue = loseDialogue;
-			SceneManager.LoadScene("CombatScene");
+			ChangeModule(GAMEMODULES.Dialogue);
+			Dialogue.DialogueManager.instance.DialogueStartNode = dialogName;
+			Dialogue.DialogueManager.instance.StartDialogue();
 		}
 
-		// Update is called once per frame
-		void Update()
+		public void OpenInventory(Inventory.InventoryMode mode)
 		{
-
+			ChangeModule(GAMEMODULES.Inventory);
+			Inventory.InventoryManager.instance.Mode = mode;
 		}
+
+		public void OpenTravel(string mapName)
+		{
+			ChangeModule(GAMEMODULES.Travel);
+			Travel.TravelManager.instance.LoadMap(mapName);
+		}
+
 	}
 }

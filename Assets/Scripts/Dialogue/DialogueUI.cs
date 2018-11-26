@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Yarn;
 
-namespace DarkTrails.Dialog
+namespace DarkTrails.Dialogue
 {
 
 	public class DialogueUI : Yarn.Unity.DialogueUIBehaviour
@@ -26,22 +26,37 @@ namespace DarkTrails.Dialog
 		{
 			// "Perform" the command
 			Debug.Log("Command: " + command.text);
+			string cmdName = command.text.Substring(0, command.text.IndexOf(" "));
+			string cmdValue = (command.text.Substring(command.text.IndexOf(" "))).TrimStart(' ');
+			//Debug.Log("name: " + cmdName);
+			//Debug.Log("val: " + cmdValue);
+
+			switch (cmdName)
+			{
+				case "open_travel":
+					DialogueManager.instance.OpenTravel(cmdValue);
+					break;
+				case "open_combat":
+					DialogueManager.instance.OpenCombat(cmdValue);
+					break;
+				case "open_inventory":
+					break;
+			}
 			yield break;
 		}
 
 		public override IEnumerator RunLine(Line line)
 		{
-			MainText.gameObject.SetActive(true);
-			MainText.text += line.text + "\n";
+            string str = CheckVars(line.text);
+
+            MainText.gameObject.SetActive(true);
+			MainText.text += str + "\n";
 
 			yield return new WaitForSeconds(0.01f);
 			while (Input.anyKeyDown == false)
 			{
 				yield return null;
 			}
-
-
-
 		}
 
 		void ClearOptionButtons()
@@ -80,7 +95,6 @@ namespace DarkTrails.Dialog
 			{
 				yield return null;
 			}
-
 		}
 
 		/// Called when the dialogue system has started running.
@@ -111,7 +125,6 @@ namespace DarkTrails.Dialog
 		/// Called by buttons to make a selection.
 		public void SetOption(int selectedOption)
 		{
-
 			// Call the delegate to tell the dialogue system that we've
 			// selected an option.
 			SetSelectedOption(selectedOption);
@@ -123,9 +136,8 @@ namespace DarkTrails.Dialog
 			ClearOptionButtons();
 		}
 
-		/*
-
-		string CheckVars(string input)
+        //For example, in my dialog I have "Hey there [$charName_1]", and in my "Handle other variables" section, I have:
+        string CheckVars(string input)
 		{
 			string output = string.Empty;
 			bool checkingVar = false;
@@ -161,8 +173,9 @@ namespace DarkTrails.Dialog
 
 		string ParseVariable(string varName)
 		{
-			//Check YarnSpinner's variable storage first
-			if (variableStorage.GetValue(varName) != Yarn.Value.NULL)
+            var variableStorage = this.GetComponent<DialogueVariableManager>();
+            //Check YarnSpinner's variable storage first
+            if (variableStorage.GetValue(varName) != Yarn.Value.NULL)
 			{
 				return variableStorage.GetValue(varName).AsString;
 			}
@@ -176,23 +189,26 @@ namespace DarkTrails.Dialog
 			//If no variables are found, return the variable name
 			return varName;
 		}
-		*/
 
 		void Start()
 		{
-			StartDialogue(GameManager.instance.DialogueStartNode);
+			//StartDialogue(GameManager.instance.DialogueStartNode);
 		}
 
 		// Use this for initialization
-		public void StartDialogue(string startNode)
+		public void StartDialogue(string dialogueFile, string startNode)
 		{
 			//GameManager.instance;
-			string filePath = Application.dataPath + "/" + GameManager.instance.DialogueFile;
+			string filePath = Application.dataPath + "/" + dialogueFile;
 			var runner = GetComponent<Yarn.Unity.DialogueRunner>();
+			runner.StopAllCoroutines();
+			runner.Stop();
+			runner.Clear();
+			runner.startNode = startNode;
 			string text = System.IO.File.ReadAllText(filePath);
 			runner.AddScript(text);
-			runner.startNode = startNode;
-			runner.StartDialogue();
+			
+			runner.StartDialogue(startNode);
 		}
 
 		// Update is called once per frame
