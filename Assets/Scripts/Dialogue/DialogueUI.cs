@@ -19,8 +19,11 @@ namespace DarkTrails.Dialogue
 		public GameObject OptionPrefab;
 		public Transform OptionsParent;
 
-		/// A UI element that appears after lines have finished appearing
-		public GameObject ContinuePrompt;
+        public GameObject ImagePanel;
+        public Image ImageObject;
+
+        /// A UI element that appears after lines have finished appearing
+        public GameObject ContinuePrompt;
 
 		public override IEnumerator RunCommand(Command command)
 		{
@@ -41,7 +44,16 @@ namespace DarkTrails.Dialogue
 					break;
 				case "open_inventory":
 					break;
-			}
+                case "roll_dice":
+                    DialogueManager.instance.RollDice(int.Parse(cmdValue));
+                    break;
+                case "set_dialog_image":
+                    DialogueManager.instance.SetDialougeImage(cmdValue);
+                    break;
+                case "close_dialog_image":
+                    DialogueManager.instance.CloseDialougeImage();
+                    break;
+            }
 			yield break;
 		}
 
@@ -50,7 +62,9 @@ namespace DarkTrails.Dialogue
             string str = CheckVars(line.text);
 
             MainText.gameObject.SetActive(true);
-			MainText.text += str + "\n";
+            MainText.text = MainText.text.Replace("<color=white>", "");
+            MainText.text = MainText.text.Replace("</color>", "");
+            MainText.text += "<color=white>" + str + "</color>" + "\n";
 
 			yield return new WaitForSeconds(0.01f);
 			while (Input.anyKeyDown == false)

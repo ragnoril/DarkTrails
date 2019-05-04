@@ -18,7 +18,7 @@ namespace DarkTrails
 				if (_instance == null)
 				{
 					_instance = GameObject.FindObjectOfType<GameManager>();
-					DontDestroyOnLoad(_instance.gameObject);
+					//DontDestroyOnLoad(_instance.gameObject);
 				}
 
 				return _instance;
@@ -30,7 +30,7 @@ namespace DarkTrails
 			if (_instance == null)
 			{
 				_instance = this;
-				DontDestroyOnLoad(this);
+				//DontDestroyOnLoad(this);
 			}
 			else
 			{
@@ -279,6 +279,11 @@ namespace DarkTrails
 			ChangeModule(GAMEMODULES.Travel);
 			Travel.TravelManager.instance.LoadMap(mapName);
 		}
+
+        public void ReturnToMainMenu()
+        {
+            SceneManager.LoadScene("MenuScene");
+        }
 
 	}
 }

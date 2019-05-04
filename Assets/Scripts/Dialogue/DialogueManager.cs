@@ -42,6 +42,7 @@ namespace DarkTrails.Dialogue
 		}
 
 		public DialogueUI DialogueUI;
+        public DialogueVariableManager VariableManager;
 		public string DialogueFile = "";
 		public string DialogueStartNode = "";
 
@@ -62,6 +63,7 @@ namespace DarkTrails.Dialogue
 			DialogueFile = filename;
 			//DialogueStartNode = "start";
 			DialogueUI = GameObject.FindObjectOfType<DialogueUI>();
+            VariableManager = DialogueUI.GetComponent<DialogueVariableManager>();
 		}
 
 		public override void Pause()
@@ -88,10 +90,17 @@ namespace DarkTrails.Dialogue
 		[YarnCommand("set_dialog_image")]
 		public void SetDialougeImage(string imageName)
 		{
-			Debug.Log("dialog_image_command: " + imageName);
-		}
+            DialogueUI.ImagePanel.SetActive(true);
+            DialogueUI.ImageObject.sprite = (Sprite)Resources.Load(imageName, typeof(Sprite));
+        }
 
-		[YarnCommand("open_combat")]
+        [YarnCommand("close_dialog_image")]
+        public void CloseDialougeImage()
+        {
+            DialogueUI.ImagePanel.SetActive(false);
+        }
+
+        [YarnCommand("open_combat")]
 		public void OpenCombat(string encounterName)
 		{
 			Debug.Log("open_combat_command: " + encounterName);
@@ -106,5 +115,12 @@ namespace DarkTrails.Dialogue
 			GameManager.instance.OpenTravel(mapName);
 		}
 
-	}
+        [YarnCommand("roll_dice")]
+        public void RollDice(int maxRnd)
+        {
+            int roll = UnityEngine.Random.Range(0, maxRnd);
+            VariableManager.SetValue("$roll_result", new Yarn.Value(roll));
+        }
+
+    }
 }
