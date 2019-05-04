@@ -98,10 +98,17 @@
     <Compile Include="Assets\Scripts\Travel\TravelNodeActionUI.cs" />
     <Compile Include="Assets\Scripts\Travel\TravelNodeAgent.cs" />
     <Compile Include="Assets\Scripts\Travel\TravelPartyAgent.cs" />
+    <Compile Include="Assets\Temp\Mummy\C#\Axe.cs" />
+    <Compile Include="Assets\Temp\Mummy\C#\BaseAnimController.cs" />
+    <Compile Include="Assets\Temp\Mummy\C#\CameraController.cs" />
+    <Compile Include="Assets\Temp\Mummy\C#\MainController.cs" />
+    <Compile Include="Assets\Temp\Mummy\C#\Spear.cs" />
+    <Compile Include="Assets\Temp\Mummy\C#\Spear_Shield.cs" />
+    <Compile Include="Assets\Temp\Mummy\C#\Sword_Shield.cs" />
+    <Compile Include="Assets\Temp\Mummy\C#\Weaponless.cs" />
     <None Include="Assets\CharacterList.xml" />
     <None Include="Assets\CharacterList_636177915276205272.xml" />
     <None Include="Assets\ItemList.xml" />
-    <None Include="Assets\GameData_darktrails.xml" />
     <None Include="Assets\EncounterList.xml" />
     <None Include="Assets\tales_dark_trails.yarn.txt" />
     <None Include="Assets\test.yarn.txt" />
@@ -109,6 +116,8 @@
     <None Include="Assets\darktrails_map.xml" />
     <None Include="Assets\MapList.xml" />
     <None Include="Assets\zannanza.yarn.txt" />
+    <None Include="Assets\Temp\Mummy\Materials\myStandart.shader" />
+    <None Include="Assets\GameData_textadv.xml" />
     <None Include="Assets\GameData.xml" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>D:/darktrails/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
