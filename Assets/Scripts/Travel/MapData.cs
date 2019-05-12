@@ -14,6 +14,7 @@ namespace DarkTrails.Travel
 		public int GridWidth, GridHeight;
 		public int GridSize;
 		public int MapWidth, MapHeight;
+        public float PlayerX, PlayerY;
 		public List<int> MapGrid = new List<int>();
 		public List<TravelNodeAgent> Nodes = new List<TravelNodeAgent>();
 
@@ -29,7 +30,11 @@ namespace DarkTrails.Travel
 			MapHeight = int.Parse(mapInfo.Attributes["mapHeight"].Value);
 			float halfWidth = MapWidth / 2;
 			float halfHeight = MapHeight / 2;
-			MapBackgroundImage = (Sprite)Resources.Load(mapInfo.Attributes["mapImage"].Value, typeof(Sprite));
+
+            PlayerX = (float.Parse(mapInfo.Attributes["playerX"].Value) - halfWidth) / -100f;
+            PlayerY = (float.Parse(mapInfo.Attributes["playerY"].Value) - halfHeight) / -100f;
+
+            MapBackgroundImage = (Sprite)Resources.Load(mapInfo.Attributes["mapImage"].Value, typeof(Sprite));
 			MapBackgroundObject.sprite = MapBackgroundImage;
 
 			XmlNode mapGrid = root.SelectSingleNode("Grid");
@@ -51,15 +56,47 @@ namespace DarkTrails.Travel
 				nodeAgent.Action = (ActionType)Enum.Parse(typeof(ActionType), node.Attributes["actionType"].Value);
 				nodeAgent.ActionValue = node.Attributes["actionValue"].Value;
 				nodeAgent.Name = node.Attributes["name"].Value;
+                //old formula
+                /*
 				nodeAgent.x = float.Parse(node.Attributes["x"].Value);
 				nodeAgent.y = float.Parse(node.Attributes["y"].Value);
-				nodeAgent.NodeIconSprite = (Sprite)Resources.Load(node.Attributes["iconName"].Value, typeof(Sprite));
+                */
+                //new formula
+                nodeAgent.x = (float.Parse(node.Attributes["x"].Value) - (MapWidth/2)) / 100f;
+                nodeAgent.y = (float.Parse(node.Attributes["y"].Value) - (MapHeight/2)) / -100f;
+                nodeAgent.NodeIconSprite = (Sprite)Resources.Load(node.Attributes["iconName"].Value, typeof(Sprite));
 				nodeAgent.UpdateNode();
 				go.transform.SetParent(this.transform);
-				Nodes.Add(nodeAgent);
+                if (node.Attributes["State"].Value == "0")
+                {
+                    nodeAgent.gameObject.SetActive(false);
+                }
+                Nodes.Add(nodeAgent);
 			}
-
 		}
 
-	}
+        public void SetNodeState(string nodeName, bool state)
+        {
+            int id = 0;
+            foreach(var node in Nodes)
+            {
+                if (node.Name == nodeName)
+                {
+                    break;
+                }
+                id++;
+            }
+
+            if (id < Nodes.Count)
+            {
+                Nodes[id].gameObject.SetActive(state);
+            }
+        }
+
+        public void SetNodeStateById(int id, bool state)
+        {
+            Nodes[id].gameObject.SetActive(state);
+        }
+
+    }
 }

@@ -61,7 +61,7 @@ namespace DarkTrails.Dialogue
 		public override void Initialize(string filename)
 		{
 			DialogueFile = filename;
-			//DialogueStartNode = "start";
+			DialogueStartNode = "Start";
 			DialogueUI = GameObject.FindObjectOfType<DialogueUI>();
             VariableManager = DialogueUI.GetComponent<DialogueVariableManager>();
 		}
@@ -74,7 +74,6 @@ namespace DarkTrails.Dialogue
 		public override void Resume()
 		{
 			base.Resume();
-			StartDialogue();
 		}
 
 		public override void Quit()
@@ -86,6 +85,11 @@ namespace DarkTrails.Dialogue
 		{
 			DialogueUI.StartDialogue(DialogueFile, DialogueStartNode);
 		}
+
+        public void ContinueDialogue()
+        {
+            DialogueUI.ContinueDialogue(DialogueStartNode);
+        }
 
 		[YarnCommand("set_dialog_image")]
 		public void SetDialougeImage(string imageName)
@@ -120,6 +124,32 @@ namespace DarkTrails.Dialogue
         {
             int roll = UnityEngine.Random.Range(0, maxRnd);
             VariableManager.SetValue("$roll_result", new Yarn.Value(roll));
+        }
+
+        [YarnCommand("enable_map_node")]
+        public void EnableMapNode(string mapName, string nodeName)
+        {
+            Travel.TravelManager.instance.TravelActionEnableNode(mapName, nodeName);
+        }
+
+        [YarnCommand("disable_map_node")]
+        public void DisableMapNode(string mapName, string nodeName)
+        {
+            Travel.TravelManager.instance.TravelActionDisableNode(mapName, nodeName);
+        }
+
+        [YarnCommand("enable_map_node_by_id")]
+        public void EnableMapNodeById(string mapName, int nodeId)
+        {
+            Debug.Log("enable_travel_node: " + nodeId.ToString());
+            Travel.TravelManager.instance.TravelActionEnableNodeById(mapName, nodeId);
+        }
+
+        [YarnCommand("disable_map_node_by_id")]
+        public void DisableMapNodeById(string mapName, int nodeId)
+        {
+            Debug.Log("disable_travel_node: " + nodeId.ToString());
+            Travel.TravelManager.instance.TravelActionDisableNodeById(mapName, nodeId);
         }
 
     }

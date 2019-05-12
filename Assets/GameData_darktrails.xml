@@ -1,0 +1,7 @@
+<Game startModule="Dialogue" startValue="StartGame">
+	<Module type="Inventory" filename="ItemList.xml" />
+	<Module type="Character" filename="CharacterList.xml" />
+	<Module type="Travel" filename="MapList.xml" />
+	<Module type="Combat" filename="EncounterList.xml" />
+	<Module type="Dialogue" filename="test.yarn.txt" startNode="StartGame" />
+</Game>

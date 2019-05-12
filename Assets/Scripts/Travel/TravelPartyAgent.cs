@@ -38,7 +38,9 @@ namespace DarkTrails.Travel
 					if (_positionCount == (_pathToMove.Count - 1))
 					{
 						IsMoving = false;
-					}
+                        var collide = GetComponent<BoxCollider2D>();
+                        collide.enabled = true;
+                    }
 					else
 					{
 						_positionCount += 1;
@@ -60,6 +62,8 @@ namespace DarkTrails.Travel
 		{
 			_positionCount = 0;
 			IsMoving = true;
+            var collide = GetComponent<BoxCollider2D>();
+            collide.enabled = false;
 		}
 	}
 }

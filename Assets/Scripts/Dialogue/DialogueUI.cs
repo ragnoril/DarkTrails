@@ -25,33 +25,60 @@ namespace DarkTrails.Dialogue
         /// A UI element that appears after lines have finished appearing
         public GameObject ContinuePrompt;
 
+        private bool _isStarted;
+
 		public override IEnumerator RunCommand(Command command)
 		{
+            //todo: make it CmdArgs[] not cmdValue
 			// "Perform" the command
 			Debug.Log("Command: " + command.text);
 			string cmdName = command.text.Substring(0, command.text.IndexOf(" "));
-			string cmdValue = (command.text.Substring(command.text.IndexOf(" "))).TrimStart(' ');
-			//Debug.Log("name: " + cmdName);
-			//Debug.Log("val: " + cmdValue);
-
-			switch (cmdName)
+			//string cmdValue = (command.text.Substring(command.text.IndexOf(" "))).TrimStart(' ');
+            string[] cmdArgs = (command.text.Substring(command.text.IndexOf(" "))).TrimStart(' ').Split(' ');
+            for(int i = 0; i < cmdArgs.Length; i++)
+            {
+                if (cmdArgs[i][0]=='$')
+                {
+                    string str = ParseVariable(cmdArgs[i]);
+                    cmdArgs[i] = str;
+                }
+            }
+            /*
+            foreach (var arg in cmdArgs)
+                Debug.Log(arg);
+            Debug.Log("name: " + cmdName);
+            Debug.Log("val: " + cmdValue);
+            */
+            switch (cmdName)
 			{
 				case "open_travel":
-					DialogueManager.instance.OpenTravel(cmdValue);
+					DialogueManager.instance.OpenTravel(cmdArgs[0]);
 					break;
 				case "open_combat":
-					DialogueManager.instance.OpenCombat(cmdValue);
+					DialogueManager.instance.OpenCombat(cmdArgs[0]);
 					break;
 				case "open_inventory":
 					break;
                 case "roll_dice":
-                    DialogueManager.instance.RollDice(int.Parse(cmdValue));
+                    DialogueManager.instance.RollDice(int.Parse(cmdArgs[0]));
                     break;
                 case "set_dialog_image":
-                    DialogueManager.instance.SetDialougeImage(cmdValue);
+                    DialogueManager.instance.SetDialougeImage(cmdArgs[0]);
                     break;
                 case "close_dialog_image":
                     DialogueManager.instance.CloseDialougeImage();
+                    break;
+                case "enable_map_node":
+                    DialogueManager.instance.EnableMapNode(cmdArgs[0], cmdArgs[1]);
+                    break;
+                case "disable_map_node":
+                    DialogueManager.instance.DisableMapNode(cmdArgs[0], cmdArgs[1]);
+                    break;
+                case "enable_map_node_by_id":
+                    DialogueManager.instance.EnableMapNodeById(cmdArgs[0], int.Parse(cmdArgs[1]));
+                    break;
+                case "disable_map_node_by_id":
+                    DialogueManager.instance.DisableMapNodeById(cmdArgs[0], int.Parse(cmdArgs[1]));
                     break;
             }
 			yield break;
@@ -206,12 +233,14 @@ namespace DarkTrails.Dialogue
 
 		void Start()
 		{
-			//StartDialogue(GameManager.instance.DialogueStartNode);
+            //StartDialogue(GameManager.instance.DialogueStartNode);
+            _isStarted = false;
 		}
 
 		// Use this for initialization
 		public void StartDialogue(string dialogueFile, string startNode)
 		{
+            _isStarted = true;
 			//GameManager.instance;
 			string filePath = Application.dataPath + "/" + dialogueFile;
 			var runner = GetComponent<Yarn.Unity.DialogueRunner>();
@@ -224,6 +253,20 @@ namespace DarkTrails.Dialogue
 			
 			runner.StartDialogue(startNode);
 		}
+
+        public void ContinueDialogue(string startNode)
+        {
+            if (_isStarted == false)
+            {
+                StartDialogue(DialogueManager.instance.DialogueFile, startNode);
+            }
+            else
+            {
+                var runner = GetComponent<Yarn.Unity.DialogueRunner>();
+                runner.startNode = startNode;
+                runner.StartDialogue(startNode);
+            }
+        }
 
 		// Update is called once per frame
 		void Update()

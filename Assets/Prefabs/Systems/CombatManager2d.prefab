@@ -698,8 +698,10 @@ MonoBehaviour:
   ModuleType: 0
   EncounterName: 
   agentPrefabs:
-  - {fileID: 1868960661950672, guid: 25478bc8249565d488db3b06cdfade57, type: 3}
   - {fileID: 1663589384254878, guid: 1acc62002043ec44482eee6e1d1bccb4, type: 3}
+  - {fileID: 7272910518222538810, guid: 5258ab4cf18425f43b58a96fcd52593f, type: 3}
+  - {fileID: 3082132215122271574, guid: 74ae01c0e9130174c9de1b08b1d1f572, type: 3}
+  - {fileID: 1868960661950672, guid: 25478bc8249565d488db3b06cdfade57, type: 3}
   agentTilePrefab: {fileID: 1138625105302876, guid: b68f6ab7e75f6ac498f8b85988b6d439,
     type: 3}
   moveTilePrefab: {fileID: 1521013244247460, guid: e65f3c28049a2ad41b5a1954beceb84f,

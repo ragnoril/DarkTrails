@@ -6,6 +6,14 @@ using UnityEngine;
 
 namespace DarkTrails.Travel
 {
+    public enum TRAVELMODES
+    {
+        GridBased = 0,
+        NodeBased,
+        PixelBased,
+        ModeCount
+    }
+
 	public class TravelManager : BaseModule
 	{
 		private static TravelManager _instance;
@@ -38,6 +46,7 @@ namespace DarkTrails.Travel
 			}
 		}
 
+        public TRAVELMODES TravelMode;
 		public MapData CurrentMap;
 		public AStar PathFinder;
 		private LineRenderer linePathway;
@@ -53,6 +62,7 @@ namespace DarkTrails.Travel
 		public TravelCamera TravelCam;
 
         private Dictionary<string, MapData> LoadedMaps;
+        public bool IsPaused;
 
 		private float _unitsToPixels = 100f;
 
@@ -70,7 +80,7 @@ namespace DarkTrails.Travel
 				GameObject go = GameObject.Instantiate(PartyPrefab, Vector3.zero, Quaternion.identity);
 				PlayerParty = go.GetComponent<TravelPartyAgent>();
 				go.transform.SetParent(this.transform);
-				go.transform.position = new Vector3(0, 0, 0f);
+				go.transform.position = new Vector3(CurrentMap.PlayerX, CurrentMap.PlayerY, 0f);
 			}
 		}
 
@@ -93,35 +103,55 @@ namespace DarkTrails.Travel
 		// Update is called once per frame
 		void Update()
 		{
-			if (Input.GetMouseButtonDown(0) && _isMapSelectable)
-			{
-				var pos = Camera.main.ScreenToWorldPoint(Input.mousePosition) * _unitsToPixels;
-				_targetTravelPosition = pos;
-				Debug.Log(pos);
+            switch(TravelMode)
+            {
+                case TRAVELMODES.GridBased:
+                    UpdateGridBasedTravel();
+                    break;
+                case TRAVELMODES.NodeBased:
+                    break;
+                case TRAVELMODES.PixelBased:
+                    break;
+                default:
+                    // for now lets keep it this way.
+                    UpdateGridBasedTravel();
+                    break;
+            }
 
-				int mX = (int)(pos.x + (CurrentMap.MapWidth / 2)) / CurrentMap.GridSize;
-				int mY = (int)(Mathf.Abs(pos.y - (CurrentMap.MapHeight / 2))) / CurrentMap.GridSize;
-
-				Vector3 playerPos = PlayerParty.transform.position * _unitsToPixels;
-
-				int pX = (int)(playerPos.x + (CurrentMap.MapWidth / 2)) / CurrentMap.GridSize;
-				int pY = (int)(Mathf.Abs(playerPos.y - (CurrentMap.MapHeight / 2))) / CurrentMap.GridSize;
-
-				ClearPathway();
-				PathFinder.SetStartNode(pX, pY);
-				PathFinder.SetGoalNode(mX, mY);
-				PathFinder.StartSearch(CreateUpdatedMap(-1, -1));
-				PathFinder.GetPath();
-				//int dist = pathFinder.GetGoalScore();
-
-				//if (dist <= selectedAgent.curActionPoints)
-				MakePathway();
-
-				TravelConfirmPanel.gameObject.SetActive(true);
-				TravelConfirmPanel.TitleText.text = "Traveling will cost " + PathFinder.GetGoalScore() + " points. Do you want to start traveling?";
-				_isMapSelectable = false;
-			}
+			
 		}
+
+        public void UpdateGridBasedTravel()
+        {
+            if (Input.GetMouseButtonDown(0) && _isMapSelectable)
+            {
+                var pos = Camera.main.ScreenToWorldPoint(Input.mousePosition) * _unitsToPixels;
+                _targetTravelPosition = pos;
+                Debug.Log(pos);
+
+                int mX = (int)(pos.x + (CurrentMap.MapWidth / 2)) / CurrentMap.GridSize;
+                int mY = (int)(Mathf.Abs(pos.y - (CurrentMap.MapHeight / 2))) / CurrentMap.GridSize;
+
+                Vector3 playerPos = PlayerParty.transform.position * _unitsToPixels;
+
+                int pX = (int)(playerPos.x + (CurrentMap.MapWidth / 2)) / CurrentMap.GridSize;
+                int pY = (int)(Mathf.Abs(playerPos.y - (CurrentMap.MapHeight / 2))) / CurrentMap.GridSize;
+
+                ClearPathway();
+                PathFinder.SetStartNode(pX, pY);
+                PathFinder.SetGoalNode(mX, mY);
+                PathFinder.StartSearch(CreateUpdatedMap(-1, -1));
+                PathFinder.GetPath();
+                //int dist = pathFinder.GetGoalScore();
+
+                //if (dist <= selectedAgent.curActionPoints)
+                MakePathway();
+
+                TravelConfirmPanel.gameObject.SetActive(true);
+                TravelConfirmPanel.TitleText.text = "Traveling will cost " + PathFinder.GetGoalScore() + " points. Do you want to start traveling?";
+                _isMapSelectable = false;
+            }
+        }
 
 		public void SendPartyTraveling()
 		{
@@ -133,13 +163,12 @@ namespace DarkTrails.Travel
 			{
 				int x = PathFinder.finalPath[i].x;
 				int y = PathFinder.finalPath[i].y;
-				float mapx = ((x * CurrentMap.GridSize) - (CurrentMap.MapWidth / 2f)) / 100f;
-				float mapy = ((CurrentMap.MapHeight / 2f) - (y * CurrentMap.GridSize)) / 100f;
+				float mapx = ((x * CurrentMap.GridSize) - (CurrentMap.MapWidth / 2f)) / _unitsToPixels;
+				float mapy = ((CurrentMap.MapHeight / 2f) - (y * CurrentMap.GridSize)) / _unitsToPixels;
 
 				Vector3 pos = new Vector3(mapx, mapy, 0f);
 				path.Add(pos);
 			}
-			_targetTravelPosition.z = 0f;
 			//path.Add(_targetTravelPosition);
 
 			PlayerParty.SetTargetPath(path);
@@ -172,7 +201,28 @@ namespace DarkTrails.Travel
 			GameManager.instance.OpenCombat(combatName);
 		}
 
-		void ClearPathway()
+        public void TravelActionEnableNode(string mapName, string nodeName)
+        {
+            LoadedMaps[mapName].SetNodeState(nodeName, true);
+        }
+
+        public void TravelActionDisableNode(string mapName, string nodeName)
+        {
+            LoadedMaps[mapName].SetNodeState(nodeName, false);
+        }
+
+        public void TravelActionEnableNodeById(string mapName, int id)
+        {
+            LoadedMaps[mapName].SetNodeStateById(id, true);
+        }
+
+        public void TravelActionDisableNodeById(string mapName, int id)
+        {
+            var map = LoadedMaps[mapName];
+            map.SetNodeStateById(id, false);
+        }
+
+        void ClearPathway()
 		{
 			linePathway.positionCount = 0;
 		}
@@ -182,20 +232,25 @@ namespace DarkTrails.Travel
 			//pathWay.Clear();
 
 			int lastPath = PathFinder.finalPath.Count - 1;
-			linePathway.positionCount = PathFinder.finalPath.Count - 1;
-			for (int i = lastPath; i > 0; i--)
+            linePathway.positionCount = PathFinder.finalPath.Count;
+            for (int i = lastPath; i > 0; i--)
 			{
 				int x = PathFinder.finalPath[i].x;
 				int y = PathFinder.finalPath[i].y;
-				float mapx = ((x * CurrentMap.GridSize) - (CurrentMap.MapWidth / 2f)) / 100f;
-				float mapy = ((CurrentMap.MapHeight / 2f) - (y * CurrentMap.GridSize)) / 100f;
+				float mapx = ((x * CurrentMap.GridSize) - (CurrentMap.MapWidth / 2f)) / _unitsToPixels;
+				float mapy = ((CurrentMap.MapHeight / 2f) - (y * CurrentMap.GridSize)) / _unitsToPixels;
 
 				Vector3 pos = new Vector3(mapx, mapy, -1f);
 				linePathway.SetPosition(lastPath - i, pos);
 			}
+            var lastPos = _targetTravelPosition / _unitsToPixels;
+            lastPos.z = -1f;
+            linePathway.SetPosition(lastPath, lastPos);
+            var firstPos = PlayerParty.transform.position;
+            firstPos.z = -1f;
+            linePathway.SetPosition(0, firstPos);
 
-			int dist = PathFinder.GetGoalScore();
-
+            int dist = PathFinder.GetGoalScore();
 		}
 
 		public override void Initialize(string filename)
@@ -266,11 +321,13 @@ namespace DarkTrails.Travel
 		public override void Pause()
 		{
 			base.Pause();
+            IsPaused = true;
 		}
 
 		public override void Resume()
 		{
 			base.Resume();
+            IsPaused = false;
 			if (TravelCam == null)
 				TravelCam = Camera.main.GetComponent<TravelCamera>();
 		}

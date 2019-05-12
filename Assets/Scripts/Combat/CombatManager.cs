@@ -209,7 +209,7 @@ namespace DarkTrails.Combat
                 int posX = 0;
                 int posY = (mapManager.mapHeight / 2) - (2 - teamPlayer.Count);
                 Vector3 pos = new Vector3(posX - mapManager.halfMapWidth, posY - mapManager.halfMapHeight, 0f);
-				GameObject go = GameObject.Instantiate(agentPrefabs[0], pos, Quaternion.identity) as GameObject;
+				GameObject go = GameObject.Instantiate(agentPrefabs[id], pos, Quaternion.identity) as GameObject;
 				go.transform.parent = transform;
 
 				Agent goAgent = go.GetComponent<Agent>();
@@ -218,7 +218,7 @@ namespace DarkTrails.Combat
 				goAgent.y = posY;
 				goAgent.teamId = 0;
 
-				go.name = "Player_" + GameManager.instance.CharacterList[id].Name;
+				go.name = /*"Player_" + */GameManager.instance.CharacterList[id].Name;
 
 				teamPlayer.Add(goAgent);
 
@@ -237,7 +237,7 @@ namespace DarkTrails.Combat
                 int posX = mapManager.mapWidth - 1;
                 int posY = (mapManager.mapHeight / 2) - (2 - teamEnemy.Count);
                 Vector3 pos = new Vector3(posX - mapManager.halfMapWidth, posY - mapManager.halfMapHeight, 0f);
-				GameObject go = GameObject.Instantiate(agentPrefabs[1], pos, Quaternion.Euler(0f, 0f, 0f)) as GameObject;
+				GameObject go = GameObject.Instantiate(agentPrefabs[id], pos, Quaternion.Euler(0f, 0f, 0f)) as GameObject;
 				go.transform.parent = transform;
 
 				Agent goAgent = go.GetComponent<Agent>();
@@ -246,7 +246,7 @@ namespace DarkTrails.Combat
 				goAgent.y = posY;
 				goAgent.teamId = 1;
 
-				go.name = "Enemy_" + GameManager.instance.CharacterList[id].Name;
+				go.name = /*"Enemy_" +*/ GameManager.instance.CharacterList[id].Name;
 
 				teamEnemy.Add(goAgent);
 

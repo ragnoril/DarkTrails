@@ -156,6 +156,7 @@ namespace DarkTrails
 					Travel.TravelManager travel = go.GetComponent<Travel.TravelManager>();
 					travel.Initialize(modulefile);
 					GameModules.Add(travel);
+                    travel.TravelMode = Travel.TRAVELMODES.GridBased;
 					travel.Pause();
 					go.SetActive(false);
 				}
@@ -229,10 +230,21 @@ namespace DarkTrails
 				CharacterList.Add(charData);
 			}
 
-			//toDo: quick fix, needs a character generator module and a party management module
-			GameManager.instance.PlayerCharacterId = GameManager.instance.CharacterList.Count - 1;
-			GameManager.instance.PlayerParty.Add(GameManager.instance.PlayerCharacterId);
+            //toDo: quick fix, needs a character generator module and a party management module
+            CreatePlayerParty();
 		}
+
+        //todo: quick fix here too. 
+        public void CreatePlayerParty()
+        {
+            GameManager.instance.PlayerCharacterId = GameManager.instance.CharacterList.Count - 1;
+            GameManager.instance.PlayerParty.Add(GameManager.instance.PlayerCharacterId);
+
+            GameManager.instance.PlayerParty.Add(1);
+            GameManager.instance.PlayerParty.Add(1);
+            GameManager.instance.PlayerParty.Add(1);
+
+        }
 		
 		#endregion
 		
@@ -246,7 +258,7 @@ namespace DarkTrails
 					{
 						CurrentGameModule.Pause();
 						CurrentGameModule.gameObject.SetActive(false);
-					}
+                    }
 					gameModule.gameObject.SetActive(true);
 					gameModule.Resume();
 					CurrentGameModule = gameModule;
@@ -265,7 +277,7 @@ namespace DarkTrails
 		{
 			ChangeModule(GAMEMODULES.Dialogue);
 			Dialogue.DialogueManager.instance.DialogueStartNode = dialogName;
-			Dialogue.DialogueManager.instance.StartDialogue();
+            Dialogue.DialogueManager.instance.ContinueDialogue();
 		}
 
 		public void OpenInventory(Inventory.InventoryMode mode)

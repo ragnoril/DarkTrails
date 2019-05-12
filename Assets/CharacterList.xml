@@ -1,5 +1,5 @@
 <CharacterList>
-	<Character name="Militia" level="1">
+	<Character name="Maruader" level="1">
 		<Stats>
 			<Stat id="0" name="Strength" value="6" />
 			<Stat id="1" name="Agility" value="7" />
@@ -29,39 +29,8 @@
 			<Equipment id="4" value="-1" />
 		</Equipments>
 	</Character>
-
-	<Character name="Skirmisher" level="2">
-		<Stats>
-			<Stat id="0" name="Strength" value="5" />
-			<Stat id="1" name="Agility" value="8" />
-			<Stat id="2" name="Endurance" value="6" />
-			<Stat id="3" name="Intelligence" value="5" />
-			<Stat id="4" name="Willpower" value="6" />
-		</Stats>
-		<Skills>
-			<Skill id="0" name="Melee" value="18" />
-			<Skill id="1" name="Ranged" value="49" />
-			<Skill id="2" name="Dodge" value="51" />
-			<Skill id="3" name="Shield" value="26" />
-			<Skill id="4" name="Mysticism" value="22" />
-			<Skill id="5" name="Crafting" value="20" />
-			<Skill id="6" name="Herbalism" value="15" />
-			<Skill id="7" name="Leadership" value="17" />
-			<Skill id="8" name="Trading" value="21" />
-			<Skill id="9" name="Healing" value="13" />
-			<Skill id="10" name="Persuasion" value="16" />
-			<Skill id="11" name="NatureLore" value="25" />
-		</Skills>
-		<Equipments>
-			<Equipment id="0" value="-1" />
-			<Equipment id="1" value="27" />
-			<Equipment id="2" value="24" />
-			<Equipment id="3" value="17" />
-			<Equipment id="4" value="-1" />
-		</Equipments>
-	</Character>
 	
-	<Character name="Watchman" level="4">
+	<Character name="Hittite Soldier" level="3">
 		<Stats>
 			<Stat id="0" name="Strength" value="8" />
 			<Stat id="1" name="Agility" value="6" />
@@ -92,7 +61,7 @@
 		</Equipments>
 	</Character>
 
-	<Character name="Maruader" level="6">
+	<Character name="Kemet Soldier" level="6">
 		<Stats>
 			<Stat id="0" name="Strength" value="10" />
 			<Stat id="1" name="Agility" value="6" />
@@ -123,38 +92,8 @@
 		</Equipments>
 	</Character>
 
-	<Character name="Marksman" level="5">
-		<Stats>
-			<Stat id="0" name="Strength" value="7" />
-			<Stat id="1" name="Agility" value="8" />
-			<Stat id="2" name="Endurance" value="6" />
-			<Stat id="3" name="Intelligence" value="5" />
-			<Stat id="4" name="Willpower" value="4" />
-		</Stats>
-		<Skills>
-			<Skill id="0" name="Melee" value="32" />
-			<Skill id="1" name="Ranged" value="68" />
-			<Skill id="2" name="Dodge" value="54" />
-			<Skill id="3" name="Shield" value="30" />
-			<Skill id="4" name="Mysticism" value="18" />
-			<Skill id="5" name="Crafting" value="20" />
-			<Skill id="6" name="Herbalism" value="15" />
-			<Skill id="7" name="Leadership" value="13" />
-			<Skill id="8" name="Trading" value="19" />
-			<Skill id="9" name="Healing" value="13" />
-			<Skill id="10" name="Persuasion" value="14" />
-			<Skill id="11" name="NatureLore" value="23" />
-		</Skills>
-		<Equipments>
-			<Equipment id="0" value="23" />
-			<Equipment id="1" value="-1" />
-			<Equipment id="2" value="24" />
-			<Equipment id="3" value="20" />
-			<Equipment id="4" value="-1" />
-		</Equipments>
-	</Character>
-
-	<Character name="Elite Warrior" level="7">
+	
+	<Character name="Zannanza" level="7">
 		<Stats>
 			<Stat id="0" name="Strength" value="7" />
 			<Stat id="1" name="Agility" value="8" />

@@ -1,0 +1,865 @@
+title: Start
+tags: 
+colorID: 0
+position: -299,272
+---
+<<close_dialog_image 0>>
+My name is Zannanza, prince of Hittites. The Son of the great king Suppiluliuma!
+
+This is my tale to tell, sit and listen o weary traveller!
+
+[[Continue|Intro]]
+===
+title: Intro
+tags: 
+colorID: 0
+position: -19,280
+---
+<<set_dialog_image kemet_messenger>>
+It all started with one messenger from Kemet bringing a letter from the Queen:
+
+"My husband has died and I have no son. They say about you that you have many sons."
+"You might give me one of your sons to become my husband." 
+"I would not wish to take one of my subjects as a husband... I am afraid." said the Queen.
+
+It was too good to be true. My father couldn't belive his good fortune and suspected a trap. 
+
+He sent emissaries telling them:
+
+"Go and bring your the true word back to me. Maybe they deceive me. Maybe in fact they do have a son of their lord."
+
+But there were none. Queen of Kemet was giving her country to save herself:
+
+"I have written to no other country, only to you have I written."
+"They say your sons are many: so give me one son of yours. To me he will be husband, but to Kemet he will be king."
+
+As an ambitious man my father was he couldn't let himself let go of this opportunity. 
+
+He gathered his sons and the his council the Panku.
+<<set_dialog_image hittite_king>>
+
+[[Continue|Sons]]
+===
+title: Sons
+tags: 
+colorID: 0
+position: 251,285
+---
+
+You could see the excitement in his eyes, but he was a cautious man as well.
+
+"Such a thing has never happened to me in my whole life" said my father.
+
+Then he asked us what do we think about this proposition.
+
+When it was my turn i said...
+
+[[This is a great opportunity father, we have to seize it!|Opportunity]]
+[[This is surely a trap father, we have to be careful.|ItsATrap]]
+[[It doesn't matter, we will do whatever you wish father.|WeWillObey]]
+===
+title: Opportunity
+tags: 
+colorID: 0
+position: 521,-155
+---
+"Do not be so keen to accept gifts, my son." 
+
+"Especially the ones that comes from your enemies." said my father.
+
+"Even if it is not a trap still the journey alone shall be perilous."
+
+"But since you are so eager to graps this opportunity i shall accept your request."
+
+"It shall be you who will be the next Pharoah of Kemet!"
+
+[[It will be my honour father.|AcceptFate]]
+===
+title: ItsATrap
+tags: 
+colorID: 0
+position: 576,580
+---
+"I have sent many messengers to her."
+
+"She looks honest in her request and it is my duty to honour it as well."
+
+"Still, even though she is honest the journey shall be dangerous enough."
+
+"So be brave my son for it shall be you who will wed the queen!"
+
+[[As you wish my sire|AcceptFate]]
+===
+title: WeWillObey
+tags: 
+colorID: 0
+position: 586,275
+---
+"A wise answer!" said my father.
+
+"But hopefully you have learnt to think for yourself as well." he said scolding me.
+
+"For it is my wish to sent you to Kemet, wed to the queen and be the next Pharoah."
+
+[[I will make you proud, father.|AcceptFate]]
+===
+title: AcceptFate
+tags: 
+colorID: 0
+position: 932,285
+---
+<<close_dialog_image 0>>
+
+So this proclamation my world changed forever.
+
+It was a great boon and a great peril that bestowed upon me.
+
+A small squad of guards was going to accompany me, as this was a peaceful mission. 
+
+The captain of the guards was Tarkuwa, my childhood friend.
+
+Also the scribe Hattu-Zilli was with us as our translator.
+
+We were almost ready to go.
+
+[[I decided to talk with my father one more time before i go.|TalkWithFather]]
+[[I decided to talk with my brothers one more time before i go.|TalkWithBrothers]]
+[[Complete the preparations and leave.|LeaveHattusa]]
+===
+title: TalkWithFather
+tags: 
+colorID: 0
+position: 870,-113
+---
+The great king stood a little bit alone from all those people around him.
+
+I approached, gave a bow and asked:
+
+"My king, the preparations are nearly done."
+
+"I have come to ask do you have any more wishes before we left?"
+
+He smiled and said "No my son, may the gods be with you on your journey!"
+
+He looked happy but i could see the anxiety in the corner of his eyes.
+
+[[I bid him farewell and return to our preparations.|Preparations]]
+===
+title: TalkWithBrothers
+tags: 
+colorID: 0
+position: 1202,-143
+---
+Arnuwanda said "Make us proud little brother."
+
+Mursili said "May the gods be with you my brother."
+
+We all wished Telipinu was with us too.
+
+They warned me not to forget to visit Piyasilli. Our brother, the king of Charchemish.
+
+We talked and joked and smiled. I never knew i much i would miss them.
+
+[[I bid them farewell and return to our preparations.|Preparations]]
+===
+title: LeaveHattusa
+tags: 
+colorID: 0
+position: 1110,682
+---
+My father, the king was there. 
+
+My brothers, the Panku was there. 
+
+Holy priests and priestesses were there too. 
+
+To the Sun-Goddes of Arinna and the Storm God Teshub and all the other thousand gods of the Hatti.
+
+They made sacrifical offerings, perform sacred rituals and pray for a safe journey for us.
+
+Common folk was there too.
+
+Every one was there to send us away.
+
+<<open_travel worldmap>>
+
+===
+title: Preparations
+tags: 
+colorID: 0
+position: 1273,352
+---
+We were almost ready to go.
+
+
+[[I decided to talk with my father one more time before i go.|TalkWithFather]]
+[[I decided to talk with my brothers one more time before i go.|TalkWithBrothers]]
+[[Complete the preparations and leave.|LeaveHattusa]]
+===
+title: Journey
+tags: 
+colorID: 0
+position: 2009,297
+---
+<<if visited("Journey") == false>>
+<<set $journey_time = 1>>
+
+<<set $dog_encounter = false>>
+<<set $girl_encounter = false>>
+<<set $hermit_encounter = false>>
+
+So we began our journey.
+
+<<else>>
+
+<<set $journey_time = $journey_time + 1>>
+
+<<endif>>
+
+<<disable_map_node_by_id worldmap $journey_time>>
+<<set $next_node = $journey_time + 1>>
+<<enable_map_node_by_id worldmap $next_node>>
+
+
+<<roll_dice 4>>
+
+The land of Hatti was vast and road to Egypt was long.
+
+<<if $journey_time == 5>>
+<<set $roll_result = -1>>
+
+Finally we were at the end of the lands of Hatti and entered into Egypt.
+
+[[Go on.|JourneyStartEgypt]]
+
+<<endif>>
+
+
+<<if $roll_result == 1 && $dog_encounter == true>>
+<<set $roll_result = 0>>
+<<endif>>
+<<if $roll_result == 2 && $girl_encounter == true>>
+<<set $roll_result = 0>>
+<<endif>>
+<<if $roll_result == 3 && $hermit_encounter == true>>
+<<set $roll_result = 0>>
+<<endif>>
+
+
+
+<<if $roll_result == 0>>
+
+Last couple of days were uneventful.
+
+[[Talk with Tarkuwa, captain of guards.|TalkWithTarkuwa]]
+[[Talk with Hattu-Zilli, the scribe.|TalkWithHattuZilli]]
+[[Continue on the journey.|Journey2Map]]
+<<endif>>
+
+<<if $roll_result == 1>>
+<<set $dog_encounter = true>>
+
+Last couple of days were uneventful but one day i found a dog on the roadside.
+
+It looked hungry enough but tried to stay away in a safe distance from us.
+
+With no near villages or cities, the dog started to tail us.
+
+[[I took pity the dog. So i started to leave some food for it nearby whenever we camp.|PetTheDog]]
+[[It might bring us bad luck, so i have sent men to drive away the dog.|KickTheDog]]
+[[I didn't mind the dog and we continued on our journey.|Journey2Map]]
+<<endif>>
+
+<<if $roll_result == 2>>
+<<set $girl_encounter = true>>
+
+Scouts returned with the news of some raiders along with the slaves they dragged along.
+
+Maruaders, cutthroats, lawless men. Preying on weak...
+
+They attack on small villages. Kill, pillage and capture those left alive.
+
+Tarkuwa eagerly asked my permission, "My lord, let me and my warriors teach those dogs a lesson!"
+
+Hattu-Zili were cautious. "My lord, we shall follow your will but we have a more grave mission at hand. Choose wisely."
+
+[[Justice shall be served. Attack!.|AttackForJustice]]
+[[Hattu-Zili is right, we must focus on our mission.|LeaveForMission]]
+<<endif>>
+
+<<if $roll_result == 3>>
+<<set $hermit_encounter = true>>
+
+We have met with a couple of old hermits.
+
+They joined our camp for briefly. 
+
+We share our food with these holy men. 
+
+At their last night with us, one of them offered to gaze upon the stars and tell us our fortunes.
+
+[[I gladly accepted his offer.|AcceptFortune]]
+[[I refused his offer politely.|RefuseFortune]]
+<<endif>>
+
+
+
+===
+title: TalkWithTarkuwa
+tags: 
+colorID: 0
+position: 2197,-266
+---
+My childhood friend Tarkuwa greeted me with a warm smile.
+
+"How are you today, my prince? I hope all is well for you." said jokingly.
+
+He always like to throw small jabs at me.
+
+<<if $girl_companion == true>>
+[[What do you think i should do with this girl?|TalkWithTarkuwaAboutGirl]]
+<<endif>>
+<<if $dog_companion == true>>
+[[What do you think i should do with this dog?|TalkWithTarkuwaAboutDog]]
+<<endif>>
+[[What do you think about our mission?|TalkWithTarkuwaAboutMission]]
+[[What do you think about Tarkuwa?|TalkWithTarkuwaAboutHattuZilli]]
+[[Thats it for now.|Journey2Map]]
+===
+title: TalkWithHattuZilli
+tags: 
+colorID: 0
+position: 971,1208
+---
+Even though he was an old man i have never seen Hattu-Zilli complained about his mission or this journey not for once.
+
+He was the perfect servant. Never complains about work and does his job flawlessly.
+
+He greeted me with reverence and said "Good days, young prince. How can i help you?"
+
+
+<<if $girl_companion == true>>
+[[What do you think i should do with this girl?|TalkWithHattuZilliAboutGirl]]
+<<endif>>
+<<if $dog_companion == true>>
+[[Do you think bringing that dog with us could be a problem?|TalkWithHattuZilliAboutDog]]
+<<endif>>
+[[What do you think about our mission?|TalkWithHattuZilliAboutMission]]
+[[What do you think about Tarkuwa?|TalkWithHattuZilliAboutTarkuwa]]
+[[Thats it for now.|Journey2Map]]
+===
+title: PetTheDog
+tags: 
+colorID: 0
+position: 1601,961
+---
+By leaving food for it every day i managed to get close the dog.
+
+Its fears gone away slowly and after i few days i could get close enough to pat it on the head.
+
+After that we had a new companion on our journey.
+
+<<set $dog_companion = true>>
+
+[[We continue on our journey.|Journey2Map]]
+===
+title: KickTheDog
+tags: 
+colorID: 0
+position: 1933,932
+---
+It was already afraid enough so when we chase it away it didn't stay long to think twice.
+
+I didn't see the dog after that day.
+
+<<set $dog_companion = false>>
+
+[[We continued our journey.|Journey2Map]]
+===
+title: JourneyStartEgypt
+tags: 
+colorID: 0
+position: 2211,837
+---
+Finally we leave all the lands of Hatti and the lands of the kings who swear fealty to us.
+
+Finally we were in the lands of Kemet.
+
+Finally... we were close.
+
+<<open_travel worldmap>>
+===
+title: AttackForJustice
+tags: 
+colorID: 0
+position: 2516,139
+---
+I gave the order and the attack began. 
+
+<<open_combat girl_combat>>
+===
+title: LeaveForMission
+tags: 
+colorID: 0
+position: 2372,552
+---
+We leave those unlucky villagers with heavy hearts.
+
+I could see the disappointment in all the soldiers eyes.
+
+I might have save them from a unnecessary danger but the look in their eyes told me something else.
+
+They were all willing to fight.
+
+But our priority was our mission and we all knew there will be many dangers we must face before our journey ends.
+
+Whether they understood me or not i have made my decision.
+
+<<set $justice_served = false>>
+
+[[And we continue on our journey.|Journey2Map]]
+===
+title: AcceptFortune
+tags: 
+colorID: 0
+position: 1789,-11
+---
+The hermit was glad that i accepted his offer.
+
+At night he started to concentrate on the campfire. 
+
+To the ever changing flames and smoke and the fumes that come out of that camp fire.
+
+Then suddenly he raised his head to the clear night sky to see the stars.
+
+"To the north..." he said, "i see three kings rapidly changing."
+
+"And a son, praying to gods and apologizing..."
+
+"Not soon but finally he is forgiven..."
+
+He took a long breath and continued.
+
+"To the south..." he said, "i see many kings, powerful, great kings."
+
+"I see the land prosper under their rule."
+
+"Kings of the north and kings of the south... I see them fight."
+
+"And i see them become brothers as well."
+
+"Thats all i see..." and he exhaled with sudden exhaustion.
+
+He smiled as embarressed and said " I am sorry my prince."
+
+"Prophetic visions are than to be not comprehensible as we want them to be."
+
+With a sincere apology he excused himself for the night.
+
+I thanked him with a confused mind and pondered upon the words he said till i finally fall asleep.
+
+Next day we make farewells to each other and the hermits went on the their pilgrimage.
+
+[[And we continue on our journey.|Journey2Map]]
+===
+title: RefuseFortune
+tags: 
+colorID: 0
+position: 1520,-79
+---
+I could see the dissapointment in the Hermits eyes.
+
+But it quickly changed into understanding.
+
+"You may be wiser than us, my lord."
+
+"Knowing ones fortune does not help but may hinder sometimes."
+
+"I have wanted to offer a little help out of gratitude for your hospitality."
+
+"But in my goodwill i might cause harm to you."
+
+"You have my thanks, my wise prince."
+
+Next day we make farewells to each other and the hermits went on the their pilgrimage.
+
+[[And we continue on our journey.|Journey2Map]]
+===
+title: JourneyEgpyt
+tags: 
+colorID: 0
+position: 2462,1117
+---
+We march through the lands of Kemet.
+
+After a few days scouts return with bad news.
+
+There was an welcoming commitee coming down to our way just beyond the hills in front of us.
+
+Tarkuwa draws his sword and said "My prince, let me take half of my men and clash with them."
+
+"You should continue with the others and we will meet with you after we are done with them."
+
+"I promise."
+
+[[Ok! But don't forget your promise. Kill them and return victorious my friend!|DecoyAfterAttack]]
+[[No Tarkuwa, we should fight with them with all our might!|AttackTogether]]
+===
+title: AfterAttack
+tags: 
+colorID: 0
+position: 3122,1111
+---
+I'm not sure how long it took.
+
+It took long enough. Long enough to destroy everyone.
+
+As the dust was settling down around me i tried to see if anyone survived.
+
+A handful of people that survied gathered around me. They looked confused as i was. I had to got myself together and i had to do it fast.
+
+Quickly check who were alive and who were dead.
+
+Tarkuwa! My beloved friend! He was lying on the ground with several dead enemy soldiers around him.
+
+Hattu-Zilli was dead too. Not many spared from this bloodshed.
+
+<<if $dog_companion == true>>
+That dog too fight for me until its last breath. Truely a loyal companion! 
+<<endif>>
+
+I wasn't sure that i have deserved such loyal friends.
+
+<<if $girl_companion == true>>
+With some blind luck the girl we saved could survived all this.
+
+The girl came to me and speak "My lord, forgive me if i am out of line but i have a suggestion for you."
+
+"My family's farm is not so far away from here. If you want you can take refuge there."
+
+I couldn't return to Hattusa in defeat and i was sure if i continue on this road more enemies would be waiting for me before i reach to the capital.
+
+There weren't many options laid out for me. Maybe, maybe i should choose a different way.
+
+<<endif>>
+
+A few remained survivors was looking up to me to decide what to do next.
+
+Though i really wasn't sure what should i do next.
+
+<<if $girl_companion == true>>
+[[And i chose to leave my mission and find a new life.|LeaveEnd]]
+<<endif>>
+[[I gathered all my courage and decide to continue on.|KilledEnd]]
+[[We needed help, i decided to fall back to the nearest Hittite city.|DiedStarved]]
+===
+title: KilledEnd
+tags: 
+colorID: 0
+position: 2633,834
+---
+With courage and with the knowledge of only way to get out of this awful situation was to finish this journey as soon as possible, we continued on.
+
+Unfortunately there were other enemy groups waiting for us.
+
+<<open_combat second_attack>>
+===
+title: DiedStarved
+tags: 
+colorID: 0
+position: 3285,711
+---
+We started to fall back as enemy continued to pursue us.
+
+In lands of Canaan while avoiding the enemy following us we trailed on and on.
+
+Finally we ran out of food and had to take our chances.
+
+Then the enemy didn't let this opportunity go and made their attack.
+
+Starved, weary and desperate as we, still tried to put a fight on. 
+
+But we were outmatched and quickly killed to the last man.
+
+Thus ended my tale. Zannanza, the hittite prince died here. 
+
+[[The end.|TheEnd]]
+===
+title: LeaveEnd
+tags: 
+colorID: 0
+position: 3662,1077
+---
+Everything had to end here.
+
+"Men, you followed me all this way with absolute loyalty."
+
+"But there is only death for us, either we go on or turn back."
+
+"So i release you from your bonds. You are free to go wherever you want. Thank you for all your service."
+
+"For i, Zannanza, the prince of Hattusha dies here and i shall leave this place as a new man."
+
+"So it shall be known as from now on."
+
+After i let my soldiers go i took the farm girls hand and let her guide me to my new life.
+
+Thus ended my tale. Zannanza, the hittite prince died here and a new man, a humble man reborn here.
+
+[[The end.|TheEnd]]
+===
+title: AcceptGirl
+tags: 
+colorID: 0
+position: 2189,40
+---
+The girls face brighten with a smile. 
+
+"Thank you my lord! Thank you! May the gods bless you!"
+
+"I promise you won't regret taking me. I will work hard and make you happy, i promise." she said while wiping away her tears.
+
+With this she joined our journey as well.
+
+<<set $girl_companion = true>>
+
+[[And we continued on our journey.|Journey2Map]]
+===
+title: RefuseGirl
+tags: 
+colorID: 0
+position: 2668,411
+---
+The girl looked heartbroken. She joined others we freed from the bandits and i have never seen her again.
+
+<<set $girl_companion = false>>
+
+[[And we continued on our journey.|Journey2Map]]
+===
+title: DecoyAfterAttack
+tags: 
+colorID: 0
+position: 2861,1418
+---
+We leave them to face the enemy and marched on relentlessly.
+
+We all knew that the only way out for us to reach Amarna.
+
+After a few hours of marching misfortune struck!
+
+A second enemy force blocked our passage and quickly drawing near.
+
+With not much options left to do we drew our swords and brave ourselves to one last stand.
+
+We fight to the last men and died together.
+
+Thus ended my tale. Zannanza, the hittite prince died here. 
+
+[[The end.|TheEnd]]
+===
+title: TalkWithHattuZilliAboutGirl
+tags: 
+colorID: 0
+position: 1233,1478
+---
+"I think it is not good manners to bring a concubine with you to your wedding."
+
+"Maybe you could give her as a gift to be a handmaiden to your soon-to-be wife? It is a graceful solution to your problem."
+
+"I hope i could be helpful to you. Do you have any more questions?"
+
+[[Thanks, Let me think.|TalkWithHattuZilli]]
+===
+title: TalkWithHattuZilliAboutDog
+tags: 
+colorID: 0
+position: 844,1639
+---
+"Thats a stray dog, my lord. I think it does not suit you."
+
+"It is your decision but it might be best if you gave it to a soldier, so he can take care and train the dog."
+
+"I hope i could be helpful to you. Do you have any more questions?"
+
+[[Thanks, Let me think.|TalkWithHattuZilli]]
+===
+title: TalkWithHattuZilliAboutTarkuwa
+tags: 
+colorID: 0
+position: 464,1253
+---
+"My prince" he said "Tarkuwa might be young but a splendid soldier."
+
+"He is a great asset for you and our journey. I feel much safer knowing him is with us."
+
+"But he might be a bit rash due to his youth. Consider this when you heed his counsel."
+
+"I hope i could be helpful to you. Do you have any more questions?"
+
+[[Thanks, Let me think.|TalkWithHattuZilli]]
+===
+title: TalkWithHattuZilliAboutMission
+tags: 
+colorID: 0
+position: 788,909
+---
+"My prince, although our king bestowed upon you such a great honor, it is clear that this will be a perilous journey."
+
+"There might be many enemies ahead of us who don't want us to reach our goals."
+
+"Therefore we must remain diligent and focus on our mission solely."
+
+"I hope i could be helpful to you. Do you have any more questions?"
+
+[[Thanks, Let me think.|TalkWithHattuZilli]]
+===
+title: TalkWithTarkuwaAboutGirl
+tags: 
+colorID: 0
+position: 1784,-278
+---
+"She is beatiful, isn't she?"
+
+"It might look awkward to bring her along with us."
+
+"Though if we leave here alone i don't think she could make it alive all by herself."
+
+"So we're stuck with her. It is best that you find a solution before we reach to Kemet, my friend."
+
+"Anything else you want to know?"
+
+[[Thanks, Let me think.|TalkWithTarkuwa]]
+===
+title: TalkWithTarkuwaAboutDog
+tags: 
+colorID: 0
+position: 2526,-272
+---
+"It might look like a mutt but trust me it is a very good dog." he said.
+
+"If you took time to care and train with it you will end with a great companion."
+
+"Anything else you want to know?"
+
+[[Thanks, Let me think.|TalkWithTarkuwa]]
+===
+title: TalkWithTarkuwaAboutHattuZilli
+tags: 
+colorID: 0
+position: 1834,-581
+---
+"Hattu-Zilli? I think he is the definition of what an official has to be."
+
+"He is a man you can trust to do everything he could to complete the task you gave him."
+
+"Although sometimes he could be a bit single-minded to finish his job."
+
+"Anything else you want to know?"
+
+[[Thanks, Let me think.|TalkWithTarkuwa]]
+===
+title: TalkWithTarkuwaAboutMission
+tags: 
+colorID: 0
+position: 2267,-564
+---
+"You know this is going to be dangerous."
+
+He smiled and continued "But you also know i will be here to protect your highness all the way to Egpyt."
+
+"So don't worry i will be next to you when you crowned as the next Pharoah."
+
+"Anything else you want to know?"
+
+[[Thanks, Let me think.|TalkWithTarkuwa]]
+===
+title: TheEnd
+tags: 
+colorID: 0
+position: 3327,1736
+---
+Thanks for playing.
+
+===
+title: Journey2Map
+tags: 
+colorID: 0
+position: 1598,395
+---
+<<open_travel worldmap>>
+===
+title: AttackForJusticeWin
+tags: 
+colorID: 0
+position: 2773,-70
+---
+We gave them no quarter and kill to the last men.
+
+My men were overjoyed with sense of victory and fulfilling justice.
+
+We freed all the people they took as slaves.
+
+But my men told me that a young girl has a request from me.
+
+I ask them the bring the girl before me.
+
+She didn't looked like she has seen much more than twenty winters.
+
+Even the dust and dirt of the road and slavery she was forced into couldn't hide her natural beauty.
+
+After observing her briefly i allowed her to speak.
+
+She told me her story. How she lived with her family in a farm far away from any city.
+
+How those brigands came and kill her family and took her away.
+
+She told me that she has nothing to return at that farm and no one else to return to as well.
+
+She suddenly went down to her knees and plead to me to take her into my service.
+
+"Please my lord! I have no one to return to. Please take me into your service."
+
+"I will do everything you ask from me. Please!" said while sobbing.
+
+<<set $justice_served = true>>
+
+[[I accepted her into the servitute.|AcceptGirl]]
+[[I send away with the other freed slaves. She has no place on our journey.|RefuseGirl]]
+===
+title: DeadAfterAttack
+tags: 
+colorID: 0
+position: 3613,653
+---
+We fight to the last men and died together.
+
+Thus ended my tale. Zannanza, the hittite prince died here. 
+
+[[The end.|TheEnd]]
+===
+title: AttackTogether
+tags: 
+colorID: 0
+position: 2476,1466
+---
+We draw our swords and prepare ourselves to coming battle.
+
+Men were anxious but ready to fight.
+
+We didn't have to wait much. 
+
+There wasn't any talk. It started with arrows flying and soon men clashed with their sword and axes and daggers.
+
+<<open_combat first_attack>>
+===
+title: WinSomehow
+tags: 
+colorID: 0
+position: 3852,1382
+---
+This wasn't supposed to happen.
+
+Somehow you changed the history, win against all odds and became the Pharoah of Kemet!.
+
+[[The end.|TheEnd]]
+===

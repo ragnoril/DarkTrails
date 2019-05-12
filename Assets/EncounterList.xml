@@ -1,23 +1,31 @@
 <Encounters>
-	<Encounter name="citya_fight">
-		<WinState moduleName="Travel" value="worldmap"/>
-		<LoseState moduleName="Travel" value="worldmap"/>
+	<Encounter name="girl_combat">
+		<WinState moduleName="Dialogue" value="AttackForJusticeWin"/>
+		<LoseState moduleName="Dialogue" value="DeadAfterAttack"/>
 		<Character id="0" />
 		<Character id="0" />
-		<Character id="1" />
+    <Character id="0" />
+		<Character id="0" />
 	</Encounter>
-	<Encounter name="CombatAtCaveOutside">
-		<WinState moduleName="Travel" value="worldmap"/>
-		<LoseState moduleName="Travel" value="worldmap"/>
-		<Character id="0" />
-		<Character id="0" />
-		<Character id="1" />
+
+  <Encounter name="first_attack">
+		<WinState moduleName="Dialogue" value="AfterAttack"/>
+		<LoseState moduleName="Dialogue" value="DeadAfterAttack"/>
+		<Character id="2" />
+    <Character id="2" />
+		<Character id="2" />
+		<Character id="2" />
 	</Encounter>
-	<Encounter name="WatchmenOnPathAttack">
-		<WinState moduleName="Travel" value="worldmap"/>
-		<LoseState moduleName="Travel" value="worldmap"/>
-		<Character id="0" />
-		<Character id="0" />
-		<Character id="1" />
+
+  <Encounter name="second_attack">
+		<WinState moduleName="Dialogue" value="WinSomehow"/>
+		<LoseState moduleName="Dialogue" value="DeadAfterAttack"/>
+		<Character id="2" />
+    <Character id="2" />
+    <Character id="2" />
+		<Character id="2" />
+    <Character id="2" />
+    <Character id="2" />
+		<Character id="2" />
 	</Encounter>
 </Encounters>

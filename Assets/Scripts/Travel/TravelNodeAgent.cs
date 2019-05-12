@@ -7,7 +7,8 @@ namespace DarkTrails.Travel
 {
 	public enum ActionType
 	{
-		OpenMap = 0,
+        None = 0,
+		OpenMap,
 		OpenDialog,
 		OpenCombat
 	};
@@ -26,12 +27,14 @@ namespace DarkTrails.Travel
 		public string ActionValue;
 		public float x, y;
 
+        public bool IsAlreadyActive;
 
 		// Use this for initialization
 		void Start()
 		{
+            IsAlreadyActive = false;
 
-		}
+        }
 
 		// Update is called once per frame
 		void Update()
@@ -49,9 +52,12 @@ namespace DarkTrails.Travel
 
 		private void OnTriggerExit2D(Collider2D collision)
 		{
+            if (TravelManager.instance.IsPaused) return;
+
 			var player = collision.gameObject.GetComponent<TravelPartyAgent>();
 			if (player != null)
 			{
+                IsAlreadyActive = false;
 				if (player.LastNodeAgent == this)
 					player.LastNodeAgent = null;
 			}
@@ -65,6 +71,8 @@ namespace DarkTrails.Travel
 				//toDo: another quick fix. there should be a menu/panel for  this. 
 				//actually there is. make it working.
 				if (player.LastNodeAgent == this) return;
+                if (IsAlreadyActive) return;
+                IsAlreadyActive = true;
 
 				player.LastNodeAgent = this;
 				if (Action == ActionType.OpenCombat)
