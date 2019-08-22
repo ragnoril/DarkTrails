@@ -34,7 +34,7 @@ namespace DarkTrails.Combat
 			for (int i = 0; i < (mapWidth * mapHeight); i++)
 				Grids.Add(0);
 
-			AddBlocksToMap(-1);
+			//AddBlocksToMap(-1);
 
 			RenderMap2D();
 			////CombatManager.instance.StartTheGame();

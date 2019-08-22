@@ -54,8 +54,10 @@ namespace DarkTrails.Combat
 		public AStar pathFinder;
 
 		public Agent selectedAgent;
+        public Agent cursorAgent;
+        
 
-		public GameObject agentTile;
+        public GameObject agentTile;
 
 		void Awake()
 		{
@@ -74,30 +76,55 @@ namespace DarkTrails.Combat
 		// Use this for initialization
 		void Start()
 		{
-			ModuleType = GAMEMODULES.CombatTest;
-
-            //StartTheGameTest();
+			ModuleType = GAMEMODULES.Combat;
 		}
 
-		public void StartTheGame()
+
+        public void ClearEncounter()
+        {
+            if (agentTile != null)
+                Destroy(agentTile.gameObject);
+
+            foreach(var agent in teamPlayer)
+                Destroy(agent.gameObject);
+
+            teamPlayer = new List<Agent>();
+
+            foreach (var agent in teamEnemy)
+                Destroy(agent.gameObject);
+
+            teamEnemy = new List<Agent>();
+
+            uiManager.EndPanel.SetActive(false);
+
+        }
+
+        public void StartTheGame()
 		{
-			//FillTeams();
-			//GenerateBattleTeams();
+            //FillTeams();
+            //GenerateBattleTeams();
+            ClearEncounter();
 			mapManager.StartMap();
 			PrepareEncounter();
 			CalculateInitiatives();
 
 			agentTile = GameObject.Instantiate(agentTilePrefab, Vector3.zero, Quaternion.Euler(0f, 0f, 0f)) as GameObject;
+            agentTile.transform.SetParent(this.transform);
 			turnIndex = -1;
+            _hasBattleEnded = false;
+            WhoWon = -1;
 			selectedAgent = null;
-			/*
+
+            uiManager.HitChanceText.gameObject.SetActive(false);
+            uiManager.ShowCombatLog(false);
+            /*
 			selectedAgent = initiativeList[turnIndex];
 			Vector3 tilePos = selectedAgent.transform.position;
 			tilePos.y = 0.015f;
 			agentTile = GameObject.Instantiate(agentTilePrefab, tilePos, Quaternion.Euler(0f, 0f, 0f)) as GameObject;
 			*/
 
-		}
+        }
 
         public void StartTheGameTest()
         {
@@ -124,23 +151,34 @@ namespace DarkTrails.Combat
         public void PassTurn()
 		{
 			turnIndex += 1;
-			if (turnIndex == initiativeList.Count)
+			if (turnIndex >= initiativeList.Count)
 			{
 				turnIndex = 0;
 				// initiatives won't be calculated every turn for now
 				// maybe later there will be something for you to lose initiative etc.
 				//CalculateInitiatives();
 			}
+            if (selectedAgent != null)
+                selectedAgent.ModelAgent.GotSelected(false);
 
-			selectedAgent = initiativeList[turnIndex];
-			selectedAgent.isTurnEnded = false;
-            //selectedAgent.curActionPoints = selectedAgent.maxActionPoints;
-            selectedAgent.curActionPoints = 10;
+            selectedAgent = initiativeList[turnIndex];
+            selectedAgent.ModelAgent.titleText.gameObject.SetActive(true);
+            selectedAgent.ModelAgent.GotSelected(true);
+            selectedAgent.isTurnEnded = false;
+            selectedAgent.curActionPoints = selectedAgent.maxActionPoints;
+
+            //for 2d
+            /*
             Vector3 tilePos = selectedAgent.transform.position;
-			//tilePos.y = 0.015f;
+			tilePos.y -= 0.25f;
+			agentTile.transform.position = tilePos;
+            */
+            //for 3d
+            Vector3 tilePos = selectedAgent.transform.position;
+			tilePos.y = 0.015f;
 			agentTile.transform.position = tilePos;
 
-			UpdateUI();
+            UpdateUI();
 
 			if (selectedAgent.teamId == 1)  // enemy team
 			{
@@ -204,12 +242,17 @@ namespace DarkTrails.Combat
 		{
 			foreach (int id in GameManager.instance.PlayerParty)
 			{
-				//int posX = (mapManager.mapWidth / 2) - (2 - teamPlayer.Count);
-				//int posY = 0;
+                //for 3d
+				int posX = (mapManager.mapWidth / 2) - (2 - teamPlayer.Count);
+				int posY = 0;
+                Vector3 pos = new Vector3(posX - mapManager.halfMapWidth, 0.015f, posY - mapManager.halfMapHeight);
+                //for 2d
+                /*
                 int posX = 0;
                 int posY = (mapManager.mapHeight / 2) - (2 - teamPlayer.Count);
                 Vector3 pos = new Vector3(posX - mapManager.halfMapWidth, posY - mapManager.halfMapHeight, 0f);
-				GameObject go = GameObject.Instantiate(agentPrefabs[id], pos, Quaternion.identity) as GameObject;
+                */
+                GameObject go = GameObject.Instantiate(agentPrefabs[id], pos, Quaternion.identity) as GameObject;
 				go.transform.parent = transform;
 
 				Agent goAgent = go.GetComponent<Agent>();
@@ -225,18 +268,25 @@ namespace DarkTrails.Combat
 				PlaceholderCharGen placeHolderChar = go.GetComponent<PlaceholderCharGen>();
 				placeHolderChar.titleName = goAgent.CharacterName;
 				//placeHolderChar.titleText.text = goAgent.CharacterName;
-				//placeHolderChar.SetItems(goAgent.WeaponType, goAgent.ShieldType);
+                //for 3d
+				placeHolderChar.SetItems(goAgent.WeaponType, goAgent.ShieldType);
 				goAgent.ModelAgent = placeHolderChar;
 			}
 
 			int[] encounterList = GameManager.instance.EncounterList[this.EncounterName].CharacterIds;
 			foreach (int id in encounterList)
 			{
-				//int posX = (mapManager.mapWidth / 2) - (2 - teamEnemy.Count);
-				//int posY = mapManager.mapHeight - 1;
+                //for 3d
+                int posY = mapManager.mapHeight - 1;
+                int posX = (mapManager.mapWidth / 2) - (2 - teamEnemy.Count);
+                Vector3 pos = new Vector3(posX - mapManager.halfMapWidth, 0.015f, posY - mapManager.halfMapHeight);
+
+                //for 2d
+                /*
                 int posX = mapManager.mapWidth - 1;
                 int posY = (mapManager.mapHeight / 2) - (2 - teamEnemy.Count);
                 Vector3 pos = new Vector3(posX - mapManager.halfMapWidth, posY - mapManager.halfMapHeight, 0f);
+                */
 				GameObject go = GameObject.Instantiate(agentPrefabs[id], pos, Quaternion.Euler(0f, 0f, 0f)) as GameObject;
 				go.transform.parent = transform;
 
@@ -252,8 +302,9 @@ namespace DarkTrails.Combat
 
 				PlaceholderCharGen placeHolderChar = go.GetComponent<PlaceholderCharGen>();
 				placeHolderChar.titleName = goAgent.CharacterName;
-				//placeHolderChar.titleText.text = goAgent.CharacterName;
-				//placeHolderChar.SetItems(goAgent.WeaponType, goAgent.ShieldType);
+                //placeHolderChar.titleText.text = goAgent.CharacterName;
+                //for 3d
+                placeHolderChar.SetItems(goAgent.WeaponType, goAgent.ShieldType);
 				goAgent.ModelAgent = placeHolderChar;
 			}
 		}
@@ -383,8 +434,11 @@ namespace DarkTrails.Combat
 				else
 					cursorTile = cantMoveTilePrefab;
 
-				Vector3 pos = new Vector3((float)(pathFinder.finalPath[lastPath - i].x - mapManager.halfMapWidth), (float)(pathFinder.finalPath[lastPath - i].y - mapManager.halfMapHeight), 0f);
-				GameObject pathBase = GameObject.Instantiate(cursorTile, pos, Quaternion.Euler(0f, 0f, 0f)) as GameObject;
+                //for 2d
+                //Vector3 pos = new Vector3((float)(pathFinder.finalPath[lastPath - i].x - mapManager.halfMapWidth), (float)(pathFinder.finalPath[lastPath - i].y - mapManager.halfMapHeight) - 0.25f, 0f);
+                //for 3d
+                Vector3 pos = new Vector3((float)(pathFinder.finalPath[lastPath - i].x - mapManager.halfMapWidth), 0.015f, (float)(pathFinder.finalPath[lastPath - i].y - mapManager.halfMapHeight));
+                GameObject pathBase = GameObject.Instantiate(cursorTile, pos, Quaternion.Euler(0f, 0f, 0f)) as GameObject;
 				pathBase.gameObject.name = "PathWay_" + i.ToString();
 
 				pathWay.Add(pathBase);
@@ -473,9 +527,9 @@ namespace DarkTrails.Combat
 			{
 				if (selectedAgent == null) return;
 
-                //PlayerUpdate3D();
+                PlayerUpdate3D();
 
-                PlayerUpdate2D();
+                //PlayerUpdate2D();
 			}
 			else if (turnId == 1) // enemy turn
 			{
@@ -498,7 +552,7 @@ namespace DarkTrails.Combat
                 return;
             }
 
-            Debug.Log(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+            //Debug.Log(Camera.main.ScreenToWorldPoint(Input.mousePosition));
             /*
             Vector3 mPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             int mapX = (int)Mathf.Round(mPoint.x + mapManager.halfMapWidth);
@@ -506,19 +560,20 @@ namespace DarkTrails.Combat
 
             Debug.Log("x: " + mapX + " y: " + mapY);
             */
+            cursorAgent = null;
             RaycastHit2D[] hitArray = Physics2D.RaycastAll(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
             foreach (var hitInfo in hitArray)
             {
                 if (hitInfo.transform.tag == "Agent")
                 {
                     //ClearPathWay();
-                    Agent cursorAgent = hitInfo.transform.gameObject.GetComponent<Agent>();
-
+                    cursorAgent = hitInfo.transform.gameObject.GetComponent<Agent>();
+                    cursorAgent.ModelAgent.titleText.gameObject.SetActive(true);
                     ClearPathWay();
 
                     if (cursorAgent.teamId == 0)
                     {
-                        Vector3 posEnd = new Vector3((float)(cursorAgent.x - mapManager.halfMapWidth), (float)(cursorAgent.y - mapManager.halfMapHeight), 0f);
+                        Vector3 posEnd = new Vector3((float)(cursorAgent.x - mapManager.halfMapWidth), (float)(cursorAgent.y - mapManager.halfMapHeight) - 0.25f, 0f);
                         GameObject pathEnd = GameObject.Instantiate(agentTilePrefab, posEnd, Quaternion.Euler(0f, 0f, 0f)) as GameObject;
                         pathEnd.gameObject.name = "PathWay_End"; // + (pathFinder.finalPath.Count - 1).ToString();
                         pathWay.Add(pathEnd);
@@ -526,13 +581,18 @@ namespace DarkTrails.Combat
                     }
                     else if (cursorAgent.teamId == 1)
                     {
-                        Vector3 posEnd = new Vector3((float)(cursorAgent.x - mapManager.halfMapWidth), (float)(cursorAgent.y - mapManager.halfMapHeight), 0f);
+                        Vector3 posEnd = new Vector3((float)(cursorAgent.x - mapManager.halfMapWidth), (float)(cursorAgent.y - mapManager.halfMapHeight) - 0.25f, 0f);
                         GameObject pathEnd = GameObject.Instantiate(cantMoveTilePrefab, posEnd, Quaternion.Euler(0f, 0f, 0f)) as GameObject;
                         pathEnd.gameObject.name = "PathWay_End"; // + (pathFinder.finalPath.Count - 1).ToString();
                         pathWay.Add(pathEnd);
                         Cursor.SetCursor(attackCursor, Vector2.zero, CursorMode.Auto);
-                    }
 
+                        if (Vector3.Distance(selectedAgent.transform.position, cursorAgent.transform.position) < 2f)
+                        {
+                            uiManager.ShowHitChance(selectedAgent.CalculateToHitPossibility(cursorAgent), hitInfo.point);
+                        }
+
+                    }
                     break;
                 }
                 else if (hitInfo.transform.tag == "Ground")
@@ -540,7 +600,7 @@ namespace DarkTrails.Combat
                     int mapX = (int)Mathf.Round(hitInfo.point.x + mapManager.halfMapWidth);
                     int mapY = (int)Mathf.Round(hitInfo.point.y + mapManager.halfMapHeight);
 
-                    Debug.Log("Coords: " + mapX.ToString() + ",  " + mapY.ToString());
+                    //Debug.Log("Coords: " + mapX.ToString() + ",  " + mapY.ToString());
                     if (((mapX > -1 && mapX < mapManager.mapWidth) && (mapY > -1 && mapY < mapManager.mapHeight)) && (selectedAgent.doneMoving))
                     {
 
@@ -560,6 +620,7 @@ namespace DarkTrails.Combat
                     else
                     {
                         ClearPathWay();
+                        uiManager.HitChanceText.gameObject.SetActive(false);
                     }
                 }
             }
@@ -680,6 +741,11 @@ namespace DarkTrails.Combat
                         pathEnd.gameObject.name = "PathWay_End"; // + (pathFinder.finalPath.Count - 1).ToString();
                         pathWay.Add(pathEnd);
                         Cursor.SetCursor(attackCursor, Vector2.zero, CursorMode.Auto);
+
+                        if (Vector3.Distance(selectedAgent.transform.position, cursorAgent.transform.position) < 2f)
+                        {
+                            uiManager.ShowHitChance(selectedAgent.CalculateToHitPossibility(cursorAgent), hitInfo.point);
+                        }
                     }
 
                     break;
@@ -689,7 +755,7 @@ namespace DarkTrails.Combat
                     int mapX = (int)Mathf.Round(hitInfo.point.x + mapManager.halfMapWidth);
                     int mapY = (int)Mathf.Round(hitInfo.point.z + mapManager.halfMapHeight);
 
-                    Debug.Log("Coords: " + mapX.ToString() + ",  " + mapY.ToString());
+                    //Debug.Log("Coords: " + mapX.ToString() + ",  " + mapY.ToString());
                     if (((mapX > -1 && mapX < mapManager.mapWidth) && (mapY > -1 && mapY < mapManager.mapHeight)) && (selectedAgent.doneMoving))
                     {
 
@@ -709,6 +775,7 @@ namespace DarkTrails.Combat
                     else
                     {
                         ClearPathWay();
+                        uiManager.HitChanceText.gameObject.SetActive(false);
                     }
                 }
             }
@@ -719,7 +786,7 @@ namespace DarkTrails.Combat
 
                 RaycastHit[] hitArray2 = Physics.RaycastAll(Camera.main.ScreenPointToRay(Input.mousePosition));
 
-                Agent agent = null; // IsClickedOnAgent(hitArray2);
+                Agent agent = IsClickedOnAgent(hitArray2);
 
                 if (agent != null)
                 {
@@ -803,7 +870,20 @@ namespace DarkTrails.Combat
 			return null;
 		}
 
-		/*
+        private Agent IsClickedOnAgent(RaycastHit[] hitArray2)
+        {
+            foreach (var hitInfo2 in hitArray2)
+            {
+                if (hitInfo2.transform.tag == "Agent")
+                {
+                    return hitInfo2.transform.gameObject.GetComponent<Agent>();
+                }
+            }
+
+            return null;
+        }
+
+        /*
 		private void PassTurnToPlayer()
 		{
 			turnId = 0;
@@ -819,7 +899,7 @@ namespace DarkTrails.Combat
 		}
 		*/
 
-		public Agent GetAgentAt(int mapX, int mapY)
+        public Agent GetAgentAt(int mapX, int mapY)
 		{
 
 			foreach (Agent agent in teamPlayer)
@@ -874,6 +954,8 @@ namespace DarkTrails.Combat
 
 		public void EndTheGame()
 		{
+            ClearPathWay();
+
 			if (CombatManager.instance.WhoWon == 0)
 			{
 				uiManager.EndText.text = "You have won the battle!";

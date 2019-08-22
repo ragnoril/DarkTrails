@@ -1,21 +1,13 @@
 fileFormatVersion: 2
 guid: 8dc3934ef14aee94c877cb69924aa5d3
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: 5273908695183213566
-    second: karaks_0
-  - first:
-      213: -3940502009406200761
-    second: karaks_1
-  - first:
-      213: 4345185797183394317
-    second: karaks_2
-  - first:
-      213: 3402944848409918398
-    second: karaks_3
+  fileIDToRecycleName:
+    21300000: karaks_0
+    21300002: karaks_1
+    21300004: karaks_2
+    21300006: karaks_3
   externalObjects: {}
-  serializedVersion: 10
+  serializedVersion: 9
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -111,7 +103,6 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 7c51506a00415dc45ad1a110b431b219
-      internalID: 5273908695183213566
       vertices: []
       indices: 
       edges: []
@@ -132,7 +123,6 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 477b5c8a0e4365642a635a282b3096af
-      internalID: -3940502009406200761
       vertices: []
       indices: 
       edges: []
@@ -153,7 +143,6 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 3d63b5f4d2798d5469e73562653355f0
-      internalID: 4345185797183394317
       vertices: []
       indices: 
       edges: []
@@ -174,7 +163,6 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 8a0bd74348e48474d8256874f3230da6
-      internalID: 3402944848409918398
       vertices: []
       indices: 
       edges: []
@@ -183,12 +171,10 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 1677c55c0db42154e85a827f584d55fa
-    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
-    secondaryTextures: []
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

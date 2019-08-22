@@ -13,6 +13,7 @@ namespace DarkTrails
 		Character,
 		//Party,
         CombatTest,
+        OverWorld,
 		ModuleCount
 	};
 

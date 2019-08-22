@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using DarkTrails;
 using System.Xml;
 using System.IO;
+using DarkTrails.Character;
 
 public class BattleManager : MonoBehaviour
 {

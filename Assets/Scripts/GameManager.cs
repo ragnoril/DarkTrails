@@ -39,13 +39,15 @@ namespace DarkTrails
 			}
 		}
 
-		public List<CharacterData> CharacterList = new List<CharacterData>();
+		public List<Character.CharacterData> CharacterList = new List<Character.CharacterData>();
 		public List<Item> ItemList = new List<Item>();
 		public Dictionary<string, Combat.EncounterData> EncounterList = new Dictionary<string, Combat.EncounterData>();
 		public Dictionary<string, string> MapList = new Dictionary<string, string>();
+        public Dictionary<string, string> SceneList = new Dictionary<string, string>();
 
-		public int PlayerCharacterId;
+        public int PlayerCharacterId;
 		public List<int> PlayerParty = new List<int>();
+        public int PlayerInventoryId;
 
 		public GameObject[] ModulePrefabs;
 		public List<BaseModule> GameModules;
@@ -156,11 +158,33 @@ namespace DarkTrails
 					Travel.TravelManager travel = go.GetComponent<Travel.TravelManager>();
 					travel.Initialize(modulefile);
 					GameModules.Add(travel);
-                    travel.TravelMode = Travel.TRAVELMODES.GridBased;
+                    travel.TravelMode = Travel.TRAVELMODES.PixelBased;
 					travel.Pause();
 					go.SetActive(false);
 				}
-			}
+                else if (moduleType == "OverWorld")
+                {
+                    GameObject prefab = null;
+                    foreach (var modulePrefab in ModulePrefabs)
+                    {
+                        if (modulePrefab.GetComponent<OverWorld.OverWorldManager>() != null)
+                        {
+                            prefab = modulePrefab;
+                            break;
+                        }
+                    }
+
+                    var go = GameObject.Instantiate(prefab);
+                    go.transform.SetParent(this.transform);
+                    OverWorld.OverWorldManager overWorld = go.GetComponent<OverWorld.OverWorldManager>();
+                    overWorld.Initialize(modulefile);
+                    GameModules.Add(overWorld);
+
+                    overWorld.Pause();
+                    go.SetActive(false);
+                }
+
+            }
 
 			switch(startModule)
 			{
@@ -175,6 +199,9 @@ namespace DarkTrails
 				case "Dialogue":
 					OpenDialogue(startValue);
 					break;
+                case "OverWorld":
+                    OpenOverWorld(startValue);
+                    break;
 			}
 		}
 
@@ -192,7 +219,7 @@ namespace DarkTrails
 
 			foreach (XmlNode chr in charList)
 			{
-				CharacterData charData = new CharacterData();
+                Character.CharacterData charData = new Character.CharacterData();
 				charData.Name = chr.Attributes["name"].Value;
 				charData.Level = int.Parse(chr.Attributes["level"].Value);
 
@@ -244,6 +271,8 @@ namespace DarkTrails
             GameManager.instance.PlayerParty.Add(1);
             GameManager.instance.PlayerParty.Add(1);
 
+            GameManager.instance.PlayerInventoryId = 0;
+
         }
 		
 		#endregion
@@ -273,10 +302,10 @@ namespace DarkTrails
 			Combat.CombatManager.instance.StartTheGame();
 		}
 
-		public void OpenDialogue(string dialogName)
+		public void OpenDialogue(string dialogueName)
 		{
 			ChangeModule(GAMEMODULES.Dialogue);
-			Dialogue.DialogueManager.instance.DialogueStartNode = dialogName;
+			Dialogue.DialogueManager.instance.DialogueStartNode = dialogueName;
             Dialogue.DialogueManager.instance.ContinueDialogue();
 		}
 
@@ -291,6 +320,12 @@ namespace DarkTrails
 			ChangeModule(GAMEMODULES.Travel);
 			Travel.TravelManager.instance.LoadMap(mapName);
 		}
+
+        public void OpenOverWorld(string sceneName)
+        {
+            ChangeModule(GAMEMODULES.OverWorld);
+            OverWorld.OverWorldManager.instance.LoadScene(SceneList[sceneName]);
+        }
 
         public void ReturnToMainMenu()
         {

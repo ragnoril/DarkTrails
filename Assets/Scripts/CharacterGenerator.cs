@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using DarkTrails;
 using System.Collections.Generic;
+using DarkTrails.Character;
 
 namespace DarkTrails.UI
 {
@@ -64,7 +65,7 @@ namespace DarkTrails.UI
 
             StatPointsLeftText.text = (PointsHave - PointsSpent).ToString();
             //SkillPointsLeftText.text = (SkillPointsHave - SkillPointsSpent).ToString();
-
+            /*
             foreach(var obj in Stats)
             {
                 obj.PointsCalc = this;
@@ -73,6 +74,7 @@ namespace DarkTrails.UI
             {
                 obj.PointsCalc = this;
             }
+            */
 
             UpdateStats();
 			UpdateEquipments();

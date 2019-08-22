@@ -4,20 +4,16 @@ using System.Collections;
 
 namespace DarkTrails.UI
 {
-    /*
+
     public enum POINTTYPE
     {
         StatPoint = 0,
         SkillPoint,
         PointTypeCount
     }
-    */
+
     public class StatsUIObject : MonoBehaviour
     {
-
-
-        public PointsBaseWindow PointsCalc;
-
         public Button IncButton;
         public Button DecButton;
 
@@ -29,18 +25,19 @@ namespace DarkTrails.UI
         public int MaxValue;
         public int MinValue;
 
-        //public POINTTYPE PointType;
+        public POINTTYPE PointType;
 
         // Use this for initialization
         void Start()
         {
+            UpdateUI();
+        }
+
+        public void UpdateUI()
+        {
             NameText.text = Name;
             ValueText.text = Value.ToString();
 
-        }
-
-        void Update()
-        {
             if (Value == MaxValue && IncButton.interactable)
                 IncButton.interactable = false;
 
@@ -56,15 +53,6 @@ namespace DarkTrails.UI
 
         public void ChangeValue(int change)
         {
-            /*
-            if (PointType == POINTTYPE.StatPoint)
-                PointsCalc.StatPointsSpent += change;
-            else if (PointType == POINTTYPE.SkillPoint)
-                PointsCalc.SkillPointsSpent += change;
-            */
-            PointsCalc.PointsSpent += change;
-
-
             Value += change;
             if (Value > MaxValue)
             {
@@ -80,7 +68,21 @@ namespace DarkTrails.UI
 
             ValueText.text = Value.ToString();
 
-            PointsCalc.UpdateStats();
+            UpdateUI();
+        }
+
+        public void EnableEditMode(bool mode)
+        {
+            if (mode)
+            {
+                IncButton.gameObject.SetActive(true);
+                DecButton.gameObject.SetActive(true);
+            }
+            else
+            {
+                IncButton.gameObject.SetActive(false);
+                DecButton.gameObject.SetActive(false);
+            }
         }
 
 

@@ -47,11 +47,20 @@ namespace DarkTrails.Inventory
 		public GameObject InventoryAgentPrefab;
 		public GameObject InventoryPanel;
 		public GameObject TransferPanel;
-		public List<Item> Inventory;
-		public List<Item> Inventory2;
-		public CharacterData Character;
 
-		public InventoryMode Mode;
+        public int CharacterAId;
+        public int CharacterBId;
+        public int InventoryAId;
+        public int InventoryBId;
+
+        public List<InventorySlot> Inventory;
+		public List<InventorySlot> Inventory2;
+		public Character.CharacterData Character;
+        public Character.CharacterData Character2;
+
+        public List<Inventory> Inventories;
+
+        public InventoryMode Mode;
 		// selected item
 		// envanter 1
 		// envanter 2
@@ -68,68 +77,94 @@ namespace DarkTrails.Inventory
 
 		public override void Initialize(string filename)
 		{
-			string filePath = Application.dataPath + "/" + filename;
+            Inventories = new List<Inventory>();
 
-			XmlDocument doc = new XmlDocument();
-			doc.Load(filePath);
+            string filePath = Application.dataPath + "/" + filename;
 
-			XmlNode root = doc.SelectSingleNode("ItemList");
-			XmlNodeList itemList = root.SelectNodes(".//Item");
+            XmlDocument doc = new XmlDocument();
+            doc.Load(filePath);
 
-			foreach (XmlNode itm in itemList)
-			{
-				Item item = new Item();
-				string itemtype = itm.Attributes["Type"].Value;
-				if (itemtype == "Weapon")
-				{
-					item = new Weapon();
-					((Weapon)item).ItemName = itm.Attributes["Name"].Value;
-					((Weapon)item).PriceValue = int.Parse(itm.Attributes["PriceValue"].Value);
-					((Weapon)item).MinDamage = int.Parse(itm.Attributes["MinDamage"].Value);
-					((Weapon)item).MaxDamage = int.Parse(itm.Attributes["MaxDamage"].Value);
-					((Weapon)item).WeaponReach = int.Parse(itm.Attributes["WeaponReach"].Value);
-					((Weapon)item).WeaponRange = int.Parse(itm.Attributes["WeaponRange"].Value);
-					((Weapon)item).WeaponType = int.Parse(itm.Attributes["WeaponType"].Value);
-					int twoHanded = int.Parse(itm.Attributes["TwoHanded"].Value);
-					if (twoHanded == 0)
-					{
-						((Weapon)item).IsTwoHanded = false;
-					}
-					else
-					{
-						((Weapon)item).IsTwoHanded = true;
-					}
-					((Weapon)item).ItemType = ItemType.Weapon;
-				}
-				else if (itemtype == "Armor")
-				{
-					item = new Armor();
-					((Armor)item).ItemName = itm.Attributes["Name"].Value;
-					((Armor)item).PriceValue = int.Parse(itm.Attributes["PriceValue"].Value);
-					((Armor)item).ArmorValue = int.Parse(itm.Attributes["DamageResistance"].Value);
-					((Armor)item).ArmorIndex = int.Parse(itm.Attributes["ArmorIndex"].Value);
-					((Armor)item).ItemType = ItemType.Armor;
-				}
-				else if (itemtype == "Shield")
-				{
-					item = new Shield();
-					((Shield)item).ItemName = itm.Attributes["Name"].Value;
-					((Shield)item).PriceValue = int.Parse(itm.Attributes["PriceValue"].Value);
-					((Shield)item).ArmorValue = int.Parse(itm.Attributes["DamageResistance"].Value);
-					((Shield)item).ArmorIndex = int.Parse(itm.Attributes["ArmorIndex"].Value);
-					((Shield)item).ItemType = ItemType.Shield;
-				}
-				else
-				{
-					item.ItemName = "Unidentified Item";
-				}
+            XmlNode root = doc.SelectSingleNode("Items");
+            XmlNodeList itemList = root.SelectSingleNode(".//ItemList").SelectNodes(".//Item");
 
-				GameManager.instance.ItemList.Add(item);
+            foreach (XmlNode itm in itemList)
+            {
+                Item item = new Item();
+                string itemtype = itm.Attributes["Type"].Value;
+                if (itemtype == "Weapon")
+                {
+                    item = new Weapon();
+                    ((Weapon)item).ItemName = itm.Attributes["Name"].Value;
+                    ((Weapon)item).PriceValue = int.Parse(itm.Attributes["PriceValue"].Value);
+                    ((Weapon)item).MinDamage = int.Parse(itm.Attributes["MinDamage"].Value);
+                    ((Weapon)item).MaxDamage = int.Parse(itm.Attributes["MaxDamage"].Value);
+                    ((Weapon)item).WeaponReach = int.Parse(itm.Attributes["WeaponReach"].Value);
+                    ((Weapon)item).WeaponRange = int.Parse(itm.Attributes["WeaponRange"].Value);
+                    ((Weapon)item).WeaponType = int.Parse(itm.Attributes["WeaponType"].Value);
+                    int twoHanded = int.Parse(itm.Attributes["TwoHanded"].Value);
+                    if (twoHanded == 0)
+                    {
+                        ((Weapon)item).IsTwoHanded = false;
+                    }
+                    else
+                    {
+                        ((Weapon)item).IsTwoHanded = true;
+                    }
+                    ((Weapon)item).ItemType = ItemType.Weapon;
+                }
+                else if (itemtype == "Armor")
+                {
+                    item = new Armor();
+                    ((Armor)item).ItemName = itm.Attributes["Name"].Value;
+                    ((Armor)item).PriceValue = int.Parse(itm.Attributes["PriceValue"].Value);
+                    ((Armor)item).ArmorValue = int.Parse(itm.Attributes["DamageResistance"].Value);
+                    ((Armor)item).ArmorIndex = int.Parse(itm.Attributes["ArmorIndex"].Value);
+                    ((Armor)item).ItemType = ItemType.Armor;
+                }
+                else if (itemtype == "Shield")
+                {
+                    item = new Shield();
+                    ((Shield)item).ItemName = itm.Attributes["Name"].Value;
+                    ((Shield)item).PriceValue = int.Parse(itm.Attributes["PriceValue"].Value);
+                    ((Shield)item).ArmorValue = int.Parse(itm.Attributes["DamageResistance"].Value);
+                    ((Shield)item).ArmorIndex = int.Parse(itm.Attributes["ArmorIndex"].Value);
+                    ((Shield)item).ItemType = ItemType.Shield;
+                }
+                else
+                {
+                    item.ItemName = "Unidentified Item";
+                }
 
-			}
-		}
+                GameManager.instance.ItemList.Add(item);
 
-		public override void Pause()
+            }
+
+            XmlNodeList inventoryList = root.SelectSingleNode(".//InventoryList").SelectNodes(".//Inventory");
+
+            foreach(XmlNode inv in inventoryList)
+            {
+                var slots = inv.SelectNodes(".//InventorySlot");
+
+                Inventory inventory = new Inventory();
+
+                inventory.Name = inv.Attributes["Name"].Value;
+                inventory.Items = new List<InventorySlot>();
+
+                foreach(XmlNode slot in slots)
+                {
+                    InventorySlot invSlot = new InventorySlot();
+
+                    invSlot.Amount = int.Parse(slot.Attributes["Amount"].Value);
+                    invSlot.ItemId = int.Parse(slot.Attributes["ItemId"].Value);
+
+                    inventory.Items.Add(invSlot);
+                }
+
+                Inventories.Add(inventory);
+            }
+        }
+
+        public override void Pause()
 		{
 			base.Pause();
 		}
@@ -145,44 +180,27 @@ namespace DarkTrails.Inventory
 			base.Quit();
 		}
 
-		void FillInventoryRandomly()
-		{
-			Inventory = new List<Item>();
-			int invMax = Random.Range(4, 14);
-			for (int i = 0; i < invMax; i++)
-			{
-				var item = GameManager.instance.ItemList[Random.Range(0, GameManager.instance.ItemList.Count-1)];
-				Debug.Log(GameManager.instance.ItemList.Count);
-				Inventory.Add(item);
-			}
-		}
-
 		public void ShowInventory()
 		{
-			/*
-			for (int i = 0; i < InventoryPanel.transform.childCount; i++)
-			{
-				var child = InventoryPanel.transform.GetChild(i);
-				Destroy(child);
-			}
-			*/
 			foreach (Transform child in InventoryPanel.transform)
 			{
 				Destroy(child);
 			}
 
-			for (int i = 0; i< Inventory.Count; i++)
+            Inventory inventory = Inventories[InventoryAId];
+
+			for (int i = 0; i< inventory.Items.Count; i++)
 			{
-				var item = Inventory[i];
+				var item = GameManager.instance.ItemList[inventory.Items[i].ItemId];
 				GameObject go = GameObject.Instantiate(InventoryAgentPrefab);
 				InventoryAgent itemAgent = go.GetComponent<InventoryAgent>();
 				itemAgent.ItemData = item;
+                itemAgent.InventoryId = i;
 				itemAgent.UpdateItemData();
 
 				go.transform.SetParent(InventoryPanel.transform);
 			}
-			
-		}
+        }
 
 		public void ShowFilteredInventory(int filter)
 		{
@@ -192,12 +210,13 @@ namespace DarkTrails.Inventory
 			}
 			for (int i = 0; i < Inventory.Count; i++)
 			{
-				var item = Inventory[i];
+				var item = GameManager.instance.ItemList[Inventory[i].ItemId];
 				if (item.ItemType == (ItemType)filter)
 				{
 					GameObject go = GameObject.Instantiate(InventoryAgentPrefab);
 					InventoryAgent itemAgent = go.GetComponent<InventoryAgent>();
 					itemAgent.ItemData = item;
+                    itemAgent.InventoryId = i;
 					itemAgent.UpdateItemData();
 
 					go.transform.SetParent(InventoryPanel.transform);
@@ -212,10 +231,26 @@ namespace DarkTrails.Inventory
 			if (!isLoaded)
 			{
 				isLoaded = true;
-				FillInventoryRandomly();
+				//FillInventoryRandomly();
 				ShowInventory();
 				
 			}
 		}
-	}
+
+        public void SetA(int character, int inventory)
+        {
+            isLoaded = false;
+
+            CharacterAId = character;
+            InventoryAId = inventory;
+        }
+
+        public void SetB(int character, int inventory)
+        {
+            isLoaded = false;
+
+            CharacterAId = character;
+            InventoryAId = inventory;
+        }
+    }
 }

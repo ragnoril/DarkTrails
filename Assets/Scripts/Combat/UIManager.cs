@@ -16,6 +16,13 @@ namespace DarkTrails.Combat
 		public GameObject EndPanel;
 		public Text EndText;
 
+        public GameObject LogPanel;
+        public Text LogText;
+        private float _logTimer;
+
+        public Text HitChanceText;
+        private float _hitChanceTimer;
+
 
 		// Use this for initialization
 		void Start()
@@ -26,12 +33,29 @@ namespace DarkTrails.Combat
 		// Update is called once per frame
 		void Update()
 		{
+            if (_logTimer > 0f)
+            {
+                _logTimer -= Time.deltaTime;
+            }
+            else if (_logTimer <= 0f && LogPanel.gameObject.activeSelf)
+            {
+                ShowCombatLog(false);
+            }
 
-		}
+            if (_hitChanceTimer > 0f)
+            {
+                _hitChanceTimer -= Time.deltaTime;
+            }
+            else if (_hitChanceTimer <= 0f && HitChanceText.gameObject.activeSelf)
+            {
+                HitChanceText.gameObject.SetActive(false);
+            }
+        }
 
 		public void EndTurn()
 		{
-			CombatManager.instance.PassTurn();
+            if (CombatManager.instance.selectedAgent.doneMoving && CombatManager.instance.selectedAgent.teamId == 0)
+                CombatManager.instance.PassTurn();
 		}
 
 		public void UpdateAgentData()
@@ -39,10 +63,10 @@ namespace DarkTrails.Combat
 			if (CombatManager.instance.selectedAgent == null) return;
 
 			NameText.text = "Name: " + CombatManager.instance.selectedAgent.name;
-            HPText.text = "HP: " + CombatManager.instance.selectedAgent.curHitPoints + " / ";// + CombatManager.instance.selectedAgent.maxHitPoints;
-            APText.text = "AP: " + CombatManager.instance.selectedAgent.curActionPoints + " / ";// + CombatManager.instance.selectedAgent.maxActionPoints;
-            //WeaponText.text = "Damage: " + CombatManager.instance.selectedAgent.minDamage + " - " + CombatManager.instance.selectedAgent.maxDamage;
-			//ArmorText.text = "AC: " + CombatManager.instance.selectedAgent.armorClass;
+            HPText.text = "HP: " + CombatManager.instance.selectedAgent.curHitPoints + " / " + CombatManager.instance.selectedAgent.maxHitPoints;
+            APText.text = "AP: " + CombatManager.instance.selectedAgent.curActionPoints + " / " + CombatManager.instance.selectedAgent.maxActionPoints;
+            WeaponText.text = "Damage: " + CombatManager.instance.selectedAgent.minDamage + " - " + CombatManager.instance.selectedAgent.maxDamage;
+			ArmorText.text = "AC: " + CombatManager.instance.selectedAgent.armorClass;
 		}
 
 		public void EndTheGame()
@@ -84,5 +108,37 @@ namespace DarkTrails.Combat
 				}
 			}
 		}
+
+        public void ClearCombatLog()
+        {
+            LogText.text = "";
+            ShowCombatLog(false);
+        }
+
+        public void ShowCombatLog(bool val)
+        {
+            LogPanel.gameObject.SetActive(val);
+        }
+
+        public void AddCombatLog(string msg)
+        {
+            LogText.text += msg + "\n";
+            _logTimer = 3f;
+            ShowCombatLog(true);
+        }
+
+        public void ShowHitChance(int val, Vector3 pos)
+        {
+            _hitChanceTimer = 5f;
+            HitChanceText.rectTransform.position = Camera.main.WorldToScreenPoint(pos + new Vector3(.65f,0,0));
+            HitChanceText.text = "% " + val.ToString();
+            HitChanceText.gameObject.SetActive(true);
+
+        }
+
+        public void ShowMouseOverStats(Agent agent, Vector3 pos)
+        {
+
+        }
 	}
 }

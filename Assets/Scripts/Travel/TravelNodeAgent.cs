@@ -10,7 +10,8 @@ namespace DarkTrails.Travel
         None = 0,
 		OpenMap,
 		OpenDialog,
-		OpenCombat
+		OpenCombat,
+        OpenScene
 	};
 
 	public class TravelNodeAgent : MonoBehaviour
@@ -87,7 +88,11 @@ namespace DarkTrails.Travel
 				{
 					TravelManager.instance.TravelActionOpenMap(ActionValue);
 				}
-			}
+                else if (Action == ActionType.OpenScene)
+                {
+                    TravelManager.instance.TravelActionOpenScene(ActionValue);
+                }
+            }
 		}
 
 	}

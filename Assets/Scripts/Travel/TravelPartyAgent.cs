@@ -31,9 +31,8 @@ namespace DarkTrails.Travel
 
 				if (Vector3.Distance(_pathToMove[_positionCount], transform.position) < 0.1f)
 				{
-					int mX = (int)(newPos.x + (TravelManager.instance.CurrentMap.MapWidth / 2)) / TravelManager.instance.CurrentMap.GridSize;
-					int mY = (int)(Mathf.Abs(newPos.y - (TravelManager.instance.CurrentMap.MapHeight / 2))) / TravelManager.instance.CurrentMap.GridSize;
-
+					//int mX = (int)(newPos.x + (TravelManager.instance.CurrentMap.MapWidth / 2)) / TravelManager.instance.CurrentMap.GridSize;
+					//int mY = (int)(Mathf.Abs(newPos.y - (TravelManager.instance.CurrentMap.MapHeight / 2))) / TravelManager.instance.CurrentMap.GridSize;
 
 					if (_positionCount == (_pathToMove.Count - 1))
 					{
@@ -47,6 +46,10 @@ namespace DarkTrails.Travel
 					}
 				}
 			}
+            else
+            {
+                TravelManager.instance.IsPlayerMoving = false;
+            }
 		}
 
 		public void SetTargetPath(List<Vector3> path)

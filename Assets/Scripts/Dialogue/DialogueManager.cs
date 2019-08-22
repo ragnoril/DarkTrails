@@ -152,5 +152,12 @@ namespace DarkTrails.Dialogue
             Travel.TravelManager.instance.TravelActionDisableNodeById(mapName, nodeId);
         }
 
+        [YarnCommand("quit_game")]
+        public void QuitGame()
+        {
+            Debug.Log("quit game");
+            Application.Quit();
+        }
+
     }
 }

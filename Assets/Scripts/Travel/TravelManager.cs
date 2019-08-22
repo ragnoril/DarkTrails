@@ -58,13 +58,15 @@ namespace DarkTrails.Travel
 		public TravelConfirmUI TravelConfirmPanel;
 		private Vector3 _targetTravelPosition;
 		private bool _isMapSelectable;
+        public bool IsPlayerMoving;
 
 		public TravelCamera TravelCam;
 
         private Dictionary<string, MapData> LoadedMaps;
         public bool IsPaused;
+        public bool ShowMapGizmos;
 
-		private float _unitsToPixels = 100f;
+        private float _unitsToPixels = 100f;
 
 		// Use this for initialization
 		void Start()
@@ -109,8 +111,10 @@ namespace DarkTrails.Travel
                     UpdateGridBasedTravel();
                     break;
                 case TRAVELMODES.NodeBased:
+                    UpdateNodeBasedTravel();
                     break;
                 case TRAVELMODES.PixelBased:
+                    UpdatePixelBasedTravel();
                     break;
                 default:
                     // for now lets keep it this way.
@@ -121,13 +125,18 @@ namespace DarkTrails.Travel
 			
 		}
 
-        public void UpdateGridBasedTravel()
+        public void UpdateNodeBasedTravel()
         {
-            if (Input.GetMouseButtonDown(0) && _isMapSelectable)
+
+        }
+
+        public void UpdatePixelBasedTravel()
+        {
+            if (Input.GetMouseButtonDown(0))
             {
                 var pos = Camera.main.ScreenToWorldPoint(Input.mousePosition) * _unitsToPixels;
                 _targetTravelPosition = pos;
-                Debug.Log(pos);
+
 
                 int mX = (int)(pos.x + (CurrentMap.MapWidth / 2)) / CurrentMap.GridSize;
                 int mY = (int)(Mathf.Abs(pos.y - (CurrentMap.MapHeight / 2))) / CurrentMap.GridSize;
@@ -136,6 +145,83 @@ namespace DarkTrails.Travel
 
                 int pX = (int)(playerPos.x + (CurrentMap.MapWidth / 2)) / CurrentMap.GridSize;
                 int pY = (int)(Mathf.Abs(playerPos.y - (CurrentMap.MapHeight / 2))) / CurrentMap.GridSize;
+
+                //Debug.Log("pos: " + pos.ToString() + " mx: " + mX.ToString() + " my: " + mY.ToString() + " px: " + pX.ToString() + " py: " + pY.ToString());
+
+                ClearPathway();
+                PathFinder.SetStartNode(pX, pY);
+                PathFinder.SetGoalNode(mX, mY);
+                PathFinder.StartSearch(CreateUpdatedMap(-1, -1));
+                PathFinder.GetPath();
+                int dist = PathFinder.GetGoalScore();
+
+                if (dist > 0)
+                    SendPartyTraveling();
+
+                IsPlayerMoving = true;
+            }
+
+            if (IsPlayerMoving)
+            {
+                UpdateAI();
+            }
+        }
+
+        public void UpdateAI()
+        {
+            switch (TravelMode)
+            {
+                case TRAVELMODES.GridBased:
+                    UpdateGridBasedAI();
+                    break;
+                case TRAVELMODES.NodeBased:
+                    UpdateNodeBasedAI();
+                    break;
+                case TRAVELMODES.PixelBased:
+                    UpdatePixelBasedAI();
+                    break;
+                default:
+                    // for now lets keep it this way.
+                    UpdateGridBasedAI();
+                    break;
+            }
+        }
+
+        public void UpdateGridBasedAI()
+        {
+
+        }
+
+        public void UpdateNodeBasedAI()
+        {
+
+        }
+
+        public void UpdatePixelBasedAI()
+        {
+            if (IsPlayerMoving)
+            {
+                //ai works, else don't
+            }
+        }
+
+        public void UpdateGridBasedTravel()
+        {
+            if (Input.GetMouseButtonDown(0) && _isMapSelectable)
+            {
+                var pos = Camera.main.ScreenToWorldPoint(Input.mousePosition) * _unitsToPixels;
+                _targetTravelPosition = pos;
+                
+
+                int mX = (int)(pos.x + (CurrentMap.MapWidth / 2)) / CurrentMap.GridSize;
+                int mY = (int)(Mathf.Abs(pos.y - (CurrentMap.MapHeight / 2))) / CurrentMap.GridSize;
+
+                Vector3 playerPos = PlayerParty.transform.position * _unitsToPixels;
+
+                int pX = (int)(playerPos.x + (CurrentMap.MapWidth / 2)) / CurrentMap.GridSize;
+                int pY = (int)(Mathf.Abs(playerPos.y - (CurrentMap.MapHeight / 2))) / CurrentMap.GridSize;
+
+                Debug.Log("pos: "+ pos.ToString() + " mx: " + mX.ToString() + " my: " + mY.ToString() + " px: " + pX.ToString() + " py: " + pY.ToString() );
 
                 ClearPathway();
                 PathFinder.SetStartNode(pX, pY);
@@ -169,7 +255,9 @@ namespace DarkTrails.Travel
 				Vector3 pos = new Vector3(mapx, mapy, 0f);
 				path.Add(pos);
 			}
-			//path.Add(_targetTravelPosition);
+            var lastPos = _targetTravelPosition / _unitsToPixels;
+            lastPos.z = 0f;
+            path.Add(lastPos);
 
 			PlayerParty.SetTargetPath(path);
 			PlayerParty.StartMoving();
@@ -189,7 +277,12 @@ namespace DarkTrails.Travel
 			Debug.Log("Node Action: Open Map - " + mapName);
 		}
 
-		public void TravelActionOpenDialog(string dialogName)
+        public void TravelActionOpenScene(string sceneName)
+        {
+            Debug.Log("Node Action: Open Scene - " + sceneName);
+        }
+
+        public void TravelActionOpenDialog(string dialogName)
 		{
 			Debug.Log("Node Action: Open Dialog - " + dialogName);
 			GameManager.instance.OpenDialogue(dialogName);
@@ -250,7 +343,7 @@ namespace DarkTrails.Travel
             firstPos.z = -1f;
             linePathway.SetPosition(0, firstPos);
 
-            int dist = PathFinder.GetGoalScore();
+            //int dist = PathFinder.GetGoalScore();
 		}
 
 		public override void Initialize(string filename)
@@ -336,5 +429,32 @@ namespace DarkTrails.Travel
 		{
 			base.Quit();
 		}
-	}
+
+        void OnDrawGizmos()
+        {
+
+            // unfortunately tilemap is empty when this function is working so every tile is green.
+            if (ShowMapGizmos)
+            {
+                float halfWidth = CurrentMap.GridWidth / 2;
+                float halfHeight = CurrentMap.GridHeight / 2;
+                Gizmos.color = Color.green;
+                for (int i = 0; i < CurrentMap.GridWidth; i++)
+                {
+                    for (int j = 0; j < CurrentMap.GridHeight; j++)
+                    {
+
+                        Vector3 start = new Vector3((i - halfWidth - 0.5f) / 3.2f, (j - halfHeight - 0.5f) / 3.2f, 0f);
+
+                        Gizmos.DrawLine(start, start + new Vector3(1f/3.2f, 0f, 0f));
+                        Gizmos.DrawLine(start, start + new Vector3(0f, 1f / 3.2f, 0f));
+                        Gizmos.DrawLine(start + new Vector3(1f / 3.2f, 0f, 0f), start + new Vector3(1f / 3.2f, 1f / 3.2f, 0f));
+                        Gizmos.DrawLine(start + new Vector3(0f, 1f / 3.2f, 0f), start + new Vector3(1f / 3.2f, 1f / 3.2f, 0f));
+
+                    }
+                }
+            }
+
+        }
+    }
 }

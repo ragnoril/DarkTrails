@@ -8,7 +8,7 @@ namespace DarkTrails.Combat
 {
 	public class Agent : MonoBehaviour
 	{
-		CharacterData Data;
+        Character.CharacterData Data;
 		public PlaceholderCharGen ModelAgent;
 
 		public int x, y;
@@ -88,8 +88,8 @@ namespace DarkTrails.Combat
 		{
 			get
 			{
-				if (Data.Equipments[(int)EQUIP.MainHand] != null)
-					return Data.BaseDamage + ((Weapon)Data.Equipments[(int)EQUIP.MainHand]).MinDamage;
+				if (Data.Equipments[(int)Character.EQUIP.MainHand] != null)
+					return Data.BaseDamage + ((Weapon)Data.Equipments[(int)Character.EQUIP.MainHand]).MinDamage;
 				else
 					return Data.BaseDamage;
 			}
@@ -99,8 +99,8 @@ namespace DarkTrails.Combat
 		{
 			get
 			{
-				if (Data.Equipments[(int)EQUIP.MainHand] != null)
-					return Data.BaseDamage + ((Weapon)Data.Equipments[(int)EQUIP.MainHand]).MaxDamage;
+				if (Data.Equipments[(int)Character.EQUIP.MainHand] != null)
+					return Data.BaseDamage + ((Weapon)Data.Equipments[(int)Character.EQUIP.MainHand]).MaxDamage;
 				else
 					return Data.BaseDamage;
 			}
@@ -112,8 +112,8 @@ namespace DarkTrails.Combat
 		{
 			get
 			{
-				if (Data.Equipments[(int)EQUIP.MainHand] != null)
-					return ((Weapon)Data.Equipments[(int)EQUIP.MainHand]).WeaponType;
+				if (Data.Equipments[(int)Character.EQUIP.MainHand] != null)
+					return ((Weapon)Data.Equipments[(int)Character.EQUIP.MainHand]).WeaponType;
 				else
 					return -1;
 			}
@@ -123,7 +123,7 @@ namespace DarkTrails.Combat
 		{
 			get
 			{
-				if (Data.Equipments[(int)EQUIP.OffHand] != null)
+				if (Data.Equipments[(int)Character.EQUIP.OffHand] != null)
 					return 1;
 				else
 					return 0;
@@ -149,11 +149,8 @@ namespace DarkTrails.Combat
 		// Use this for initialization
 		void Start()
 		{
-            //curActionPoints = maxActionPoints;
-            //curHitPoints = maxHitPoints;
-
-            curActionPoints = 10;
-            curHitPoints = 10;
+            curActionPoints = maxActionPoints;
+            curHitPoints = maxHitPoints;
 
             doneMoving = true;
 			aiDoneMoving = false;
@@ -189,11 +186,19 @@ namespace DarkTrails.Combat
 				isTurnEnded = false;
 				CombatManager.instance.PassTurn();
 			}
+
+            if (ModelAgent.titleText.gameObject.activeSelf)
+            {
+                if (CombatManager.instance.selectedAgent != this && CombatManager.instance.cursorAgent != this)
+                {
+                    ModelAgent.titleText.gameObject.SetActive(false);
+                }
+            }
 		}
 
-		public void AssignCharacterData(CharacterData data)
+		public void AssignCharacterData(Character.CharacterData data)
 		{
-			Data = new CharacterData();
+			Data = new Character.CharacterData();
 			Data.CopyFrom(data);
 		}
 
@@ -211,15 +216,15 @@ namespace DarkTrails.Combat
 
 				int attackRange = 1;
 
-				if (((Weapon)Data.Equipments[(int)EQUIP.MainHand]).WeaponRange > 0)
+				if (((Weapon)Data.Equipments[(int)Character.EQUIP.MainHand]).WeaponRange > 0)
 				{
-					attackRange = ((Weapon)Data.Equipments[(int)EQUIP.MainHand]).WeaponRange;
+					attackRange = ((Weapon)Data.Equipments[(int)Character.EQUIP.MainHand]).WeaponRange;
 					//range attack
 				}
 				else
 				{
 					//melee attack
-					attackRange = ((Weapon)Data.Equipments[(int)EQUIP.MainHand]).WeaponReach;
+					attackRange = ((Weapon)Data.Equipments[(int)Character.EQUIP.MainHand]).WeaponReach;
 				}
 
 				//float dist = Vector3.Distance(transform.position, agentNearest.transform.position);
@@ -330,25 +335,50 @@ namespace DarkTrails.Combat
 			return nearest;
 		}
 
+        public int CalculateToHitPossibility(Agent agentNear)
+        {
+            int attackSkill = this.Data.GetSkillTotal((int)Character.SKILLS.Melee);
+
+            if (Data.Equipments[(int)Character.EQUIP.MainHand] != null)
+            {
+                if (((Weapon)Data.Equipments[(int)Character.EQUIP.MainHand]).WeaponRange > 0)
+                {
+                    attackSkill = this.Data.GetSkillTotal((int)Character.SKILLS.Ranged);
+                }
+            }
+
+            int defenseSkill = agentNear.Data.GetSkillTotal((int)Character.SKILLS.Dodge);
+
+            if (agentNear.Data.Equipments[(int)Character.EQUIP.OffHand] != null)
+            {
+                defenseSkill = agentNear.Data.GetSkillTotal((int)Character.SKILLS.Shield);
+            }
+
+            int possibility = 50;
+            possibility += (attackSkill - defenseSkill);
+
+            return possibility;
+        }
+
 		public void AttackTo(Agent agentNear)
 		{
-			Debug.Log(this.name + " attacks to " + agentNear.name);
+            string logMsg = this.name + " attacks to " + agentNear.name;
 
-			int attackSkill = this.Data.GetSkillTotal((int)SKILLS.Melee);
+			int attackSkill = this.Data.GetSkillTotal((int)Character.SKILLS.Melee);
 
-			if (Data.Equipments[(int)EQUIP.MainHand] != null)
+			if (Data.Equipments[(int)Character.EQUIP.MainHand] != null)
 			{
-				if (((Weapon)Data.Equipments[(int)EQUIP.MainHand]).WeaponRange > 0)
+				if (((Weapon)Data.Equipments[(int)Character.EQUIP.MainHand]).WeaponRange > 0)
 				{
-					attackSkill = this.Data.GetSkillTotal((int)SKILLS.Ranged);
+					attackSkill = this.Data.GetSkillTotal((int)Character.SKILLS.Ranged);
 				}
 			}
 
-			int defenseSkill = agentNear.Data.GetSkillTotal((int)SKILLS.Dodge);
+			int defenseSkill = agentNear.Data.GetSkillTotal((int)Character.SKILLS.Dodge);
 
-			if (agentNear.Data.Equipments[(int)EQUIP.OffHand] != null)
+			if (agentNear.Data.Equipments[(int)Character.EQUIP.OffHand] != null)
 			{
-				defenseSkill = agentNear.Data.GetSkillTotal((int)SKILLS.Shield);
+				defenseSkill = agentNear.Data.GetSkillTotal((int)Character.SKILLS.Shield);
 			}
 
 			if ((50 - (attackSkill - defenseSkill)) <= UnityEngine.Random.Range(0, 100))
@@ -359,16 +389,18 @@ namespace DarkTrails.Combat
 
 				ModelAgent.Attack();
 				agentNear.GotHurt(damage);
-				Debug.Log(this.name + " hits " + agentNear.name + " " + damage + " damage.");
+                logMsg += " and hits " + agentNear.name + " " + damage + " damage.";
 			}
 			else
 			{
-				//fail to hit
-				Debug.Log(this.name + " fails to hit " + agentNear.name);
-				ModelAgent.Attack();
+                //fail to hit
+                logMsg += " but fails to hit.";
+
+                ModelAgent.Attack();
 				agentNear.ModelAgent.Dodge();
 			}
 
+            CombatManager.instance.uiManager.AddCombatLog(logMsg);
 			curActionPoints -= 4;
 		}
 
@@ -415,45 +447,60 @@ namespace DarkTrails.Combat
 		{
 			int i = movesLeft - 1;
 
-			Vector3 targetPos = new Vector3(path[i].x - CombatManager.instance.mapManager.halfMapWidth, path[i].y - CombatManager.instance.mapManager.halfMapHeight, 0f);
+            //for 2d
+            //Vector3 targetPos = new Vector3(path[i].x - CombatManager.instance.mapManager.halfMapWidth, path[i].y - CombatManager.instance.mapManager.halfMapHeight, 0f);
+            //for 3d
+            Vector3 targetPos = new Vector3(path[i].x - CombatManager.instance.mapManager.halfMapWidth, 0.015f, path[i].y - CombatManager.instance.mapManager.halfMapHeight);
 
-			if (doneMoving == false)
+            if (doneMoving == false)
 			{
 				yield return null;
 			}
 
 			while (movesLeft > 0)
 			{
+
 				Vector3 newPos = Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime * moveSpeed);
 				transform.position = newPos;
-
-				//transform.LookAt(targetPos);
-				if ((transform.position - targetPos).sqrMagnitude < float.Epsilon)
+                
+				transform.LookAt(targetPos);
+				if ((transform.position - targetPos).sqrMagnitude < 0.0001f /*float.Epsilon*/)
 				{
 					i -= 1;
-					//transform.LookAt(targetPos);
+                    //for 3d
+					transform.LookAt(targetPos);
 					if (i < 0)
 					{
-						/*
-						Vector3 lastPos = new Vector3(path[0].x - CombatManager.instance.mapManager.halfMapWidth, 0f, path[0].y - CombatManager.instance.mapManager.halfMapHeight);
-						transform.position = lastPos;
-						*/
-						//animator.SetBool("isWalking", false);
+						//for 3d
+						Vector3 lastPos = new Vector3(path[0].x - CombatManager.instance.mapManager.halfMapWidth, 0.015f, path[0].y - CombatManager.instance.mapManager.halfMapHeight);
+						transform.position = lastPos;					
+
 						ModelAgent.Idle();
 						doneMoving = true;
 
+                        //for 2d
+                        /*
 						Vector3 tilePos = transform.position;
-						//tilePos.y = 0.015f;
+						tilePos.y -= 0.25f;
 						CombatManager.instance.agentTile.transform.position = tilePos;
-						this.x = path[0].x;
+                        */
+                        //for 3d
+						Vector3 tilePos = transform.position;
+						tilePos.y = 0.015f;
+						CombatManager.instance.agentTile.transform.position = tilePos;
+
+                        this.x = path[0].x;
 						this.y = path[0].y;
 
 						yield break;
 					}
 					else
 					{
-						targetPos = new Vector3(path[i].x - CombatManager.instance.mapManager.halfMapWidth, path[i].y - CombatManager.instance.mapManager.halfMapHeight, 0f);
-					}
+                        //for 2d
+						//targetPos = new Vector3(path[i].x - CombatManager.instance.mapManager.halfMapWidth, path[i].y - CombatManager.instance.mapManager.halfMapHeight, 0f);
+                        //for 3d
+                        targetPos = new Vector3(path[i].x - CombatManager.instance.mapManager.halfMapWidth, 0.015f, path[i].y - CombatManager.instance.mapManager.halfMapHeight);
+                    }
 				}
 				yield return null;
 			}

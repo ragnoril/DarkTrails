@@ -42,7 +42,7 @@
 			<Skill id="0" name="Melee" value="60" />
 			<Skill id="1" name="Ranged" value="20" />
 			<Skill id="2" name="Dodge" value="18" />
-			<Skill id="3" name="Shield" value="58" />
+			<Skill id="3" name="Shield" value="48" />
 			<Skill id="4" name="Mysticism" value="18" />
 			<Skill id="5" name="Crafting" value="16" />
 			<Skill id="6" name="Herbalism" value="12" />
@@ -53,10 +53,10 @@
 			<Skill id="11" name="NatureLore" value="22" />
 		</Skills>
 		<Equipments>
-			<Equipment id="0" value="23" />
+			<Equipment id="0" value="-1" />
 			<Equipment id="1" value="27" />
-			<Equipment id="2" value="24" />
-			<Equipment id="3" value="3" />
+			<Equipment id="2" value="-1" />
+			<Equipment id="3" value="15" />
 			<Equipment id="4" value="31" />
 		</Equipments>
 	</Character>
@@ -70,9 +70,9 @@
 			<Stat id="4" name="Willpower" value="3" />
 		</Stats>
 		<Skills>
-			<Skill id="0" name="Melee" value="71" />
+			<Skill id="0" name="Melee" value="61" />
 			<Skill id="1" name="Ranged" value="22" />
-			<Skill id="2" name="Dodge" value="48" />
+			<Skill id="2" name="Dodge" value="52" />
 			<Skill id="3" name="Shield" value="32" />
 			<Skill id="4" name="Mysticism" value="12" />
 			<Skill id="5" name="Crafting" value="12" />
@@ -104,7 +104,7 @@
 		<Skills>
 			<Skill id="0" name="Melee" value="77" />
 			<Skill id="1" name="Ranged" value="23" />
-			<Skill id="2" name="Dodge" value="74" />
+			<Skill id="2" name="Dodge" value="64" />
 			<Skill id="3" name="Shield" value="30" />
 			<Skill id="4" name="Mysticism" value="18" />
 			<Skill id="5" name="Crafting" value="20" />
@@ -116,8 +116,8 @@
 			<Skill id="11" name="NatureLore" value="23" />
 		</Skills>
 		<Equipments>
-			<Equipment id="0" value="25" />
-			<Equipment id="1" value="28" />
+			<Equipment id="0" value="23" />
+			<Equipment id="1" value="27" />
 			<Equipment id="2" value="24" />
 			<Equipment id="3" value="4" />
 			<Equipment id="4" value="-1" />

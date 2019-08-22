@@ -13,54 +13,68 @@ namespace DarkTrails.Inventory
 	{
 		public Text NameText;
 		public Item ItemData;
+        public int InventoryId;
 
 		public void OnPointerClick(PointerEventData eventData)
 		{
-			switch (InventoryManager.instance.Mode)
+            Character.CharacterData characterA = GameManager.instance.CharacterList[InventoryManager.instance.CharacterAId];
+            Inventory inventoryA = InventoryManager.instance.Inventories[InventoryManager.instance.InventoryAId];
+
+            switch (InventoryManager.instance.Mode)
 			{
 				case InventoryMode.Personal:
 					if (ItemData.ItemType == ItemType.Weapon)
 					{
-						var oldItem = InventoryManager.instance.Character.Equipments[(int)EQUIP.MainHand];
+						var oldItem = characterA.Equipments[(int)Character.EQUIP.MainHand];
 						if (oldItem != null)
 						{
-							InventoryManager.instance.Inventory.Add(oldItem);
+                            var slot = new InventorySlot();
+                            slot.ItemId = GameManager.instance.ItemList.IndexOf(oldItem);
+                            slot.Amount = 1;
+                            InventoryManager.instance.Inventory.Add(slot);
 						}
 
-						InventoryManager.instance.Character.Equipments[(int)EQUIP.MainHand] = this.ItemData;
-						InventoryManager.instance.Inventory.Remove(this.ItemData);
+						characterA.Equipments[(int)Character.EQUIP.MainHand] = this.ItemData;
+                        inventoryA.Items.RemoveAt(this.InventoryId);
 					}
 					else if (ItemData.ItemType == ItemType.Shield)
 					{
-						var oldItem = InventoryManager.instance.Character.Equipments[(int)EQUIP.OffHand];
+						var oldItem = InventoryManager.instance.Character.Equipments[(int)Character.EQUIP.OffHand];
 						if (oldItem != null)
 						{
-							InventoryManager.instance.Inventory.Add(oldItem);
-						}
+                            var slot = new InventorySlot();
+                            slot.ItemId = GameManager.instance.ItemList.IndexOf(oldItem);
+                            slot.Amount = 1;
+                            InventoryManager.instance.Inventory.Add(slot);
+                        }
 
-						InventoryManager.instance.Character.Equipments[(int)EQUIP.OffHand] = this.ItemData;
-						InventoryManager.instance.Inventory.Remove(this.ItemData);
+                        characterA.Equipments[(int)Character.EQUIP.OffHand] = this.ItemData;
+                        inventoryA.Items.RemoveAt(this.InventoryId);
 					}
 					else if (ItemData.ItemType == ItemType.Armor)
 					{
-						var oldItem = InventoryManager.instance.Character.Equipments[(int)EQUIP.BodyArmor];
+						var oldItem = InventoryManager.instance.Character.Equipments[(int)Character.EQUIP.BodyArmor];
 						if (oldItem != null)
 						{
-							InventoryManager.instance.Inventory.Add(oldItem);
-						}
+                            var slot = new InventorySlot();
+                            slot.ItemId = GameManager.instance.ItemList.IndexOf(oldItem);
+                            slot.Amount = 1;
+                            InventoryManager.instance.Inventory.Add(slot);
+                        }
 
-						InventoryManager.instance.Character.Equipments[(int)EQUIP.BodyArmor] = this.ItemData;
-						InventoryManager.instance.Inventory.Remove(this.ItemData);
-					}
+                        characterA.Equipments[(int)Character.EQUIP.BodyArmor] = this.ItemData;
+                        inventoryA.Items.RemoveAt(this.InventoryId);
+                    }
 					break;
 				case InventoryMode.Trade:
-					InventoryManager.instance.Inventory2.Add(this.ItemData);
-					InventoryManager.instance.Inventory.Remove(this.ItemData);
+
+                    //InventoryManager.instance.Inventory2.Add(this.ItemData);
+					//InventoryManager.instance.Inventory.Remove(this.ItemData);
 					// add money transfer
 					break;
 				case InventoryMode.Transfer:
-					InventoryManager.instance.Inventory2.Add(this.ItemData);
-					InventoryManager.instance.Inventory.Remove(this.ItemData);
+					//InventoryManager.instance.Inventory2.Add(this.ItemData);
+					//InventoryManager.instance.Inventory.Remove(this.ItemData);
 					break;
 				default:
 					break;

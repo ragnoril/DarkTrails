@@ -494,6 +494,8 @@ We march through the lands of Kemet.
 
 After a few days scouts return with bad news.
 
+<<set_dialog_image battle>>
+
 There was an welcoming commitee coming down to our way just beyond the hills in front of us.
 
 Tarkuwa draws his sword and said "My prince, let me take half of my men and clash with them."
@@ -569,6 +571,8 @@ tags:
 colorID: 0
 position: 3285,711
 ---
+<<set_dialog_image dead>>
+
 We started to fall back as enemy continued to pursue us.
 
 In lands of Canaan while avoiding the enemy following us we trailed on and on.
@@ -650,6 +654,8 @@ After a few hours of marching misfortune struck!
 A second enemy force blocked our passage and quickly drawing near.
 
 With not much options left to do we drew our swords and brave ourselves to one last stand.
+
+<<set_dialog_image dead>>
 
 We fight to the last men and died together.
 
@@ -765,7 +771,7 @@ position: 2267,-564
 ---
 "You know this is going to be dangerous."
 
-He smiled and continued "But you also know i will be here to protect your highness all the way to Egpyt."
+He smiled and continued "But you also know i will be here to protect your highness all the way to Kemet."
 
 "So don't worry i will be next to you when you crowned as the next Pharoah."
 
@@ -776,10 +782,11 @@ He smiled and continued "But you also know i will be here to protect your highne
 title: TheEnd
 tags: 
 colorID: 0
-position: 3327,1736
+position: 3327,1739
 ---
 Thanks for playing.
 
+<<quit_game 0>>
 ===
 title: Journey2Map
 tags: 
@@ -831,6 +838,8 @@ tags:
 colorID: 0
 position: 3613,653
 ---
+<<set_dialog_image dead>>
+
 We fight to the last men and died together.
 
 Thus ended my tale. Zannanza, the hittite prince died here. 

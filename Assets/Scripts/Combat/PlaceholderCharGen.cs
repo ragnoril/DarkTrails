@@ -19,21 +19,40 @@ namespace DarkTrails.Combat
 		public GameObject SpearObject;
 		public GameObject ShieldObject;
 
-		// Use this for initialization
-		void Start()
-		{
-			//Renderer = GetComponent<Renderer>();
-			//Renderer.material.color = color;
+        public SpriteColorFX.SpriteColorRamp Ramp;
+        public SpriteColorFX.SpriteColorOutline Outline;
+        private float _rampTimer;
+
+        // Use this for initialization
+        void Start()
+		{ 
 			titleText.color = color;
 			titleText.text = titleName;
-            SetZOrder();
-            //Animator = GetComponent<Animator>();
+            titleText.gameObject.SetActive(false);
+
+            //for 2d
+            //SetZOrder();
+            //Ramp = GetComponentInChildren<SpriteColorFX.SpriteColorRamp>();
+            //Outline = GetComponentInChildren<SpriteColorFX.SpriteColorOutline>();
+
+            //for 3d 
+            Animator = GetComponent<Animator>();
         }
 
 		// Update is called once per frame
 		void Update()
 		{
-            
+            //for 2d
+            /*
+            if (_rampTimer >= 0f)
+            {
+                _rampTimer -= Time.deltaTime;
+            }
+            else if (_rampTimer < 0f)
+            {
+                Ramp.enabled = false;
+            }
+            */
 		}
 
         public void SetZOrder()
@@ -41,6 +60,7 @@ namespace DarkTrails.Combat
             var agent = GetComponent<Agent>();
             var sprite = GetComponentInChildren<SpriteRenderer>();
             var canvas = GetComponentInChildren<Canvas>();
+
             sprite.sortingOrder = CombatManager.instance.mapManager.mapHeight - agent.y;
             canvas.sortingOrder = CombatManager.instance.mapManager.mapHeight - agent.y;
         }
@@ -72,40 +92,50 @@ namespace DarkTrails.Combat
 
 		public void Attack()
 		{
-            /*
+            //for 3d
 			if (SwordObject.activeSelf)
 				Animator.SetTrigger("Atack_0");
 			else if (SpearObject.activeSelf)
 				Animator.SetTrigger("Atack_1");
 			else
 				Animator.SetTrigger("Atack_2");
-                */
+               
 		}
 
 		public void Dodge()
 		{
-			//Animator.SetTrigger("Gd");
+			Animator.SetTrigger("Gd");
 		}
 
 		public void GotHit()
 		{
-			//Animator.SetTrigger("Gd_1");
+            Animator.SetTrigger("Gd_1");
+            /*
+            Ramp.enabled = true;
+            _rampTimer = 1f;
+            */
 		}
 
 		public void Die()
 		{
-			//Animator.SetTrigger("Die");
+			Animator.SetTrigger("Die");
 		}
 
 		public void Run()
 		{
-            //Animator.SetTrigger("Run");
-            SetZOrder();
+            Animator.SetTrigger("Run");
+            //SetZOrder();
 		}
 
 		public void Idle()
 		{
-			//Animator.SetTrigger("Idle");
+			Animator.SetTrigger("Idle");
 		}
+
+        public void GotSelected(bool val)
+        {
+            //Outline.enabled = val;
+        }
+
 	}
 }

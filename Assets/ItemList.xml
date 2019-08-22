@@ -1,37 +1,51 @@
-<ItemList>
-  <Item Name="Flint Dagger" Type="Weapon" PriceValue="1" MinDamage="1" MaxDamage="3" WeaponRange="0" WeaponReach="1" TwoHanded="0" WeaponType="0" />
-  <Item Name="Dagger" Type="Weapon" PriceValue="1" MinDamage="1" MaxDamage="4" WeaponRange="0" WeaponReach="1" TwoHanded="0" WeaponType="0" />
-  <Item Name="Dirk" Type="Weapon" PriceValue="1" MinDamage="3" MaxDamage="6" WeaponRange="0" WeaponReach="1" TwoHanded="0" WeaponType="0" />
-  <Item Name="Short Sword" Type="Weapon" PriceValue="1" MinDamage="3" MaxDamage="8" WeaponRange="0" WeaponReach="1" TwoHanded="0" WeaponType="0" />
-  <Item Name="Khopesh" Type="Weapon" PriceValue="1" MinDamage="4" MaxDamage="9" WeaponRange="0" WeaponReach="1" TwoHanded="0" WeaponType="0" />
-  <Item Name="Sickle" Type="Weapon" PriceValue="1" MinDamage="1" MaxDamage="6" WeaponRange="0" WeaponReach="1" TwoHanded="0" WeaponType="0" />
-  <Item Name="Flint Axe" Type="Weapon" PriceValue="1" MinDamage="1" MaxDamage="5" WeaponRange="0" WeaponReach="1" TwoHanded="0" WeaponType="2" />
-  <Item Name="Hand Axe" Type="Weapon" PriceValue="1" MinDamage="3" MaxDamage="8" WeaponRange="0" WeaponReach="1" TwoHanded="0" WeaponType="2" />
-  <Item Name="Labris" Type="Weapon" PriceValue="1" MinDamage="3" MaxDamage="10" WeaponRange="0" WeaponReach="1" TwoHanded="0" WeaponType="2" />
-  <Item Name="Battle Axe" Type="Weapon" PriceValue="1" MinDamage="3" MaxDamage="8" WeaponRange="0" WeaponReach="1" TwoHanded="0" WeaponType="2" />
-  <Item Name="Staff" Type="Weapon" PriceValue="1" MinDamage="1" MaxDamage="6" WeaponRange="0" WeaponReach="1" TwoHanded="0" WeaponType="1" />
-  <Item Name="Club" Type="Weapon" PriceValue="1" MinDamage="1" MaxDamage="6" WeaponRange="0" WeaponReach="1" TwoHanded="0" WeaponType="0" />
-  <Item Name="Mace" Type="Weapon" PriceValue="1" MinDamage="2" MaxDamage="7" WeaponRange="0" WeaponReach="1" TwoHanded="0" WeaponType="0" />
-  <Item Name="Spiked Club" Type="Weapon" PriceValue="1" MinDamage="4" MaxDamage="9" WeaponRange="0" WeaponReach="1" TwoHanded="0" WeaponType="0" />
-  <Item Name="Flint Spear" Type="Weapon" PriceValue="1" MinDamage="1" MaxDamage="7" WeaponRange="0" WeaponReach="2" TwoHanded="0" WeaponType="1" />
-  <Item Name="Bronze Spear" Type="Weapon" PriceValue="1" MinDamage="1" MaxDamage="8" WeaponRange="0" WeaponReach="2" TwoHanded="0" WeaponType="1" />
-  <Item Name="Short Spear" Type="Weapon" PriceValue="1" MinDamage="3" MaxDamage="8" WeaponRange="0" WeaponReach="1" TwoHanded="0" WeaponType="1" />
-  <Item Name="Javelin" Type="Weapon" PriceValue="1" MinDamage="1" MaxDamage="6" WeaponRange="8" WeaponReach="1" TwoHanded="0" WeaponType="1" />
-  <Item Name="Sling" Type="Weapon" PriceValue="1" MinDamage="1" MaxDamage="4" WeaponRange="6" WeaponReach="0" TwoHanded="0" WeaponType="-1" />
-  <Item Name="Bow" Type="Weapon" PriceValue="1" MinDamage="1" MaxDamage="6" WeaponRange="10" WeaponReach="0" TwoHanded="1" WeaponType="-1" />
-  <Item Name="Composite Bow" Type="Weapon" PriceValue="1" MinDamage="3" MaxDamage="8" WeaponRange="14" WeaponReach="0" TwoHanded="1" WeaponType="-1" />
-  <Item Name="Whip" Type="Weapon" PriceValue="1" MinDamage="1" MaxDamage="6" WeaponRange="0" WeaponReach="2" TwoHanded="0" WeaponType="-1" />
-  <Item Name="Trident" Type="Weapon" PriceValue="1" MinDamage="3" MaxDamage="10" WeaponRange="0" WeaponReach="2" TwoHanded="1" WeaponType="1" />
-  <Item Name="Leather Vest" Type="Armor" PriceValue="1" DamageResistance="6" ArmorIndex="0" />
-  <Item Name="Leather Boots" Type="Armor" PriceValue="1" DamageResistance="2" ArmorIndex="2" />
-  <Item Name="Bronze Vest" Type="Armor" PriceValue="1" DamageResistance="8" ArmorIndex="0" />
-  <Item Name="Curiass" Type="Armor" PriceValue="1" DamageResistance="10" ArmorIndex="0" />
-  <Item Name="Leather Cap" Type="Armor" PriceValue="1" DamageResistance="1" ArmorIndex="1" />
-  <Item Name="Bronze Helmet" Type="Armor" PriceValue="1" DamageResistance="3" ArmorIndex="1" />
-  <Item Name="Wooden Small Shield" Type="Shield" PriceValue="1" DamageResistance="1" ArmorIndex="3" />
-  <Item Name="Wooden Shield" Type="Shield" PriceValue="1" DamageResistance="3" ArmorIndex="3" />
-  <Item Name="Leather Shield" Type="Shield" PriceValue="1" DamageResistance="2" ArmorIndex="3" />
-  <Item Name="Bronze Buckler" Type="Shield" PriceValue="1" DamageResistance="3" ArmorIndex="3" />
-  <Item Name="Bronze Shield" Type="Shield" PriceValue="1" DamageResistance="4" ArmorIndex="3" />
-  <Item Name="Large Bronze Shield" Type="Shield" PriceValue="1" DamageResistance="6" ArmorIndex="3" />
-</ItemList>
+<Items>
+  <InventoryList>
+    <Inventory Name="PlayerInventory">
+      <InventorySlot ItemId="0" Amount="1" />
+      <InventorySlot ItemId="5" Amount="1" />
+      <InventorySlot ItemId="10" Amount="1" />
+    </Inventory>
+    <Inventory Name="MarketInventory">
+      <InventorySlot ItemId="0" Amount="1" />
+      <InventorySlot ItemId="5" Amount="1" />
+      <InventorySlot ItemId="10" Amount="1" />
+    </Inventory>
+  </InventoryList>
+  <ItemList>
+    <Item Name="Flint Dagger" Type="Weapon" PriceValue="1" MinDamage="1" MaxDamage="3" WeaponRange="0" WeaponReach="1" TwoHanded="0" WeaponType="0" />
+    <Item Name="Dagger" Type="Weapon" PriceValue="1" MinDamage="1" MaxDamage="4" WeaponRange="0" WeaponReach="1" TwoHanded="0" WeaponType="0" />
+    <Item Name="Dirk" Type="Weapon" PriceValue="1" MinDamage="3" MaxDamage="6" WeaponRange="0" WeaponReach="1" TwoHanded="0" WeaponType="0" />
+    <Item Name="Short Sword" Type="Weapon" PriceValue="1" MinDamage="3" MaxDamage="8" WeaponRange="0" WeaponReach="1" TwoHanded="0" WeaponType="0" />
+    <Item Name="Khopesh" Type="Weapon" PriceValue="1" MinDamage="4" MaxDamage="9" WeaponRange="0" WeaponReach="1" TwoHanded="0" WeaponType="0" />
+    <Item Name="Sickle" Type="Weapon" PriceValue="1" MinDamage="1" MaxDamage="6" WeaponRange="0" WeaponReach="1" TwoHanded="0" WeaponType="0" />
+    <Item Name="Flint Axe" Type="Weapon" PriceValue="1" MinDamage="1" MaxDamage="5" WeaponRange="0" WeaponReach="1" TwoHanded="0" WeaponType="2" />
+    <Item Name="Hand Axe" Type="Weapon" PriceValue="1" MinDamage="3" MaxDamage="8" WeaponRange="0" WeaponReach="1" TwoHanded="0" WeaponType="2" />
+    <Item Name="Labris" Type="Weapon" PriceValue="1" MinDamage="3" MaxDamage="10" WeaponRange="0" WeaponReach="1" TwoHanded="0" WeaponType="2" />
+    <Item Name="Battle Axe" Type="Weapon" PriceValue="1" MinDamage="3" MaxDamage="8" WeaponRange="0" WeaponReach="1" TwoHanded="0" WeaponType="2" />
+    <Item Name="Staff" Type="Weapon" PriceValue="1" MinDamage="1" MaxDamage="6" WeaponRange="0" WeaponReach="1" TwoHanded="0" WeaponType="1" />
+    <Item Name="Club" Type="Weapon" PriceValue="1" MinDamage="1" MaxDamage="6" WeaponRange="0" WeaponReach="1" TwoHanded="0" WeaponType="0" />
+    <Item Name="Mace" Type="Weapon" PriceValue="1" MinDamage="2" MaxDamage="7" WeaponRange="0" WeaponReach="1" TwoHanded="0" WeaponType="0" />
+    <Item Name="Spiked Club" Type="Weapon" PriceValue="1" MinDamage="4" MaxDamage="9" WeaponRange="0" WeaponReach="1" TwoHanded="0" WeaponType="0" />
+    <Item Name="Flint Spear" Type="Weapon" PriceValue="1" MinDamage="1" MaxDamage="7" WeaponRange="0" WeaponReach="2" TwoHanded="0" WeaponType="1" />
+    <Item Name="Bronze Spear" Type="Weapon" PriceValue="1" MinDamage="1" MaxDamage="8" WeaponRange="0" WeaponReach="2" TwoHanded="0" WeaponType="1" />
+    <Item Name="Short Spear" Type="Weapon" PriceValue="1" MinDamage="3" MaxDamage="8" WeaponRange="0" WeaponReach="1" TwoHanded="0" WeaponType="1" />
+    <Item Name="Javelin" Type="Weapon" PriceValue="1" MinDamage="1" MaxDamage="6" WeaponRange="8" WeaponReach="1" TwoHanded="0" WeaponType="1" />
+    <Item Name="Sling" Type="Weapon" PriceValue="1" MinDamage="1" MaxDamage="4" WeaponRange="6" WeaponReach="0" TwoHanded="0" WeaponType="-1" />
+    <Item Name="Bow" Type="Weapon" PriceValue="1" MinDamage="1" MaxDamage="6" WeaponRange="10" WeaponReach="0" TwoHanded="1" WeaponType="-1" />
+    <Item Name="Composite Bow" Type="Weapon" PriceValue="1" MinDamage="3" MaxDamage="8" WeaponRange="14" WeaponReach="0" TwoHanded="1" WeaponType="-1" />
+    <Item Name="Whip" Type="Weapon" PriceValue="1" MinDamage="1" MaxDamage="6" WeaponRange="0" WeaponReach="2" TwoHanded="0" WeaponType="-1" />
+    <Item Name="Trident" Type="Weapon" PriceValue="1" MinDamage="3" MaxDamage="10" WeaponRange="0" WeaponReach="2" TwoHanded="1" WeaponType="1" />
+    <Item Name="Leather Vest" Type="Armor" PriceValue="1" DamageResistance="6" ArmorIndex="0" />
+    <Item Name="Leather Boots" Type="Armor" PriceValue="1" DamageResistance="2" ArmorIndex="2" />
+    <Item Name="Bronze Vest" Type="Armor" PriceValue="1" DamageResistance="8" ArmorIndex="0" />
+    <Item Name="Curiass" Type="Armor" PriceValue="1" DamageResistance="10" ArmorIndex="0" />
+    <Item Name="Leather Cap" Type="Armor" PriceValue="1" DamageResistance="1" ArmorIndex="1" />
+    <Item Name="Bronze Helmet" Type="Armor" PriceValue="1" DamageResistance="3" ArmorIndex="1" />
+    <Item Name="Wooden Small Shield" Type="Shield" PriceValue="1" DamageResistance="1" ArmorIndex="3" />
+    <Item Name="Wooden Shield" Type="Shield" PriceValue="1" DamageResistance="3" ArmorIndex="3" />
+    <Item Name="Leather Shield" Type="Shield" PriceValue="1" DamageResistance="2" ArmorIndex="3" />
+    <Item Name="Bronze Buckler" Type="Shield" PriceValue="1" DamageResistance="3" ArmorIndex="3" />
+    <Item Name="Bronze Shield" Type="Shield" PriceValue="1" DamageResistance="4" ArmorIndex="3" />
+    <Item Name="Large Bronze Shield" Type="Shield" PriceValue="1" DamageResistance="6" ArmorIndex="3" />
+  </ItemList>
+</Items>

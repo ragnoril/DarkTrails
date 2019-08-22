@@ -127,7 +127,6 @@ namespace DarkTrails.Combat
 			if (zoomDelta != 0)
 			{
 				translation += transform.forward * ZoomSpeed * zoomDelta;
-				//translation.y -= (ZoomSpeed * zoomDelta * 2);
 			}
 
 			// Keep camera within level and zoom area

@@ -36,7 +36,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 0, y: -1}
   m_SizeDelta: {x: 800, y: 600}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &7489680317921807062
@@ -58,7 +58,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_TargetDisplay: 0
 --- !u!114 &7313757451753826562
 MonoBehaviour:
@@ -69,7 +69,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7272167466819326962}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1980459831, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_UiScaleMode: 0
@@ -91,7 +91,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7272167466819326962}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1301386320, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_IgnoreReversedGraphics: 1
@@ -109,6 +109,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7270983423880472614}
   - component: {fileID: 7357832437646915324}
+  - component: {fileID: 2528236431451436449}
+  - component: {fileID: 7395045240961805321}
   m_Layer: 0
   m_Name: combatAgentTemp
   m_TagString: Untagged
@@ -147,7 +149,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 4eeb72fb74d4d3e4ebf196bfb119f4bf, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -155,6 +157,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -167,18 +170,76 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: -3940502009406200761, guid: 8dc3934ef14aee94c877cb69924aa5d3,
-    type: 3}
+  m_Sprite: {fileID: 21300002, guid: 8dc3934ef14aee94c877cb69924aa5d3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 11.284409, y: 15}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2528236431451436449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7272347376286036652}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c16c0db27236d54da239e61862470d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lightMode: 0
+  bumpIntensity: 1
+  shininess: 0.078125
+  specularColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  normalTex: {fileID: 0}
+  invertRedNormalChannel: 0
+  invertGreenNormalChannel: 1
+  strength: 1
+  gammaCorrect: 1.2
+  uvScroll: 0
+  invertLum: 0
+  luminanceRangeMin: 0
+  luminanceRangeMax: 1
+  palette: 1
+--- !u!114 &7395045240961805321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7272347376286036652}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 660bccb0b83a8b34d81c1ed1befb18ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lightMode: 0
+  bumpIntensity: 1
+  shininess: 0.078125
+  specularColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  normalTex: {fileID: 0}
+  invertRedNormalChannel: 0
+  invertGreenNormalChannel: 0
+  outlineSize: 0.0045
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineColor2: {r: 1, g: 1, b: 1, a: 1}
+  gradientScale: 1
+  gradientOffset: 0
+  outlineTexture: {fileID: 0}
+  outlineTextureUVParams: {x: 1, y: 1, z: 0, w: 0}
+  outlineTextureUVAngle: 0
+  alphaThreshold: 0.1
+  overlap: 1
+  customMask: {fileID: 0}
+  outlineMode: 0
+  gradientDirection: 0
+  outlineGrowthMode: 0
 --- !u!1 &7272396143018268488
 GameObject:
   m_ObjectHideFlags: 0
@@ -233,7 +294,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7272396143018268488}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
@@ -242,7 +303,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, Unity.ugui,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 0bc6c8a74ba7bc544b599691bea6fab4, type: 3}
@@ -306,7 +367,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.5}
+  m_Offset: {x: 0, y: 0.3}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -317,7 +378,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 2}
+  m_Size: {x: 1, y: 1.5}
   m_EdgeRadius: 0
 --- !u!114 &7313329064938126490
 MonoBehaviour:
@@ -338,6 +399,8 @@ MonoBehaviour:
   AxeObject: {fileID: 0}
   SpearObject: {fileID: 0}
   ShieldObject: {fileID: 0}
+  Ramp: {fileID: 2528236431451436449}
+  Outline: {fileID: 7395045240961805321}
 --- !u!114 &7313832794497343116
 MonoBehaviour:
   m_ObjectHideFlags: 0

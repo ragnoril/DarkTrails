@@ -1,3 +1,0 @@
-<Game startModule="Dialogue" startValue="Start">
-	<Module type="Dialogue" filename="zannanza.yarn.txt" startNode="Start" />
-</Game>
