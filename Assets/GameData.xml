@@ -1,8 +1,8 @@
-<Game startModule="OverWorld" startValue="Worldmap">
+<Game startModule="OverWorld" startValue="worldmap">
   <Module type="Inventory" filename="ItemList.xml" />
   <Module type="Character" filename="CharacterList.xml" />
   <Module type="Travel" filename="MapList.xml" />
   <Module type="Combat" filename="EncounterList.xml" />
-  <Module type="Dialogue" filename="zannanza2.yarn.txt" startNode="Start" />
+  <Module type="Dialogue" filename="zannanza3.yarn.txt" startNode="Start" />
   <Module type="OverWorld" filename="SceneList.xml" />
 </Game>

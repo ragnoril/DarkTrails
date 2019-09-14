@@ -152,6 +152,38 @@ namespace DarkTrails.Dialogue
             Travel.TravelManager.instance.TravelActionDisableNodeById(mapName, nodeId);
         }
 
+        [YarnCommand("open_overworld")]
+        public void OpenOverWorld(string sceneName)
+        {
+            //GameManager.instance.StartCombat(encounterName, winDialogue, loseDialogue);
+            Debug.Log("open_overworld_command: " + sceneName);
+            GameManager.instance.OpenOverWorld(sceneName);
+        }
+
+        [YarnCommand("enable_overworld_node")]
+        public void EnableOverWorldNode(string sceneName, string nodeName)
+        {
+            OverWorld.OverWorldManager.instance.OverWorldActionEnableNode(sceneName, nodeName);
+        }
+
+        [YarnCommand("disable_overworld_node")]
+        public void DisableOverWorldNode(string sceneName, string nodeName)
+        {
+            OverWorld.OverWorldManager.instance.OverWorldActionDisableNode(sceneName, nodeName);
+        }
+
+        [YarnCommand("enable_overworld_node_by_id")]
+        public void EnableOverWorldNodeById(string sceneName, int nodeId)
+        {
+            OverWorld.OverWorldManager.instance.OverWorldActionEnableNodeById(sceneName, nodeId);
+        }
+
+        [YarnCommand("disable_overworld_node_by_id")]
+        public void DisableOverWorldNodeById(string sceneName, int nodeId)
+        {
+            OverWorld.OverWorldManager.instance.OverWorldActionDisableNodeById(sceneName, nodeId);
+        }
+
         [YarnCommand("quit_game")]
         public void QuitGame()
         {

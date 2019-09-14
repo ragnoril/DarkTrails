@@ -40,7 +40,7 @@ namespace DarkTrails.OverWorld
         public OverWorldCamera OverWorldCamera;
         public bool IsPaused;
 
-        public Dictionary<string, GameObject> LoadedScenes;
+        public Dictionary<string, OverWorldSceneData> LoadedScenes;
         public OverWorldSceneData CurrentScene;
 
         public GameObject PartyPrefab;
@@ -89,7 +89,7 @@ namespace DarkTrails.OverWorld
                 GameManager.instance.SceneList.Add(sceneName, scenePrefabName);
             }
 
-            LoadedScenes = new Dictionary<string, GameObject>();
+            LoadedScenes = new Dictionary<string, OverWorldSceneData>();
         }
 
         public override void Pause()
@@ -111,14 +111,14 @@ namespace DarkTrails.OverWorld
             base.Quit();
         }
 
-        public void LoadScene(string prefabName)
+        public void LoadScene(string sceneName)
         {
-            if (!LoadedScenes.ContainsKey(prefabName))
+            if (!LoadedScenes.ContainsKey(sceneName))
             {
-                GameObject go = GameObject.Instantiate((GameObject)Resources.Load(prefabName));
+                GameObject go = GameObject.Instantiate((GameObject)Resources.Load(GameManager.instance.SceneList[sceneName]));
                 go.transform.SetParent(this.transform);
                 CurrentScene = go.GetComponent<OverWorldSceneData>();
-                LoadedScenes.Add(prefabName, go);
+                LoadedScenes.Add(sceneName, CurrentScene);
             }
             else
             {
@@ -127,7 +127,7 @@ namespace DarkTrails.OverWorld
                     CurrentScene.gameObject.SetActive(false);
                 }
 
-                CurrentScene = LoadedScenes[prefabName].GetComponent<OverWorldSceneData>();
+                CurrentScene = LoadedScenes[sceneName].GetComponent<OverWorldSceneData>();
                 CurrentScene.gameObject.SetActive(true); 
             }
             InitializePlayerParty();
@@ -166,5 +166,27 @@ namespace DarkTrails.OverWorld
             Debug.Log("Node Action: Open Combat - " + combatName);
             GameManager.instance.OpenCombat(combatName);
         }
+
+        public void OverWorldActionEnableNode(string sceneName, string nodeName)
+        {
+            LoadedScenes[sceneName].SetNodeState(nodeName, true);
+        }
+
+        public void OverWorldActionDisableNode(string sceneName, string nodeName)
+        {
+            LoadedScenes[sceneName].SetNodeState(nodeName, false);
+        }
+
+        public void OverWorldActionEnableNodeById(string sceneName, int id)
+        {
+            LoadedScenes[sceneName].SetNodeStateById(id, true);
+        }
+
+        public void OverWorldActionDisableNodeById(string sceneName, int id)
+        {
+            var scene = LoadedScenes[sceneName];
+            scene.SetNodeStateById(id, false);
+        }
+
     }
 }

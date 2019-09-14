@@ -78,6 +78,9 @@ namespace DarkTrails.Character
 
 		public string Name;
 
+        public int PointsToSpendForStats;
+        public int PointsToSpendForSkills;
+
         public int Level;
         public int CurrentExperiencePoints;
         public int ExperiencePointsToNextLevel;
@@ -159,33 +162,55 @@ namespace DarkTrails.Character
             }
         }
 
-		public void CopyFrom(CharacterData data)
-		{
-			for (int i = 0; i < (int)STATS.StatCount; i++)
-			{
-				Stats[i] = data.Stats[i];
-				StatBonuses[i] = data.StatBonuses[i];
-			}
 
-			Level = data.Level;
-			Name = data.Name;
 
-			CurrentExperiencePoints = data.CurrentExperiencePoints;
-			ExperiencePointsToNextLevel = data.ExperiencePointsToNextLevel;
+        #endregion
 
-			CriticalChance = data.CriticalChance;
+        #region Methods
 
-			for (int i = 0; i < (int)SKILLS.SkillCount; i++)
-			{
-				Skills[i] = data.Skills[i];
-				SkillBonuses[i] = data.SkillBonuses[i];
-			}
+        public CharacterData()
+        {
+            for(int i = 0; i < (int)STATS.StatCount; i++)
+            {
+                Stats[i] = 1;
+            }
 
-			for (int i = 0; i < (int)EQUIP.EquipCount; i++)
-			{
-				Equipments[i] = data.Equipments[i];
-			}
-		}
+            for (int i = 0; i < (int)SKILLS.SkillCount; i++)
+            {
+                Skills[i] = 0;
+            }
+        }
+
+        public void CopyFrom(CharacterData data)
+        {
+            for (int i = 0; i < (int)STATS.StatCount; i++)
+            {
+                Stats[i] = data.Stats[i];
+                StatBonuses[i] = data.StatBonuses[i];
+            }
+
+            Level = data.Level;
+            Name = data.Name;
+
+            CurrentExperiencePoints = data.CurrentExperiencePoints;
+            ExperiencePointsToNextLevel = data.ExperiencePointsToNextLevel;
+
+            PointsToSpendForSkills = data.PointsToSpendForSkills;
+            PointsToSpendForStats = data.PointsToSpendForStats;
+
+            CriticalChance = data.CriticalChance;
+
+            for (int i = 0; i < (int)SKILLS.SkillCount; i++)
+            {
+                Skills[i] = data.Skills[i];
+                SkillBonuses[i] = data.SkillBonuses[i];
+            }
+
+            for (int i = 0; i < (int)EQUIP.EquipCount; i++)
+            {
+                Equipments[i] = data.Equipments[i];
+            }
+        }
 
         #endregion
     }

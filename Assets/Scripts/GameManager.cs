@@ -39,7 +39,7 @@ namespace DarkTrails
 			}
 		}
 
-		public List<Character.CharacterData> CharacterList = new List<Character.CharacterData>();
+		//public List<Character.CharacterData> CharacterList = new List<Character.CharacterData>();
 		public List<Item> ItemList = new List<Item>();
 		public Dictionary<string, Combat.EncounterData> EncounterList = new Dictionary<string, Combat.EncounterData>();
 		public Dictionary<string, string> MapList = new Dictionary<string, string>();
@@ -139,8 +139,28 @@ namespace DarkTrails
 				}
 				else if (moduleType == "Character")
 				{
-					LoadCharacterList(modulefile);
-				}
+                    GameObject prefab = null;
+                    foreach (var modulePrefab in ModulePrefabs)
+                    {
+                        if (modulePrefab.GetComponent<Character.CharacterManager>() != null)
+                        {
+                            prefab = modulePrefab;
+                            break;
+                        }
+                    }
+
+                    var go = GameObject.Instantiate(prefab);
+                    go.transform.SetParent(this.transform);
+                    Character.CharacterManager charSheet = go.GetComponent<Character.CharacterManager>();
+                    charSheet.Initialize(modulefile);
+                    GameModules.Add(charSheet);
+                    charSheet.Pause();
+                    go.SetActive(false);
+
+                    // toDo: this is a quickfix.
+                    CreatePlayerParty();
+
+                }
 				else if (moduleType == "Travel")
 				{
 					GameObject prefab = null;
@@ -207,64 +227,10 @@ namespace DarkTrails
 
 		#region old stuff waiting to be removed
 
-		public void LoadCharacterList(string filename)
-		{
-			string filePath = Application.dataPath + "/" + filename;
-
-			XmlDocument doc = new XmlDocument();
-			doc.Load(filePath);
-
-			XmlNode root = doc.SelectSingleNode("CharacterList");
-			XmlNodeList charList = root.SelectNodes(".//Character");
-
-			foreach (XmlNode chr in charList)
-			{
-                Character.CharacterData charData = new Character.CharacterData();
-				charData.Name = chr.Attributes["name"].Value;
-				charData.Level = int.Parse(chr.Attributes["level"].Value);
-
-				XmlNode statRoot = chr.SelectSingleNode(".//Stats");
-				XmlNodeList statList = statRoot.SelectNodes(".//Stat");
-				foreach (XmlNode stat in statList)
-				{
-					int statId = int.Parse(stat.Attributes["id"].Value);
-					charData.Stats[statId] = int.Parse(stat.Attributes["value"].Value);
-				}
-
-				XmlNode skillRoot = chr.SelectSingleNode(".//Skills");
-				XmlNodeList skillList = skillRoot.SelectNodes(".//Skill");
-				foreach (XmlNode skill in skillList)
-				{
-					int skillId = int.Parse(skill.Attributes["id"].Value);
-					charData.Skills[skillId] = int.Parse(skill.Attributes["value"].Value);
-				}
-
-				XmlNode equipRoot = chr.SelectSingleNode(".//Equipments");
-				XmlNodeList equipList = equipRoot.SelectNodes(".//Equipment");
-				foreach (XmlNode equip in equipList)
-				{
-					int equipId = int.Parse(equip.Attributes["id"].Value);
-					int equipVal = int.Parse(equip.Attributes["value"].Value);
-					if (equipVal == -1 || equipVal >= ItemList.Count)
-					{
-						//charData.Equipments[equipId] == null;
-					}
-					else
-					{
-						charData.Equipments[equipId] = ItemList[equipVal];
-					}
-				}
-				CharacterList.Add(charData);
-			}
-
-            //toDo: quick fix, needs a character generator module and a party management module
-            CreatePlayerParty();
-		}
-
         //todo: quick fix here too. 
         public void CreatePlayerParty()
         {
-            GameManager.instance.PlayerCharacterId = GameManager.instance.CharacterList.Count - 1;
+            GameManager.instance.PlayerCharacterId = Character.CharacterManager.instance.CharacterList.Count - 1;
             GameManager.instance.PlayerParty.Add(GameManager.instance.PlayerCharacterId);
 
             GameManager.instance.PlayerParty.Add(1);
@@ -298,14 +264,18 @@ namespace DarkTrails
 		public void OpenCombat(string encounterName)
 		{
 			ChangeModule(GAMEMODULES.Combat);
-			Combat.CombatManager.instance.EncounterName = encounterName;
-			Combat.CombatManager.instance.StartTheGame();
+            if (encounterName != "")
+            {
+                Combat.CombatManager.instance.EncounterName = encounterName;
+                Combat.CombatManager.instance.StartTheGame();
+            }
 		}
 
 		public void OpenDialogue(string dialogueName)
 		{
 			ChangeModule(GAMEMODULES.Dialogue);
-			Dialogue.DialogueManager.instance.DialogueStartNode = dialogueName;
+            if (dialogueName != "")
+                Dialogue.DialogueManager.instance.DialogueStartNode = dialogueName;
             Dialogue.DialogueManager.instance.ContinueDialogue();
 		}
 
@@ -318,13 +288,25 @@ namespace DarkTrails
 		public void OpenTravel(string mapName)
 		{
 			ChangeModule(GAMEMODULES.Travel);
-			Travel.TravelManager.instance.LoadMap(mapName);
+            if (mapName != "")
+                Travel.TravelManager.instance.LoadMap(mapName);
 		}
 
         public void OpenOverWorld(string sceneName)
         {
             ChangeModule(GAMEMODULES.OverWorld);
-            OverWorld.OverWorldManager.instance.LoadScene(SceneList[sceneName]);
+            if (sceneName != "")
+                OverWorld.OverWorldManager.instance.LoadScene(sceneName);
+        }
+
+        public void OpenCharacter(Character.CharacterScreenMode mode, Character.CharacterData character)
+        {
+            Character.CharacterManager.instance.PreviousModule = CurrentGameModule.ModuleType;
+            ChangeModule(GAMEMODULES.Character);
+            Character.CharacterManager.instance.Mode = mode;
+            Character.CharacterManager.instance.CurrentCharacter = character;
+            Character.CharacterManager.instance.ShowCharacterInfo();
+
         }
 
         public void ReturnToMainMenu()

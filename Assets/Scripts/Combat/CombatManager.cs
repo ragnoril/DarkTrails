@@ -256,12 +256,12 @@ namespace DarkTrails.Combat
 				go.transform.parent = transform;
 
 				Agent goAgent = go.GetComponent<Agent>();
-				goAgent.AssignCharacterData(GameManager.instance.CharacterList[id]);
+				goAgent.AssignCharacterData(Character.CharacterManager.instance.CharacterList[id]);
 				goAgent.x = posX;
 				goAgent.y = posY;
 				goAgent.teamId = 0;
 
-				go.name = /*"Player_" + */GameManager.instance.CharacterList[id].Name;
+				go.name = /*"Player_" + */Character.CharacterManager.instance.CharacterList[id].Name;
 
 				teamPlayer.Add(goAgent);
 
@@ -291,12 +291,12 @@ namespace DarkTrails.Combat
 				go.transform.parent = transform;
 
 				Agent goAgent = go.GetComponent<Agent>();
-				goAgent.AssignCharacterData(GameManager.instance.CharacterList[id]);
+				goAgent.AssignCharacterData(Character.CharacterManager.instance.CharacterList[id]);
 				goAgent.x = posX;
 				goAgent.y = posY;
 				goAgent.teamId = 1;
 
-				go.name = /*"Enemy_" +*/ GameManager.instance.CharacterList[id].Name;
+				go.name = /*"Enemy_" +*/ Character.CharacterManager.instance.CharacterList[id].Name;
 
 				teamEnemy.Add(goAgent);
 
@@ -305,59 +305,6 @@ namespace DarkTrails.Combat
                 //placeHolderChar.titleText.text = goAgent.CharacterName;
                 //for 3d
                 placeHolderChar.SetItems(goAgent.WeaponType, goAgent.ShieldType);
-				goAgent.ModelAgent = placeHolderChar;
-			}
-		}
-
-		private void GenerateBattleTeams()
-		{
-			foreach (int id in BattleManager.instance.TeamA)
-			{
-				int posX = (mapManager.mapWidth / 2) - (2 - teamPlayer.Count);
-				int posY = 0;
-				Vector3 pos = new Vector3(posX - mapManager.halfMapWidth, 0f, posY - mapManager.halfMapHeight);
-				GameObject go = GameObject.Instantiate(agentPrefabs[0], pos, Quaternion.identity) as GameObject;
-				go.transform.parent = transform;
-
-				Agent goAgent = go.GetComponent<Agent>();
-				goAgent.AssignCharacterData(BattleManager.instance.CharacterList[id]);
-				goAgent.x = posX;
-				goAgent.y = posY;
-				goAgent.teamId = 0;
-
-				go.name = "Player_" + BattleManager.instance.CharacterList[id].Name;
-
-				teamPlayer.Add(goAgent);
-
-				PlaceholderCharGen placeHolderChar = go.GetComponent<PlaceholderCharGen>();
-				placeHolderChar.titleName = goAgent.CharacterName;
-				//placeHolderChar.titleText.text = goAgent.CharacterName;
-				placeHolderChar.SetItems(goAgent.WeaponType, goAgent.ShieldType);
-				goAgent.ModelAgent = placeHolderChar;
-			}
-
-			foreach (int id in BattleManager.instance.TeamB)
-			{
-				int posX = (mapManager.mapWidth / 2) - (2 - teamEnemy.Count);
-				int posY = mapManager.mapHeight - 1;
-				Vector3 pos = new Vector3(posX - mapManager.halfMapWidth, 0f, posY - mapManager.halfMapHeight);
-				GameObject go = GameObject.Instantiate(agentPrefabs[1], pos, Quaternion.Euler(0f, 180f, 0f)) as GameObject;
-				go.transform.parent = transform;
-
-				Agent goAgent = go.GetComponent<Agent>();
-				goAgent.AssignCharacterData(BattleManager.instance.CharacterList[id]);
-				goAgent.x = posX;
-				goAgent.y = posY;
-				goAgent.teamId = 1;
-
-				go.name = "Enemy_" + BattleManager.instance.CharacterList[id].Name;
-
-				teamEnemy.Add(goAgent);
-
-				PlaceholderCharGen placeHolderChar = go.GetComponent<PlaceholderCharGen>();
-				placeHolderChar.titleName = goAgent.CharacterName;
-				//placeHolderChar.titleText.text = goAgent.CharacterName;
-				placeHolderChar.SetItems(goAgent.WeaponType, goAgent.ShieldType);
 				goAgent.ModelAgent = placeHolderChar;
 			}
 		}

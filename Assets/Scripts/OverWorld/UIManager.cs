@@ -29,5 +29,22 @@ namespace DarkTrails.OverWorld
             GameManager.instance.OpenInventory(Inventory.InventoryMode.Personal);
             
         }
+
+        public void OpenCharacter()
+        {
+            GameManager.instance.OpenCharacter(Character.CharacterScreenMode.Show, Character.CharacterManager.instance.CharacterList[GameManager.instance.PlayerCharacterId]);
+
+        }
+
+        public void OpenCharacterLevelUp()
+        {
+            GameManager.instance.OpenCharacter(Character.CharacterScreenMode.Create, new Character.CharacterData());
+
+        }
+
+        public void OpenCombat()
+        {
+            GameManager.instance.OpenCombat("first_attack");
+        }
     }
 }

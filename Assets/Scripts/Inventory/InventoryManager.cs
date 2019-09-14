@@ -44,7 +44,9 @@ namespace DarkTrails.Inventory
 			}
 		}
 
-		public GameObject InventoryAgentPrefab;
+        public List<Item> ItemList = new List<Item>();
+
+        public GameObject InventoryAgentPrefab;
 		public GameObject InventoryPanel;
 		public GameObject TransferPanel;
 
@@ -135,7 +137,7 @@ namespace DarkTrails.Inventory
                     item.ItemName = "Unidentified Item";
                 }
 
-                GameManager.instance.ItemList.Add(item);
+                ItemList.Add(item);
 
             }
 
@@ -191,7 +193,7 @@ namespace DarkTrails.Inventory
 
 			for (int i = 0; i< inventory.Items.Count; i++)
 			{
-				var item = GameManager.instance.ItemList[inventory.Items[i].ItemId];
+				var item = ItemList[inventory.Items[i].ItemId];
 				GameObject go = GameObject.Instantiate(InventoryAgentPrefab);
 				InventoryAgent itemAgent = go.GetComponent<InventoryAgent>();
 				itemAgent.ItemData = item;
@@ -210,7 +212,7 @@ namespace DarkTrails.Inventory
 			}
 			for (int i = 0; i < Inventory.Count; i++)
 			{
-				var item = GameManager.instance.ItemList[Inventory[i].ItemId];
+				var item = ItemList[Inventory[i].ItemId];
 				if (item.ItemType == (ItemType)filter)
 				{
 					GameObject go = GameObject.Instantiate(InventoryAgentPrefab);

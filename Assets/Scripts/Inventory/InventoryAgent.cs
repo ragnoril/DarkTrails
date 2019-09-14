@@ -17,7 +17,7 @@ namespace DarkTrails.Inventory
 
 		public void OnPointerClick(PointerEventData eventData)
 		{
-            Character.CharacterData characterA = GameManager.instance.CharacterList[InventoryManager.instance.CharacterAId];
+            Character.CharacterData characterA = Character.CharacterManager.instance.CharacterList[InventoryManager.instance.CharacterAId];
             Inventory inventoryA = InventoryManager.instance.Inventories[InventoryManager.instance.InventoryAId];
 
             switch (InventoryManager.instance.Mode)
@@ -29,7 +29,7 @@ namespace DarkTrails.Inventory
 						if (oldItem != null)
 						{
                             var slot = new InventorySlot();
-                            slot.ItemId = GameManager.instance.ItemList.IndexOf(oldItem);
+                            slot.ItemId = InventoryManager.instance.ItemList.IndexOf(oldItem);
                             slot.Amount = 1;
                             InventoryManager.instance.Inventory.Add(slot);
 						}
@@ -43,7 +43,7 @@ namespace DarkTrails.Inventory
 						if (oldItem != null)
 						{
                             var slot = new InventorySlot();
-                            slot.ItemId = GameManager.instance.ItemList.IndexOf(oldItem);
+                            slot.ItemId = InventoryManager.instance.ItemList.IndexOf(oldItem);
                             slot.Amount = 1;
                             InventoryManager.instance.Inventory.Add(slot);
                         }
@@ -57,7 +57,7 @@ namespace DarkTrails.Inventory
 						if (oldItem != null)
 						{
                             var slot = new InventorySlot();
-                            slot.ItemId = GameManager.instance.ItemList.IndexOf(oldItem);
+                            slot.ItemId = InventoryManager.instance.ItemList.IndexOf(oldItem);
                             slot.Amount = 1;
                             InventoryManager.instance.Inventory.Add(slot);
                         }

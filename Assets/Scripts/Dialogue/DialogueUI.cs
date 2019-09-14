@@ -80,6 +80,21 @@ namespace DarkTrails.Dialogue
                 case "disable_map_node_by_id":
                     DialogueManager.instance.DisableMapNodeById(cmdArgs[0], int.Parse(cmdArgs[1]));
                     break;
+                case "open_overworld":
+                    DialogueManager.instance.OpenOverWorld(cmdArgs[0]);
+                    break;
+                case "enable_overworld_node":
+                    DialogueManager.instance.EnableOverWorldNode(cmdArgs[0], cmdArgs[1]);
+                    break;
+                case "disable_overworld_node":
+                    DialogueManager.instance.DisableOverWorldNode(cmdArgs[0], cmdArgs[1]);
+                    break;
+                case "enable_overworld_node_by_id":
+                    DialogueManager.instance.EnableOverWorldNodeById(cmdArgs[0], int.Parse(cmdArgs[1]));
+                    break;
+                case "disable_overworld_node_by_id":
+                    DialogueManager.instance.DisableOverWorldNodeById(cmdArgs[0], int.Parse(cmdArgs[1]));
+                    break;
             }
 			yield break;
 		}

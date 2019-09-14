@@ -12,7 +12,6 @@ namespace DarkTrails
 		Inventory,
 		Character,
 		//Party,
-        CombatTest,
         OverWorld,
 		ModuleCount
 	};

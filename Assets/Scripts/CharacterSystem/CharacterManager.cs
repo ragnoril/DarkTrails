@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
 using UnityEngine;
@@ -49,6 +50,15 @@ namespace DarkTrails.Character
 
         public CharacterScreenMode Mode;
 
+        public UIManager UiManager;
+
+        public GAMEMODULES PreviousModule;
+
+        public int PointsToSpendForStats;
+        public int PointsToSpendForSkills;
+
+        private CharacterData _newCharacter;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -63,6 +73,8 @@ namespace DarkTrails.Character
 
         public override void Initialize(string filename)
         {
+            UiManager = GameObject.FindObjectOfType<UIManager>();
+
             string filePath = Application.dataPath + "/" + filename;
 
             XmlDocument doc = new XmlDocument();
@@ -99,13 +111,13 @@ namespace DarkTrails.Character
                 {
                     int equipId = int.Parse(equip.Attributes["id"].Value);
                     int equipVal = int.Parse(equip.Attributes["value"].Value);
-                    if (equipVal == -1 || equipVal >= GameManager.instance.ItemList.Count)
+                    if (equipVal == -1 || equipVal >= Inventory.InventoryManager.instance.ItemList.Count)
                     {
                         //charData.Equipments[equipId] == null;
                     }
                     else
                     {
-                        charData.Equipments[equipId] = GameManager.instance.ItemList[equipVal];
+                        charData.Equipments[equipId] = Inventory.InventoryManager.instance.ItemList[equipVal];
                     }
                 }
                 CharacterList.Add(charData);
@@ -130,9 +142,42 @@ namespace DarkTrails.Character
             base.Quit();
         }
 
-        public void UpdateCharacterInfo()
+        public void ShowCharacterInfo()
         {
+            if (Mode == CharacterScreenMode.Show)
+            {
+                UiManager.SetCharacterData(CurrentCharacter);
+                PointsToSpendForStats = CurrentCharacter.PointsToSpendForStats;
+                PointsToSpendForSkills = CurrentCharacter.PointsToSpendForSkills;
+                bool statsVal = false;
+                bool skillsVal = false;
+                if (PointsToSpendForStats > 0)
+                {
+                    statsVal = true;
+                }
+                if (PointsToSpendForSkills > 0)
+                {
+                    skillsVal = true;
+                }
 
+                UiManager.SetEditMode(false, false, statsVal, skillsVal);
+            }
+            else if (Mode == CharacterScreenMode.Create)
+            {
+                CurrentCharacter = new CharacterData();
+                CurrentCharacter.PointsToSpendForSkills = 50;
+                CurrentCharacter.PointsToSpendForStats = 30;
+                PointsToSpendForStats = CurrentCharacter.PointsToSpendForStats;
+                PointsToSpendForSkills = CurrentCharacter.PointsToSpendForSkills;
+                UiManager.SetCharacterData(CurrentCharacter);
+                UiManager.SetEditMode(true);
+            }
+
+        }
+
+        public void AddCharacterToList()
+        {
+            this.CharacterList.Add(this.CurrentCharacter);
         }
 
     }

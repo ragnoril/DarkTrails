@@ -1,3 +1,3 @@
 <SceneList>
-	<Scene name="Worldmap" prefabName="TestTerrain" />
+	<Scene name="worldmap" prefabName="TestTerrain" />
 </SceneList>

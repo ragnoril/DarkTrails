@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.EventSystems;
 
-namespace DarkTrails.UI
+namespace DarkTrails.Character
 {
 
     public enum POINTTYPE
@@ -12,10 +13,11 @@ namespace DarkTrails.UI
         PointTypeCount
     }
 
-    public class StatsUIObject : MonoBehaviour
+    public class StatsUIObject : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         public Button IncButton;
         public Button DecButton;
+        public GameObject ButtonPanel;
 
         public Text NameText;
         public Text ValueText;
@@ -24,8 +26,11 @@ namespace DarkTrails.UI
         public int Value;
         public int MaxValue;
         public int MinValue;
+        public int PointSpent;
+        public string TooltipText;
 
         public POINTTYPE PointType;
+        public int Index;
 
         // Use this for initialization
         void Start()
@@ -49,6 +54,8 @@ namespace DarkTrails.UI
 
             if (Value > MinValue && !DecButton.interactable)
                 DecButton.interactable = true;
+
+            TooltipText = Name + " -> " + Value.ToString();
         }
 
         public void ChangeValue(int change)
@@ -66,9 +73,21 @@ namespace DarkTrails.UI
                 Value = MinValue;
             }
 
+            PointSpent += change;
+
             ValueText.text = Value.ToString();
 
             UpdateUI();
+            if (PointType == POINTTYPE.SkillPoint)
+            {
+                CharacterManager.instance.PointsToSpendForSkills -= change;
+            }
+            else if (PointType == POINTTYPE.StatPoint)
+            {
+                CharacterManager.instance.PointsToSpendForStats -= change;
+                CharacterManager.instance.UiManager.UpdateSkills(this.Index, change);
+            }
+            CharacterManager.instance.UiManager.CheckIfPointLeft();
         }
 
         public void EnableEditMode(bool mode)
@@ -77,15 +96,38 @@ namespace DarkTrails.UI
             {
                 IncButton.gameObject.SetActive(true);
                 DecButton.gameObject.SetActive(true);
+                ButtonPanel.SetActive(true);
             }
             else
             {
                 IncButton.gameObject.SetActive(false);
                 DecButton.gameObject.SetActive(false);
+                ButtonPanel.SetActive(false);
             }
         }
 
+        public void SetStyle(int style)
+        {
+            if (style == 0) // wide mode , both textbox align opposite sides,
+            {
+                NameText.alignment = TextAnchor.MiddleLeft;
+                ValueText.alignment = TextAnchor.MiddleRight;
+            }
+            else if (style == 1) // center mode, both textbox, align to the center
+            {
+                NameText.alignment = TextAnchor.MiddleCenter;
+                ValueText.alignment = TextAnchor.MiddleCenter;
+            }
+        }
 
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            CharacterManager.instance.UiManager.TooltipText.text = TooltipText;
+        }
 
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            CharacterManager.instance.UiManager.TooltipText.text = "";
+        }
     }
 }
