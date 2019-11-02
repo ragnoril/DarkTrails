@@ -240,8 +240,9 @@ namespace DarkTrails.Combat
 
         private void PrepareEncounter()
 		{
-			foreach (int id in GameManager.instance.PlayerParty)
-			{
+            //foreach (int id in GameManager.instance.PlayerParty)
+            foreach (int id in PartyManagement.PartyManager.instance.PlayerParty.Roster)
+            {
                 //for 3d
 				int posX = (mapManager.mapWidth / 2) - (2 - teamPlayer.Count);
 				int posY = 0;

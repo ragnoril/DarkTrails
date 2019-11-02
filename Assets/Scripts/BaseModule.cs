@@ -11,7 +11,7 @@ namespace DarkTrails
 		Travel,
 		Inventory,
 		Character,
-		//Party,
+		Party,
         OverWorld,
 		ModuleCount
 	};

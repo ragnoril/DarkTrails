@@ -25,14 +25,15 @@ namespace DarkTrails.OverWorld
         public void OpenInventory()
         {
             //Inventory.InventoryManager.instance.SetInventoryCharacter(GameManager.instance.CharacterList[GameManager.instance.PlayerCharacterId], GameManager.instance.PlayerInventory);
-            Inventory.InventoryManager.instance.SetA(GameManager.instance.PlayerCharacterId, GameManager.instance.PlayerInventoryId);
+            //Inventory.InventoryManager.instance.SetA(GameManager.instance.PlayerCharacterId, GameManager.instance.PlayerInventoryId);
+            Inventory.InventoryManager.instance.SetA(PartyManagement.PartyManager.instance.PlayerParty.MainCharacterId, PartyManagement.PartyManager.instance.PlayerParty.InventoryId);
             GameManager.instance.OpenInventory(Inventory.InventoryMode.Personal);
             
         }
 
         public void OpenCharacter()
         {
-            GameManager.instance.OpenCharacter(Character.CharacterScreenMode.Show, Character.CharacterManager.instance.CharacterList[GameManager.instance.PlayerCharacterId]);
+            GameManager.instance.OpenCharacter(Character.CharacterScreenMode.Show, Character.CharacterManager.instance.CharacterList[PartyManagement.PartyManager.instance.PlayerParty.MainCharacterId]);
 
         }
 
@@ -45,6 +46,11 @@ namespace DarkTrails.OverWorld
         public void OpenCombat()
         {
             GameManager.instance.OpenCombat("first_attack");
+        }
+
+        public void OpenPartyManagement()
+        {
+            GameManager.instance.OpenParty();
         }
     }
 }

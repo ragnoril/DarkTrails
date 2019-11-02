@@ -46,9 +46,7 @@ namespace DarkTrails.Inventory
 
         public List<Item> ItemList = new List<Item>();
 
-        public GameObject InventoryAgentPrefab;
-		public GameObject InventoryPanel;
-		public GameObject TransferPanel;
+        public GAMEMODULES PreviousModule;
 
         public int CharacterAId;
         public int CharacterBId;
@@ -63,13 +61,14 @@ namespace DarkTrails.Inventory
         public List<Inventory> Inventories;
 
         public InventoryMode Mode;
-		// selected item
-		// envanter 1
-		// envanter 2
-		// equipments
-		// trading?
-		// withmoney?
+        // selected item
+        // envanter 1
+        // envanter 2
+        // equipments
+        // trading?
+        // withmoney?
 
+        public UIManager UI;
 
 		// Use this for initialization
 		void Start()
@@ -93,6 +92,15 @@ namespace DarkTrails.Inventory
             {
                 Item item = new Item();
                 string itemtype = itm.Attributes["Type"].Value;
+
+                bool isStackable = false;
+                int maxStack = 1;
+                if (itm.Attributes["Stackable"] != null)
+                {
+                    isStackable = bool.Parse(itm.Attributes["Stackable"].Value);
+                    maxStack = int.Parse(itm.Attributes["MaxStack"].Value);
+                }
+                
                 if (itemtype == "Weapon")
                 {
                     item = new Weapon();
@@ -113,15 +121,41 @@ namespace DarkTrails.Inventory
                         ((Weapon)item).IsTwoHanded = true;
                     }
                     ((Weapon)item).ItemType = ItemType.Weapon;
+                    ((Weapon)item).IsStackable = isStackable;
+                    ((Weapon)item).MaxStack = maxStack;
                 }
-                else if (itemtype == "Armor")
+                else if (itemtype == "BodyArmor")
                 {
                     item = new Armor();
                     ((Armor)item).ItemName = itm.Attributes["Name"].Value;
                     ((Armor)item).PriceValue = int.Parse(itm.Attributes["PriceValue"].Value);
                     ((Armor)item).ArmorValue = int.Parse(itm.Attributes["DamageResistance"].Value);
                     ((Armor)item).ArmorIndex = int.Parse(itm.Attributes["ArmorIndex"].Value);
-                    ((Armor)item).ItemType = ItemType.Armor;
+                    ((Armor)item).ItemType = ItemType.BodyArmor;
+                    ((Armor)item).IsStackable = isStackable;
+                    ((Armor)item).MaxStack = maxStack;
+                }
+                else if (itemtype == "Helmet")
+                {
+                    item = new Armor();
+                    ((Armor)item).ItemName = itm.Attributes["Name"].Value;
+                    ((Armor)item).PriceValue = int.Parse(itm.Attributes["PriceValue"].Value);
+                    ((Armor)item).ArmorValue = int.Parse(itm.Attributes["DamageResistance"].Value);
+                    ((Armor)item).ArmorIndex = int.Parse(itm.Attributes["ArmorIndex"].Value);
+                    ((Armor)item).ItemType = ItemType.Helmet;
+                    ((Armor)item).IsStackable = isStackable;
+                    ((Armor)item).MaxStack = maxStack;
+                }
+                else if (itemtype == "Boots")
+                {
+                    item = new Armor();
+                    ((Armor)item).ItemName = itm.Attributes["Name"].Value;
+                    ((Armor)item).PriceValue = int.Parse(itm.Attributes["PriceValue"].Value);
+                    ((Armor)item).ArmorValue = int.Parse(itm.Attributes["DamageResistance"].Value);
+                    ((Armor)item).ArmorIndex = int.Parse(itm.Attributes["ArmorIndex"].Value);
+                    ((Armor)item).ItemType = ItemType.Boots;
+                    ((Armor)item).IsStackable = isStackable;
+                    ((Armor)item).MaxStack = maxStack;
                 }
                 else if (itemtype == "Shield")
                 {
@@ -131,6 +165,8 @@ namespace DarkTrails.Inventory
                     ((Shield)item).ArmorValue = int.Parse(itm.Attributes["DamageResistance"].Value);
                     ((Shield)item).ArmorIndex = int.Parse(itm.Attributes["ArmorIndex"].Value);
                     ((Shield)item).ItemType = ItemType.Shield;
+                    ((Shield)item).IsStackable = isStackable;
+                    ((Shield)item).MaxStack = maxStack;
                 }
                 else
                 {
@@ -174,7 +210,7 @@ namespace DarkTrails.Inventory
 		public override void Resume()
 		{
 			base.Resume();
-			ShowInventory();
+			UI.ShowInventory();
 		}
 
 		public override void Quit()
@@ -182,77 +218,25 @@ namespace DarkTrails.Inventory
 			base.Quit();
 		}
 
-		public void ShowInventory()
-		{
-			foreach (Transform child in InventoryPanel.transform)
-			{
-				Destroy(child);
-			}
-
-            Inventory inventory = Inventories[InventoryAId];
-
-			for (int i = 0; i< inventory.Items.Count; i++)
-			{
-				var item = ItemList[inventory.Items[i].ItemId];
-				GameObject go = GameObject.Instantiate(InventoryAgentPrefab);
-				InventoryAgent itemAgent = go.GetComponent<InventoryAgent>();
-				itemAgent.ItemData = item;
-                itemAgent.InventoryId = i;
-				itemAgent.UpdateItemData();
-
-				go.transform.SetParent(InventoryPanel.transform);
-			}
-        }
-
-		public void ShowFilteredInventory(int filter)
-		{
-			foreach (Transform child in InventoryPanel.transform)
-			{
-				Destroy(child.gameObject);
-			}
-			for (int i = 0; i < Inventory.Count; i++)
-			{
-				var item = ItemList[Inventory[i].ItemId];
-				if (item.ItemType == (ItemType)filter)
-				{
-					GameObject go = GameObject.Instantiate(InventoryAgentPrefab);
-					InventoryAgent itemAgent = go.GetComponent<InventoryAgent>();
-					itemAgent.ItemData = item;
-                    itemAgent.InventoryId = i;
-					itemAgent.UpdateItemData();
-
-					go.transform.SetParent(InventoryPanel.transform);
-				}
-			}
-		}
-
-		bool isLoaded = false;
+		
 		// Update is called once per frame
 		void Update()
 		{
-			if (!isLoaded)
-			{
-				isLoaded = true;
-				//FillInventoryRandomly();
-				ShowInventory();
-				
-			}
+
 		}
 
         public void SetA(int character, int inventory)
         {
-            isLoaded = false;
-
             CharacterAId = character;
             InventoryAId = inventory;
         }
 
         public void SetB(int character, int inventory)
         {
-            isLoaded = false;
-
-            CharacterAId = character;
-            InventoryAId = inventory;
+            CharacterBId = character;
+            InventoryBId = inventory;
         }
+
+        
     }
 }

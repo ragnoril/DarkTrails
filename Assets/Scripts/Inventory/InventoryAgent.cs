@@ -31,7 +31,7 @@ namespace DarkTrails.Inventory
                             var slot = new InventorySlot();
                             slot.ItemId = InventoryManager.instance.ItemList.IndexOf(oldItem);
                             slot.Amount = 1;
-                            InventoryManager.instance.Inventory.Add(slot);
+                            inventoryA.Items.Add(slot);
 						}
 
 						characterA.Equipments[(int)Character.EQUIP.MainHand] = this.ItemData;
@@ -39,33 +39,61 @@ namespace DarkTrails.Inventory
 					}
 					else if (ItemData.ItemType == ItemType.Shield)
 					{
-						var oldItem = InventoryManager.instance.Character.Equipments[(int)Character.EQUIP.OffHand];
+						var oldItem = characterA.Equipments[(int)Character.EQUIP.OffHand];
 						if (oldItem != null)
 						{
                             var slot = new InventorySlot();
                             slot.ItemId = InventoryManager.instance.ItemList.IndexOf(oldItem);
                             slot.Amount = 1;
-                            InventoryManager.instance.Inventory.Add(slot);
+                            inventoryA.Items.Add(slot);
                         }
 
                         characterA.Equipments[(int)Character.EQUIP.OffHand] = this.ItemData;
                         inventoryA.Items.RemoveAt(this.InventoryId);
 					}
-					else if (ItemData.ItemType == ItemType.Armor)
+					else if (ItemData.ItemType == ItemType.BodyArmor)
 					{
-						var oldItem = InventoryManager.instance.Character.Equipments[(int)Character.EQUIP.BodyArmor];
+						var oldItem = characterA.Equipments[(int)Character.EQUIP.BodyArmor];
 						if (oldItem != null)
 						{
                             var slot = new InventorySlot();
                             slot.ItemId = InventoryManager.instance.ItemList.IndexOf(oldItem);
                             slot.Amount = 1;
-                            InventoryManager.instance.Inventory.Add(slot);
+                            inventoryA.Items.Add(slot);
                         }
 
                         characterA.Equipments[(int)Character.EQUIP.BodyArmor] = this.ItemData;
                         inventoryA.Items.RemoveAt(this.InventoryId);
                     }
-					break;
+                    else if (ItemData.ItemType == ItemType.Boots)
+                    {
+                        var oldItem = characterA.Equipments[(int)Character.EQUIP.Boots];
+                        if (oldItem != null)
+                        {
+                            var slot = new InventorySlot();
+                            slot.ItemId = InventoryManager.instance.ItemList.IndexOf(oldItem);
+                            slot.Amount = 1;
+                            inventoryA.Items.Add(slot);
+                        }
+
+                        characterA.Equipments[(int)Character.EQUIP.Boots] = this.ItemData;
+                        inventoryA.Items.RemoveAt(this.InventoryId);
+                    }
+                    else if (ItemData.ItemType == ItemType.Helmet)
+                    {
+                        var oldItem = characterA.Equipments[(int)Character.EQUIP.Helmet];
+                        if (oldItem != null)
+                        {
+                            var slot = new InventorySlot();
+                            slot.ItemId = InventoryManager.instance.ItemList.IndexOf(oldItem);
+                            slot.Amount = 1;
+                            inventoryA.Items.Add(slot);
+                        }
+
+                        characterA.Equipments[(int)Character.EQUIP.Helmet] = this.ItemData;
+                        inventoryA.Items.RemoveAt(this.InventoryId);
+                    }
+                    break;
 				case InventoryMode.Trade:
 
                     //InventoryManager.instance.Inventory2.Add(this.ItemData);
@@ -79,17 +107,21 @@ namespace DarkTrails.Inventory
 				default:
 					break;
 			}
-		}
+
+            InventoryManager.instance.UI.ShowInventory();
+            
+        }
 
 		public void OnPointerEnter(PointerEventData eventData)
 		{
-			//Debug.Log("111" + this.ItemData.ItemName);
-		}
+            //Debug.Log("111" + this.ItemData.ItemName);
+            InventoryManager.instance.UI.TooltipText.text = this.ItemData.ItemName;
+        }
 
 		public void OnPointerExit(PointerEventData eventData)
 		{
-
-		}
+            InventoryManager.instance.UI.TooltipText.text = "";
+        }
 
 		// Use this for initialization
 		void Start()

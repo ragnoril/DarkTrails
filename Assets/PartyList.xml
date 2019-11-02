@@ -1,0 +1,10 @@
+<PartyList start="variant">
+  <Party name="base" characterId="-1" inventoryId="0">
+  </Party>
+  <Party name="variant" characterId="3" inventoryId="0">
+    <Character id="3" />
+    <Character id="1" />
+    <Character id="2" />
+    <Character id="0" />
+  </Party>
+</PartyList>

@@ -5,4 +5,5 @@
   <Module type="Combat" filename="EncounterList.xml" />
   <Module type="Dialogue" filename="zannanza3.yarn.txt" startNode="Start" />
   <Module type="OverWorld" filename="SceneList.xml" />
+  <Module type="Party" filename="PartyList.xml" />
 </Game>

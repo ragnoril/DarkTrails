@@ -49,6 +49,7 @@ namespace DarkTrails.OverWorld
             if (_navMeshAgent == null)
             {
                 _navMeshAgent = this.GetComponent<NavMeshAgent>();
+                _navMeshAgent.speed = MoveSpeed;
             }
             _navMeshAgent.enabled = false;
             transform.position = position;

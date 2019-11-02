@@ -35,12 +35,12 @@
     <Item Name="Composite Bow" Type="Weapon" PriceValue="1" MinDamage="3" MaxDamage="8" WeaponRange="14" WeaponReach="0" TwoHanded="1" WeaponType="-1" />
     <Item Name="Whip" Type="Weapon" PriceValue="1" MinDamage="1" MaxDamage="6" WeaponRange="0" WeaponReach="2" TwoHanded="0" WeaponType="-1" />
     <Item Name="Trident" Type="Weapon" PriceValue="1" MinDamage="3" MaxDamage="10" WeaponRange="0" WeaponReach="2" TwoHanded="1" WeaponType="1" />
-    <Item Name="Leather Vest" Type="Armor" PriceValue="1" DamageResistance="6" ArmorIndex="0" />
-    <Item Name="Leather Boots" Type="Armor" PriceValue="1" DamageResistance="2" ArmorIndex="2" />
-    <Item Name="Bronze Vest" Type="Armor" PriceValue="1" DamageResistance="8" ArmorIndex="0" />
-    <Item Name="Curiass" Type="Armor" PriceValue="1" DamageResistance="10" ArmorIndex="0" />
-    <Item Name="Leather Cap" Type="Armor" PriceValue="1" DamageResistance="1" ArmorIndex="1" />
-    <Item Name="Bronze Helmet" Type="Armor" PriceValue="1" DamageResistance="3" ArmorIndex="1" />
+    <Item Name="Leather Vest" Type="BodyArmor" PriceValue="1" DamageResistance="6" ArmorIndex="0" />
+    <Item Name="Leather Boots" Type="Boots" PriceValue="1" DamageResistance="2" ArmorIndex="2" />
+    <Item Name="Bronze Vest" Type="BodyArmor" PriceValue="1" DamageResistance="8" ArmorIndex="0" />
+    <Item Name="Curiass" Type="BodyArmor" PriceValue="1" DamageResistance="10" ArmorIndex="0" />
+    <Item Name="Leather Cap" Type="Helmet" PriceValue="1" DamageResistance="1" ArmorIndex="1" />
+    <Item Name="Bronze Helmet" Type="Helmet" PriceValue="1" DamageResistance="3" ArmorIndex="1" />
     <Item Name="Wooden Small Shield" Type="Shield" PriceValue="1" DamageResistance="1" ArmorIndex="3" />
     <Item Name="Wooden Shield" Type="Shield" PriceValue="1" DamageResistance="3" ArmorIndex="3" />
     <Item Name="Leather Shield" Type="Shield" PriceValue="1" DamageResistance="2" ArmorIndex="3" />

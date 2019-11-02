@@ -158,7 +158,7 @@ namespace DarkTrails
                     go.SetActive(false);
 
                     // toDo: this is a quickfix.
-                    CreatePlayerParty();
+                    //CreatePlayerParty();
 
                 }
 				else if (moduleType == "Travel")
@@ -203,7 +203,27 @@ namespace DarkTrails
                     overWorld.Pause();
                     go.SetActive(false);
                 }
+                else if (moduleType == "Party")
+                {
+                    GameObject prefab = null;
+                    foreach (var modulePrefab in ModulePrefabs)
+                    {
+                        if (modulePrefab.GetComponent<PartyManagement.PartyManager>() != null)
+                        {
+                            prefab = modulePrefab;
+                            break;
+                        }
+                    }
 
+                    var go = GameObject.Instantiate(prefab);
+                    go.transform.SetParent(this.transform);
+                    PartyManagement.PartyManager partyManagement = go.GetComponent<PartyManagement.PartyManager>();
+                    partyManagement.Initialize(modulefile);
+                    GameModules.Add(partyManagement);
+
+                    partyManagement.Pause();
+                    go.SetActive(false);
+                }
             }
 
 			switch(startModule)
@@ -222,7 +242,7 @@ namespace DarkTrails
                 case "OverWorld":
                     OpenOverWorld(startValue);
                     break;
-			}
+            }
 		}
 
 		#region old stuff waiting to be removed
@@ -281,9 +301,12 @@ namespace DarkTrails
 
 		public void OpenInventory(Inventory.InventoryMode mode)
 		{
-			ChangeModule(GAMEMODULES.Inventory);
+            Inventory.InventoryManager.instance.PreviousModule = CurrentGameModule.ModuleType;
+            ChangeModule(GAMEMODULES.Inventory);
 			Inventory.InventoryManager.instance.Mode = mode;
-		}
+            Inventory.InventoryManager.instance.UI.ShowInventory();
+
+        }
 
 		public void OpenTravel(string mapName)
 		{
@@ -306,6 +329,14 @@ namespace DarkTrails
             Character.CharacterManager.instance.Mode = mode;
             Character.CharacterManager.instance.CurrentCharacter = character;
             Character.CharacterManager.instance.ShowCharacterInfo();
+
+        }
+
+        public void OpenParty()
+        {
+            PartyManagement.PartyManager.instance.PreviousModule = CurrentGameModule.ModuleType;
+            ChangeModule(GAMEMODULES.Party);
+            PartyManagement.PartyManager.instance.ShowPartyInfo();
 
         }
 

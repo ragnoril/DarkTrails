@@ -2,14 +2,16 @@
 using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.EventSystems;
+using DarkTrails.Character;
 
-namespace DarkTrails.Character
+namespace DarkTrails.UI
 {
 
     public enum POINTTYPE
     {
         StatPoint = 0,
         SkillPoint,
+        Other,
         PointTypeCount
     }
 

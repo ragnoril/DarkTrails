@@ -16,7 +16,9 @@ namespace DarkTrails
 	public enum ItemType
 	{
 		Weapon,
-		Armor,
+		BodyArmor,
+        Helmet,
+        Boots,
 		Shield
 	}
 }
