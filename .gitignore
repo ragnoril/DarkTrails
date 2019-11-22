@@ -3,3 +3,10 @@ Assets/Temp/
 Assets/Plugins/YarnSpinner/Examples/DemoAssets/
 obj/
 .vs/
+NavMeshComponentsTestsEditmode.csproj
+NavMeshComponentsExamplesEditor.csproj
+NavMeshComponentsEditor.csproj
+Assembly-CSharp.csproj
+Assembly-CSharp-firstpass.csproj
+Assembly-CSharp-Editor.csproj
+Assembly-CSharp-Editor-firstpass.csproj
