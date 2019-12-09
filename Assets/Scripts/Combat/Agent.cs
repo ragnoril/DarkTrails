@@ -9,7 +9,7 @@ namespace DarkTrails.Combat
 	public class Agent : MonoBehaviour
 	{
         Character.CharacterData Data;
-		public PlaceholderCharGen ModelAgent;
+        public AgentVisualizer ModelVisualizer;
 
 		public int x, y;
 		public int teamId;
@@ -76,6 +76,7 @@ namespace DarkTrails.Combat
 				return Data.ArmorClass;
 			}
 		}
+
 		public int baseDamage
 		{
 			get
@@ -105,31 +106,7 @@ namespace DarkTrails.Combat
 					return Data.BaseDamage;
 			}
 		}
-
-		//  for placeholder chargen only, remove later
-
-		public int WeaponType
-		{
-			get
-			{
-				if (Data.Equipments[(int)Character.EQUIP.MainHand] != null)
-					return ((Weapon)Data.Equipments[(int)Character.EQUIP.MainHand]).WeaponType;
-				else
-					return -1;
-			}
-		}
-
-		public int ShieldType
-		{
-			get
-			{
-				if (Data.Equipments[(int)Character.EQUIP.OffHand] != null)
-					return 1;
-				else
-					return 0;
-			}
-		}
-
+        
 		public string CharacterName
 		{
 			get
@@ -142,7 +119,7 @@ namespace DarkTrails.Combat
 
 		public bool doneMoving;
 		public bool aiDoneMoving;
-		private float moveSpeed = 1.3f;
+        public float moveSpeed;// = 1.3f;
 		private int movesLeft;
 		public bool isTurnEnded;
 
@@ -187,11 +164,11 @@ namespace DarkTrails.Combat
 				CombatManager.instance.PassTurn();
 			}
 
-            if (ModelAgent.titleText.gameObject.activeSelf)
+            if (ModelVisualizer.TitleText.gameObject.activeSelf)
             {
                 if (CombatManager.instance.selectedAgent != this && CombatManager.instance.cursorAgent != this)
                 {
-                    ModelAgent.titleText.gameObject.SetActive(false);
+                    ModelVisualizer.TitleText.gameObject.SetActive(false);
                 }
             }
 		}
@@ -364,7 +341,15 @@ namespace DarkTrails.Combat
 		{
             string logMsg = this.name + " attacks to " + agentNear.name;
 
-			int attackSkill = this.Data.GetSkillTotal((int)Character.SKILLS.Melee);
+            Vector3 targetPos = agentNear.transform.position;
+            targetPos.y = 0.015f;
+            transform.LookAt(targetPos);
+
+            targetPos = transform.position;
+            targetPos.y = 0.015f;
+            agentNear.transform.LookAt(targetPos);
+
+            int attackSkill = this.Data.GetSkillTotal((int)Character.SKILLS.Melee);
 
 			if (Data.Equipments[(int)Character.EQUIP.MainHand] != null)
 			{
@@ -387,7 +372,7 @@ namespace DarkTrails.Combat
 				int damage = UnityEngine.Random.Range(minDamage, (maxDamage + 1)) - agentNear.Data.ArmorClass;
 				if (damage < 0) damage = 0;
 
-				ModelAgent.Attack();
+				ModelVisualizer.Attack();
 				agentNear.GotHurt(damage);
                 logMsg += " and hits " + agentNear.name + " " + damage + " damage.";
 			}
@@ -396,8 +381,8 @@ namespace DarkTrails.Combat
                 //fail to hit
                 logMsg += " but fails to hit.";
 
-                ModelAgent.Attack();
-				agentNear.ModelAgent.Dodge();
+                ModelVisualizer.Attack();
+				agentNear.ModelVisualizer.Dodge();
 			}
 
             CombatManager.instance.uiManager.AddCombatLog(logMsg);
@@ -407,13 +392,13 @@ namespace DarkTrails.Combat
 		public void GotHurt(int damage)
 		{
 			this.curHitPoints -= damage;
-			ModelAgent.GotHit();
+            ModelVisualizer.GotHit();
 		}
 
 		public void MovePath(List<Node> path)
 		{
-			//animator.SetBool("isWalking", true);
-			ModelAgent.Run();
+            //animator.SetBool("isWalking", true);
+            ModelVisualizer.Walking();
 
 			movesLeft = path.Count - 1;
 			curActionPoints -= movesLeft;
@@ -426,7 +411,7 @@ namespace DarkTrails.Combat
 		public void MovePathAndAttack(List<Node> path, Agent agent)
 		{
 			//animator.SetBool("isWalking", true);
-			ModelAgent.Run();
+			ModelVisualizer.Walking();
 
 			movesLeft = path.Count - 1;
 
@@ -475,7 +460,7 @@ namespace DarkTrails.Combat
 						Vector3 lastPos = new Vector3(path[0].x - CombatManager.instance.mapManager.halfMapWidth, 0.015f, path[0].y - CombatManager.instance.mapManager.halfMapHeight);
 						transform.position = lastPos;					
 
-						ModelAgent.Idle();
+						ModelVisualizer.StopWalking();
 						doneMoving = true;
 
                         //for 2d

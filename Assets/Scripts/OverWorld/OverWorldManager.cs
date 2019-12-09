@@ -43,6 +43,7 @@ namespace DarkTrails.OverWorld
         public Dictionary<string, OverWorldSceneData> LoadedScenes;
         public OverWorldSceneData CurrentScene;
 
+        public GameObject MoveSelectionPrefab;
         public GameObject PartyPrefab;
         public OverWorldPartyAgent PlayerParty;
 
@@ -65,6 +66,8 @@ namespace DarkTrails.OverWorld
                 var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 if (Physics.Raycast(ray.origin, ray.direction, out hitInfo))
                 {
+                    var go = GameObject.Instantiate(MoveSelectionPrefab, hitInfo.point + new Vector3(0f, 0.5f, 0f), Quaternion.Euler(-90f, 0f, 0f));
+
                     PlayerParty.GoTo(hitInfo.point);
                     IsPlayerMoving = true;
                 }

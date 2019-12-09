@@ -37,6 +37,8 @@ namespace DarkTrails.UI
         // Use this for initialization
         void Start()
         {
+            //EnableEditMode(true);
+            //SetStyle(0);
             UpdateUI();
         }
 
@@ -80,16 +82,20 @@ namespace DarkTrails.UI
             ValueText.text = Value.ToString();
 
             UpdateUI();
-            if (PointType == POINTTYPE.SkillPoint)
+
+            if (CharacterManager.instance != null)
             {
-                CharacterManager.instance.PointsToSpendForSkills -= change;
+                if (PointType == POINTTYPE.SkillPoint)
+                {
+                    CharacterManager.instance.PointsToSpendForSkills -= change;
+                }
+                else if (PointType == POINTTYPE.StatPoint)
+                {
+                    CharacterManager.instance.PointsToSpendForStats -= change;
+                    CharacterManager.instance.UiManager.UpdateSkills(this.Index, change);
+                }
+                CharacterManager.instance.UiManager.CheckIfPointLeft();
             }
-            else if (PointType == POINTTYPE.StatPoint)
-            {
-                CharacterManager.instance.PointsToSpendForStats -= change;
-                CharacterManager.instance.UiManager.UpdateSkills(this.Index, change);
-            }
-            CharacterManager.instance.UiManager.CheckIfPointLeft();
         }
 
         public void EnableEditMode(bool mode)
@@ -124,12 +130,14 @@ namespace DarkTrails.UI
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            CharacterManager.instance.UiManager.TooltipText.text = TooltipText;
+            if (CharacterManager.instance != null)
+                CharacterManager.instance.UiManager.TooltipText.text = TooltipText;
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            CharacterManager.instance.UiManager.TooltipText.text = "";
+            if (CharacterManager.instance != null)
+                CharacterManager.instance.UiManager.TooltipText.text = "";
         }
     }
 }

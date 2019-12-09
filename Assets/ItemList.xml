@@ -4,6 +4,7 @@
       <InventorySlot ItemId="0" Amount="1" />
       <InventorySlot ItemId="5" Amount="1" />
       <InventorySlot ItemId="10" Amount="1" />
+      <InventorySlot ItemId="30" Amount="1" />
     </Inventory>
     <Inventory Name="MarketInventory">
       <InventorySlot ItemId="0" Amount="1" />

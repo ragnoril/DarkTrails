@@ -19,6 +19,7 @@ namespace DarkTrails.OverWorld
         public ActionType Action;
         public string ActionValue;
         public float x, y;
+        public OverWorldAgentVisualizer ModelVisualizer;
 
         private bool _isAlreadyActive;
 
@@ -26,6 +27,8 @@ namespace DarkTrails.OverWorld
         void Start()
         {
             _isAlreadyActive = false;
+            ModelVisualizer = GetComponent<OverWorldAgentVisualizer>();
+            ModelVisualizer.SetTitle(Name);
         }
 
         // Update is called once per frame

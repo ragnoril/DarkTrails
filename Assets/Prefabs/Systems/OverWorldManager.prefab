@@ -359,7 +359,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2208648957272700753
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1472,6 +1472,8 @@ MonoBehaviour:
   OverWorldCamera: {fileID: 5932484999426233820}
   IsPaused: 0
   CurrentScene: {fileID: 0}
+  MoveSelectionPrefab: {fileID: 8908375213104682341, guid: f625ec474378db94a994e8da69a8bdc3,
+    type: 3}
   PartyPrefab: {fileID: 947435138895647456, guid: 68913a05509327b44ad55362e3b8fd61,
     type: 3}
   PlayerParty: {fileID: 0}
@@ -1502,13 +1504,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5932484999426233792}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 487, y: 30, z: 393.1}
+  m_LocalRotation: {x: 0.17364816, y: 0, z: 0, w: 0.9848078}
+  m_LocalPosition: {x: 0, y: 100, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5932484998366670920}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 20, y: 0, z: 0}
 --- !u!20 &5932484999426233822
 Camera:
   m_ObjectHideFlags: 0

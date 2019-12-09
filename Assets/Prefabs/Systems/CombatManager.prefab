@@ -547,7 +547,7 @@ MeshRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 82f5feab8d85b3d4bb877287d1f8fb27, type: 2}
+  - {fileID: 2100000, guid: b66e52a61aea79b4faeca7e4e9b0633a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -621,15 +621,12 @@ MonoBehaviour:
   ModuleType: 0
   EncounterName: 
   agentPrefabs:
-  - {fileID: 1202264983128070, guid: 4ce6b8f834447cc4ebbffdad8144a589, type: 3}
-  - {fileID: 1461704310308280, guid: c9ab31f971fe1484581c45e3c2cb4d9a, type: 3}
-  - {fileID: 1202264983128070, guid: 4ce6b8f834447cc4ebbffdad8144a589, type: 3}
-  - {fileID: 1461704310308280, guid: c9ab31f971fe1484581c45e3c2cb4d9a, type: 3}
-  agentTilePrefab: {fileID: 1142805513796898, guid: a0d5d6f31784d0e47b0442db8bcdd4f5,
+  - {fileID: 8590682370270215499, guid: 23eb4c551411e354b9b1b2f1046ea486, type: 3}
+  agentTilePrefab: {fileID: 1138625105302876, guid: b68f6ab7e75f6ac498f8b85988b6d439,
     type: 3}
-  moveTilePrefab: {fileID: 1101586866719088, guid: 42ae5a6a1082a1949b244b67e34de344,
+  moveTilePrefab: {fileID: 1521013244247460, guid: e65f3c28049a2ad41b5a1954beceb84f,
     type: 3}
-  cantMoveTilePrefab: {fileID: 1104967851685954, guid: b722ccdb19cd16e45a05ab2e6f6de4bc,
+  cantMoveTilePrefab: {fileID: 1238791601036294, guid: 7ac7369a7c253ca4981c009ae8fad3bc,
     type: 3}
   mouseCursor: {fileID: 2800000, guid: df0fc21cc0d3c184cbffa2947e21c4fa, type: 3}
   attackCursor: {fileID: 2800000, guid: a654f46c9455af14d8da11841e580157, type: 3}

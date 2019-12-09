@@ -13,12 +13,14 @@ namespace DarkTrails.OverWorld
         private NavMeshAgent _navMeshAgent;
 
         public OverWorldNodeAgent LastNodeAgent = null;
+        public OverWorldAgentVisualizer ModelVisualizer;
 
         // Start is called before the first frame update
         void Start()
         {
             _navMeshAgent = GetComponent<NavMeshAgent>();
             _navMeshAgent.speed = MoveSpeed;
+            ModelVisualizer.SetTitle("Player Party");
         }
 
         // Update is called once per frame
@@ -28,6 +30,7 @@ namespace DarkTrails.OverWorld
             {
                 OverWorldManager.instance.IsPlayerMoving = false;
                 OverWorldManager.instance.OverWorldCamera.IsFollowing = false;
+                ModelVisualizer.StopWalking();
             }
         }
 
@@ -36,6 +39,7 @@ namespace DarkTrails.OverWorld
             _navMeshAgent.destination = position;
             OverWorldManager.instance.OverWorldCamera.FollowTarget = this.transform;
             OverWorldManager.instance.OverWorldCamera.IsFollowing = true;
+            ModelVisualizer.Walking();
         }
 
         public void ChangeMoveSpeed(float val)
